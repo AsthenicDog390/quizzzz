@@ -11,6 +11,7 @@ Add your own name (do not add the names for others!) to the section below.
 | Profile Picture | Name | Email |
 |---|---|---|
 | ![](https://secure.gravatar.com/avatar/fb33bf3f88452df6d0112f6c64b1e392?s=50&d=identicon) | Friso van der Veen | F.B.H.vanderVeen@student.tudelft.nl |
+| ![](https://secure.gravatar.com/avatar/771e52e83fec3faf3867dd2f2469e3a3?s=50&d=identicon) | Gerrit Croes | G.Croes@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
