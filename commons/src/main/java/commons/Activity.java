@@ -13,6 +13,8 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    /** activity_id is a field needed to be able to easily select a random activity.
+     * */
     public long activity_id;
 
     public String id;
