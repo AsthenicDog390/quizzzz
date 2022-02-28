@@ -29,8 +29,9 @@ public class Activity {
         // for object mapper
     }
 
-    public Activity(String id, String title, int consumptionInWh, String source) {
+    public Activity(String id, String imagePath, String title, int consumptionInWh, String source) {
         this.id = id;
+        this.imagePath = imagePath;
         this.title = title;
         this.consumptionInWh = consumptionInWh;
         this.source = source;

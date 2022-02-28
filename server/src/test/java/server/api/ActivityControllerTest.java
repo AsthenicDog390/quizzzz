@@ -119,7 +119,7 @@ class ActivityControllerTest {
     }
 
     private Activity getActivity(String name) {
-        return new Activity(name, name, 0, name);
+        return new Activity(name, name, name, 0, name);
     }
 
     @SuppressWarnings("serial")
