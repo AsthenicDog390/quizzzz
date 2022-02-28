@@ -108,6 +108,11 @@ public class ActivityController {
         return ResponseEntity.ok(activities);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") int id) {
+         repo.deleteById((long) id);
+    }
+
     private int randomInRange(int lower, int upper) {
         return random.nextInt(upper - lower + 1) + lower;
     }
