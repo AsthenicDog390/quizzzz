@@ -34,8 +34,10 @@ public class ActivityController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Activity> getById(@PathVariable("id") long id) {
-        if (id < 0 || !repo.existsById(id)) {
+        if (id < 0) {
             return ResponseEntity.badRequest().build();
+        } else if (!repo.existsById(id)) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(activityById(id));
     }
@@ -50,7 +52,8 @@ public class ActivityController {
 
         for (Activity activity: activities) {
             if (isNullOrEmpty(activity.id) || isNullOrEmpty(activity.source)
-                    || isNullOrEmpty(activity.title)) {
+                    || isNullOrEmpty(activity.title)
+                    || isNullOrEmpty(activity.imagePath)) {
                 return ResponseEntity.badRequest().build();
             }
         }
