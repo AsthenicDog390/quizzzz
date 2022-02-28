@@ -12,15 +12,16 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 @Entity
 public class Activity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    /** activity_id is a field needed to be able to easily select a random activity.
-     * */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /* activity_id is a field needed to be able to easily select a random activity */
     public long activity_id;
 
     public String id;
     public String title;
     @JsonProperty("consumption_in_wh")
     public int consumptionInWh;
+    @JsonProperty("image_path")
+    public String imagePath;
     public String source;
 
     @SuppressWarnings("unused")
