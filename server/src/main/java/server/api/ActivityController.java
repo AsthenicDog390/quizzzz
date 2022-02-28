@@ -109,8 +109,13 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") int id) {
-         repo.deleteById((long) id);
+    public String deleteById(@PathVariable("id") int id) {
+        if(repo.existsById((long) id)) {
+            repo.deleteById((long) id);
+            return "Activity deleted successfully!";
+        }
+        else return "Activity does not exist!";
+
     }
 
     private int randomInRange(int lower, int upper) {
