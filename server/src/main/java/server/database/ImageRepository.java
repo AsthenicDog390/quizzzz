@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class ImageRepository {
-    private final String pathBase = "images";
+    private final String pathBase = Paths.get("src","main", "resources","images").toString();
 
     public ImageRepository() {}
 
@@ -16,9 +16,6 @@ public class ImageRepository {
 
         File imageFile = Paths.get(pathBase, folder, file).toFile();
         imageFile.createNewFile();
-
-        System.out.println(imageFile.getAbsolutePath());
-
 
         try (FileOutputStream image = new FileOutputStream(imageFile)) {
             image.write(content);
