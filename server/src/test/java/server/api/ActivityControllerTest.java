@@ -118,6 +118,7 @@ class ActivityControllerTest {
         assertEquals(two, result.get(3));
     }
 
+
     private Activity getActivity(String name) {
         return new Activity(name, name, name, 0, name);
     }

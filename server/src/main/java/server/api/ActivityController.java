@@ -111,6 +111,16 @@ public class ActivityController {
         return ResponseEntity.ok(activities);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable("id") long id) {
+        if(repo.existsById(id)) {
+            repo.deleteById(id);
+            return "Activity deleted successfully!";
+        }
+        else return "Activity does not exist!";
+
+    }
+
     private int randomInRange(int lower, int upper) {
         return random.nextInt(upper - lower + 1) + lower;
     }
