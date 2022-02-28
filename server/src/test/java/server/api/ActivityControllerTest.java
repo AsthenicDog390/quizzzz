@@ -118,17 +118,6 @@ class ActivityControllerTest {
         assertEquals(two, result.get(3));
     }
 
-    @Test
-    void deleteTest() {
-        Activity one = getActivity("one");
-        repo.save(one);
-        Activity two = getActivity("two");
-        repo.save(two);
-        Activity three = getActivity("three");
-        repo.save(three);
-
-
-    }
 
     private Activity getActivity(String name) {
         return new Activity(name, name, 0, name);
