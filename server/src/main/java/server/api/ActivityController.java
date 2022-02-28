@@ -109,9 +109,9 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable("id") int id) {
-        if(repo.existsById((long) id)) {
-            repo.deleteById((long) id);
+    public String deleteById(@PathVariable("id") long id) {
+        if(repo.existsById(id)) {
+            repo.deleteById(id);
             return "Activity deleted successfully!";
         }
         else return "Activity does not exist!";
