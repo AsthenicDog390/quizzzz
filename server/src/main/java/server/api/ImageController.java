@@ -17,10 +17,10 @@ public class ImageController {
     }
 
     @PutMapping("{group}/{image}")
-    public ResponseEntity<String> addImage(@PathVariable("group") String group, @PathVariable("image") String image, @RequestParam("image") MultipartFile file) {
+    public ResponseEntity addImage(@PathVariable("group") String group, @PathVariable("image") String image, @RequestParam("image") MultipartFile file) {
         try {
             imageRepo.addImage(group, image, file.getBytes());
-            return ResponseEntity.ok("");
+            return ResponseEntity.ok().build();
         } catch (IOException e) {
             return ResponseEntity.internalServerError().build();
         }
