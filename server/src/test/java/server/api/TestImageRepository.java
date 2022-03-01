@@ -9,6 +9,7 @@ import java.util.Map;
 public class TestImageRepository extends ImageRepository {
     public Map<String, Map<String, byte[]>> files;
     public boolean shouldThrow;
+    public boolean shouldFail;
 
     public TestImageRepository() {
         files = new HashMap<>();
@@ -24,5 +25,22 @@ public class TestImageRepository extends ImageRepository {
         }
 
         files.get(folder).put(file, content);
+    }
+
+    public boolean removeImage(String folder, String file) {
+        if (shouldFail) {
+            return false;
+        }
+
+        if (!files.containsKey(folder)) {
+            return true;
+        }
+
+        if (!files.get(folder).containsKey(file)) {
+            return true;
+        }
+
+        files.get(folder).remove(file);
+        return true;
     }
 }

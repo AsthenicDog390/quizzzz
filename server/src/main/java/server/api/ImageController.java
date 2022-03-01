@@ -25,4 +25,13 @@ public class ImageController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    @DeleteMapping("{group}/{image}")
+    public ResponseEntity removeImage(@PathVariable("group") String group, @PathVariable("image") String image) {
+        if (!imageRepo.removeImage(group, image)) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
 }

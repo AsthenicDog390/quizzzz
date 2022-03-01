@@ -46,4 +46,44 @@ class ImageControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
     }
 
+    @Test
+    public void removeImage() {
+        String name = "test";
+        byte[] content = {1, 2, 3};
+        MultipartFile mockFile = new MockMultipartFile(name, content);
+
+        sut.addImage("group", "image", mockFile);
+
+        var res = sut.removeImage("group", "image");
+
+        assertEquals(HttpStatus.OK, res.getStatusCode());
+    }
+
+    @Test
+    public void removeImageError() {
+        String name = "test";
+        byte[] content = {1, 2, 3};
+        MultipartFile mockFile = new MockMultipartFile(name, content);
+
+        repo.shouldFail = true;
+
+        sut.addImage("group", "image", mockFile);
+
+        var res = sut.removeImage("group", "image");
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
+    }
+
+    @Test
+    public void removeImageNotExists() {
+        String name = "test";
+        byte[] content = {1, 2, 3};
+        MultipartFile mockFile = new MockMultipartFile(name, content);
+
+        sut.addImage("group", "image", mockFile);
+
+        var res = sut.removeImage("group", "image");
+
+        assertEquals(HttpStatus.OK, res.getStatusCode());
+    }
 }
