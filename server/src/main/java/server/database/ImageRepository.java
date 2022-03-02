@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class ImageRepository {
-    private final String pathBase = Paths.get("src","main", "resources","images").toString();
+    private final String pathBase = Paths.get("resources","images").toString();
 
     public ImageRepository() {}
 
