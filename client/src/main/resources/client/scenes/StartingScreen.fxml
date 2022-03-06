@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgb(27,56,101);" styleClass="text" stylesheets="@../../CSS/font.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.StartingScreenCtrl">
+   <children>
+      <GridPane layoutX="5.0" layoutY="22.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="90.20001220703125" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="309.3999877929688" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Circle fill="#1b3865" radius="135.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Game starts in:" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Text>
+            <Text fx:id="countdownTimer" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="5" textAlignment="CENTER" wrappingWidth="182.670166015625" GridPane.rowIndex="1">
+               <font>
+                  <Font size="200.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
