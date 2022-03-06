@@ -30,14 +30,20 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
+    private NameSelectionCtrl nameSelectionCtrl;
+    private Scene nameSelection;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<NameSelectionCtrl, Parent> nameSelection) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
 
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
+
+        this.nameSelectionCtrl = nameSelection.getKey();
+        this.nameSelection = new Scene(nameSelection.getValue());
 
         showOverview();
         primaryStage.show();
@@ -53,5 +59,10 @@ public class MainCtrl {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+    }
+
+    public void showNameSelection() {
+        primaryStage.setTitle("Please insert your name");
+        primaryStage.setScene(nameSelection);
     }
 }
