@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import javax.inject.Inject;
