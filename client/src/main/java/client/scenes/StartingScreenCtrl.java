@@ -23,17 +23,19 @@ public class StartingScreenCtrl {
     }
 
     public void start() {
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        Timer timer = new Timer();
 
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 5;
 
             public void run() {
-                int i = 5;
+
                 countdownTimer.setText(Integer.toString(i));
                 i--;
 
-                if(i < 0) {
-                    cancel();
-                    //start game
+                if (i < 0) {
+                    timer.cancel();
+                    countdownTimer.setText("0");
                 }
             }
         }, 0, 1000);
