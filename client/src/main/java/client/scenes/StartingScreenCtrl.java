@@ -9,17 +9,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class StartingScreenCtrl {
-
-    private final ServerUtils server;
-    private final MainCtrl mainCtrl;
+    public StartingScreenCtrl() {
+        countdownTimer.setText("0");
+    }
 
     @FXML
     private Text countdownTimer;
 
     @Inject
     public StartingScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
-        this.server = server;
-        this.mainCtrl = mainCtrl;
+
     }
 
     public void start() {
