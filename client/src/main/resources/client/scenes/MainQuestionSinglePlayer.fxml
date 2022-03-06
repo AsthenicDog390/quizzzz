@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1260.0" style="-fx-background-color: #1b3864;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="332.0" layoutY="100.0" prefHeight="0.0" prefWidth="238.0" text="Question" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="495.0" layoutY="100.0" prefHeight="0.0" prefWidth="111.0" text="n/m:" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="596.0" layoutY="100.0" prefHeight="45.0" prefWidth="944.0" text="QUESTION TEXT" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="300.0" rotate="90.0" text="Time Left" textFill="WHITE">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Button layoutX="300.0" layoutY="400.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer A">
+         <font>
+            <Font size="31.0" />
+         </font></Button>
+      <ImageView fitHeight="175.0" fitWidth="200.0" layoutX="300.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
+      <Button layoutX="900.0" layoutY="400.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer A">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="175.0" fitWidth="200.0" layoutX="900.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="600.0" layoutY="400.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer A">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="175.0" fitWidth="200.0" layoutX="600.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ProgressBar layoutX="-300.0" layoutY="350.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="-90.0" />
+   </children>
+</Pane>
