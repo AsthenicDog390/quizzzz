@@ -10,18 +10,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(27,56,101);" stylesheets="@../../CSS/font.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MainMenuCtrl">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgb(27,56,101);" stylesheets="@../../CSS/font.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MainMenuCtrl">
    <children>
       <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="85.0" minHeight="80.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="632.6000122070312" minHeight="10.0" prefHeight="622.9999755859375" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="CloseButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" styleClass="text" text="X" textAlignment="CENTER">
+            <Button id="CloseButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="text" text="X" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>
@@ -32,28 +32,28 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Button>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="120.0" GridPane.rowIndex="1">
                <children>
-                  <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Quizzz!" textAlignment="CENTER" wrappingWidth="373.0001220703125">
+                  <Text fill="WHITE" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Quizzz!" textAlignment="CENTER" wrappingWidth="429.0001220703125">
                      <font>
-                        <Font size="88.0" />
+                        <Font size="120.0" />
                      </font>
                   </Text>
-                  <VBox alignment="CENTER" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="304.0" prefWidth="1240.0" spacing="40.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="SINGLEPLAYER" textAlignment="CENTER">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="SINGLEPLAYER" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="MULTIPLAYER" textAlignment="CENTER">
+                        <Button alignment="CENTER" layoutX="505.0" layoutY="136.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="MULTIPLAYER" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="text" text="HOW TO PLAY" textAlignment="CENTER">
+                        <Button alignment="CENTER" layoutX="505.0" layoutY="182.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="HOW TO PLAY" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="24.0" />
                            </font>
                         </Button>
                      </children>
@@ -64,6 +64,9 @@
                </GridPane.margin>
             </VBox>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </GridPane>
    </children>
 </AnchorPane>
