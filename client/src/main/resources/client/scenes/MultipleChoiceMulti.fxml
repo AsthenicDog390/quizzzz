@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1b3864;" stylesheets="@../../CSS/font.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="175.0" layoutY="80.0" prefHeight="46.0" prefWidth="150.0" styleClass="text" text="Question" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="332.0" layoutY="80.0" prefHeight="0.0" prefWidth="111.0" styleClass="text" text="n/m:" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="431.0" layoutY="80.0" prefHeight="53.0" prefWidth="803.0" styleClass="text" text="QUESTION TEXT" textFill="WHITE">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="350.0" rotate="90.0" styleClass="text" text="Time Left" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ProgressBar layoutX="-312.0" layoutY="354.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
+      <VBox layoutX="260.0" layoutY="190.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer A">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer B">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer C">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
+      <HBox layoutX="700.0" layoutY="575.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 1">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 2">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Pane disable="true" layoutX="171.0" layoutY="487.0" prefHeight="200.0" prefWidth="349.0" rotate="180.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <ButtonBar buttonMinWidth="5.0" layoutX="-3.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="248.0">
+               <buttons>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" />
+                  <Button mnemonicParsing="false" />
+               </buttons>
+            </ButtonBar>
+            <TextArea fx:id="chatBox" layoutX="20.0" layoutY="40.0" prefHeight="156.0" prefWidth="323.0" />
+            <ScrollBar layoutX="2.0" layoutY="40.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="16.0" />
+         </children>
+      </Pane>
+      <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" text="CHAT" />
+   </children>
+</Pane>
