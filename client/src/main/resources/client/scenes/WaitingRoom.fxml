@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1b3865;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="450.0" layoutY="65.0" style="-fx-font-size: 64;" stylesheets="@../../CSS/font.css" text="Waiting Room" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <ListView layoutX="400.0" layoutY="190.0" prefHeight="360.0" prefWidth="490.0" />
+      <Button layoutX="544.0" layoutY="602.0" mnemonicParsing="false" style="-fx-font-size: 30;" stylesheets="@../../CSS/font.css" text="Start Game">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="17.5" offsetX="7.0" offsetY="7.0" radius="8.25" spread="0.1" width="17.5">
+               <color>
+                  <Color opacity="0.538200318813324" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button layoutX="1132.0" layoutY="44.0" mnemonicParsing="false" style="-fx-font-size: 20;" stylesheets="@../../CSS/font.css" text="Back &#10;to Menu" textAlignment="CENTER">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="17.5" offsetX="7.0" offsetY="7.0" radius="8.25" spread="0.1" width="17.5">
+               <color>
+                  <Color opacity="0.538200318813324" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>
