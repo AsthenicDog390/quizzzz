@@ -2,9 +2,16 @@ package commons.questions;
 
 import commons.Activity;
 
+import java.util.Arrays;
+
 public class MoreExpensive extends Question {
-    private Activity[] options;
-    private Activity answer;
+    protected Activity[] options;
+    protected Activity answer;
+
+    @SuppressWarnings("unused")
+    protected MoreExpensive() {
+        // for object mapper
+    }
 
     public MoreExpensive(Activity[] options, Activity answer) {
         if (options == null || answer == null) {
@@ -38,5 +45,13 @@ public class MoreExpensive extends Question {
 
     public Activity getAnswer() {
         return answer;
+    }
+
+    @Override
+    public String toString() {
+        return "MoreExpensive{" +
+                "options=" + Arrays.toString(options) +
+                ", answer=" + answer +
+                '}';
     }
 }
