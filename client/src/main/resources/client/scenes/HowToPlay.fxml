@@ -37,7 +37,7 @@
                   <Insets />
                </GridPane.margin>
             </Text>
-            <Button mnemonicParsing="false" styleClass="text" text="Return to Main Menu" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#showMainMenu" styleClass="text" text="Return to Main Menu" textAlignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font></Button>

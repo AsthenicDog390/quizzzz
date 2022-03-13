@@ -12,4 +12,8 @@ public class HowToPlayCtrl {
         this.mainCtrl = mainCtrl;
         this.server = server;
     }
+
+    public void showMainMenu() {
+        mainCtrl.showMainMenu();
+    }
 }
