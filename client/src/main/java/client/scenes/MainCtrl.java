@@ -30,11 +30,14 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
-    private NameSelectionCtrl nameSelectionCtrl;
-    private Scene nameSelection;
+    private MainMenuCtrl menuCtrl;
+    private Scene menu;
+
+    private HowToPlayCtrl howToPlayCtrl;
+    private Scene howToPlay;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<NameSelectionCtrl, Parent> nameSelection) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -42,10 +45,13 @@ public class MainCtrl {
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
+        this.menuCtrl = menu.getKey();
+        this.menu = new Scene(menu.getValue());
 
-        showOverview();
+        this.howToPlayCtrl = howToPlay.getKey();
+        this.howToPlay = new Scene(howToPlay.getValue());
+
+        showMainMenu();
         primaryStage.show();
     }
 
@@ -61,8 +67,15 @@ public class MainCtrl {
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
 
-    public void showNameSelection() {
-        primaryStage.setTitle("Please insert your name");
-        primaryStage.setScene(nameSelection);
+    public void showMainMenu() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(menu);
     }
+
+    public void showHowToPlay() {
+        primaryStage.setTitle("How To Play");
+        primaryStage.setScene(howToPlay);
+    }
+
+
 }
