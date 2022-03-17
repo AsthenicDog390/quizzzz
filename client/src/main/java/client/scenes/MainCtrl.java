@@ -36,8 +36,11 @@ public class MainCtrl {
     private HowToPlayCtrl howToPlayCtrl;
     private Scene howToPlay;
 
+    private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
+    private Scene multipleChoiceSingle;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleSingle) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -51,7 +54,11 @@ public class MainCtrl {
         this.howToPlayCtrl = howToPlay.getKey();
         this.howToPlay = new Scene(howToPlay.getValue());
 
+        this.multipleChoiceSingleCtrl = multipleSingle.getKey();
+        this.multipleChoiceSingle = new Scene(multipleSingle.getValue());
+
         showMainMenu();
+        //showMultipleSingle();
         primaryStage.show();
     }
 
@@ -75,6 +82,11 @@ public class MainCtrl {
     public void showHowToPlay() {
         primaryStage.setTitle("How To Play");
         primaryStage.setScene(howToPlay);
+    }
+
+    public void showMultipleSingle() {
+        primaryStage.setTitle("Multiple Choice Singleplayer");
+        primaryStage.setScene(multipleChoiceSingle);
     }
 
 
