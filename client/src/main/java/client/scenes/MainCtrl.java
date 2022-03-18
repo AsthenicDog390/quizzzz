@@ -20,6 +20,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -57,8 +60,8 @@ public class MainCtrl {
         this.multipleChoiceSingleCtrl = multipleSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleSingle.getValue());
 
-        showMainMenu();
-//        showMultipleSingle();
+//        showMainMenu();
+        showMultipleSingle();
         primaryStage.show();
     }
 
@@ -87,6 +90,7 @@ public class MainCtrl {
     public void showMultipleSingle() {
         primaryStage.setTitle("Multiple Choice Singleplayer");
         primaryStage.setScene(multipleChoiceSingle);
+        multipleChoiceSingleCtrl.startTimer();
     }
 
 }
