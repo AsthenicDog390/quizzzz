@@ -3,6 +3,8 @@ package commons.questions;
 import commons.Activity;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MoreExpensive extends Question {
     protected Activity[] options;
@@ -27,7 +29,8 @@ public class MoreExpensive extends Question {
             }
             if (a.equals(answer)) {
                 found = true;
-                break;
+                //break;
+                //I deleted this line because if the first option is also the answer, it won't check that the other activities are not null
             }
         }
 
