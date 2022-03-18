@@ -20,9 +20,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class MainCtrl {
 
     private Stage primaryStage;
