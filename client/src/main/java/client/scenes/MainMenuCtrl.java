@@ -1,6 +1,5 @@
 package client.scenes;
 
-
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
@@ -16,6 +15,10 @@ public class MainMenuCtrl {
 
     public void showHowToPlay() {
         mainCtrl.showHowToPlay();
+    }
+
+    public void closeApp() {
+        System.exit(0);
     }
 
 }

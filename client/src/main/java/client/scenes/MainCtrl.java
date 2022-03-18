@@ -89,5 +89,4 @@ public class MainCtrl {
         primaryStage.setScene(multipleChoiceSingle);
     }
 
-
 }

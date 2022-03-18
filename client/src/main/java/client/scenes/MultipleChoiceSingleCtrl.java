@@ -20,6 +20,5 @@ public class MultipleChoiceSingleCtrl {
 
     public void goBackMainMenu() {
         mainCtrl.showMainMenu();
-        //disconnect();
     }
 }
