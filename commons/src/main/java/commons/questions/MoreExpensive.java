@@ -3,8 +3,7 @@ package commons.questions;
 import commons.Activity;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 public class MoreExpensive extends Question {
     protected Activity[] options;
