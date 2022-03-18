@@ -14,8 +14,9 @@ import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 public class Activity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long activity_ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /* activity_id is a field needed to be able to easily select a random activity */
+    public Long activity_id;
 
     @JsonProperty("id")
     private String id;
@@ -31,21 +32,20 @@ public class Activity {
         // for object mapper
     }
 
-    public Activity(String id, Long activity_ID, String imagePath, String title, Long consumptionInWh, String source) {
+    public Activity(String id, String imagePath, String title, Long consumptionInWh, String source) {
         this.id = id;
         this.imagePath = imagePath;
         this.title = title;
         this.consumptionInWh = consumptionInWh;
         this.source = source;
-        this.activity_ID = activity_ID;
     }
 
     public Long getActivity_ID() {
-        return activity_ID;
+        return activity_id;
     }
 
     public void setActivity_ID(Long activity_ID) {
-        this.activity_ID = activity_ID;
+        this.activity_id = activity_ID;
     }
 
     public String getId() {
