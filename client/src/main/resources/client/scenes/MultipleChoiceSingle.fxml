@@ -31,7 +31,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <ProgressBar layoutX="-312.0" layoutY="354.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
+      <ProgressBar fx:id="progressBar" layoutX="-310.0" layoutY="353.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
       <VBox layoutX="260.0" layoutY="190.0" prefHeight="200.0" prefWidth="100.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
@@ -48,12 +48,12 @@
                         <Font size="31.0" />
                      </font>
                   </Button>
-                  <Button fx:id="answerB" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer B">
+                  <Button fx:id="answerB" mnemonicParsing="false" onAction="#disableAllButtons" prefHeight="70.0" prefWidth="200.0" text="Answer B">
                      <font>
                         <Font size="31.0" />
                      </font>
                   </Button>
-                  <Button fx:id="answerC" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Answer C">
+                  <Button fx:id="answerC" mnemonicParsing="false" onAction="#disableAllButtons" prefHeight="70.0" prefWidth="200.0" text="Answer C">
                      <font>
                         <Font size="31.0" />
                      </font>
