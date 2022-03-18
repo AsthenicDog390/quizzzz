@@ -32,15 +32,24 @@ public class MultipleChoiceSingleCtrl {
         mainCtrl.showMainMenu();
     }
 
+    /**
+     * Disable all the buttons so the user won't have the option to press multiple answers
+     */
     public void disableAllButtons() {
         answerA.setDisable(true);
         answerB.setDisable(true);
         answerC.setDisable(true);
     }
 
+    /**
+     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time
+     */
     public void startTimer() {
         Timer gameTimer = new Timer();
         Timer progressBarTimer = new Timer();
+        /**
+         * Task for disabling the buttons and not letting the progress bar go under 0
+         */
         TimerTask timeOut = new TimerTask() {
             @Override
             public void run() {
@@ -49,6 +58,9 @@ public class MultipleChoiceSingleCtrl {
             }
         };
 
+        /**
+         * Task for decreasing the progress bar with a specific amount every 40ms
+         */
         TimerTask lowerBar = new TimerTask() {
             @Override
             public void run() {
