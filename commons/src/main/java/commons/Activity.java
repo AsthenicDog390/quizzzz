@@ -19,12 +19,18 @@ public class Activity {
     public Long activity_id;
 
     @JsonProperty("id")
+    @Column(name = "id")
     private String id;
+    @JsonProperty("title")
+    @Column(name = "title")
     private String title;
     @JsonProperty("consumption_in_wh")
+    @Column(name = "consumption_in_wh")
     private Long consumptionInWh;
     @JsonProperty("image_path")
+    @Column(name = "imagePath")
     private String imagePath;
+    @Column(name = "source")
     private String source;
 
     @SuppressWarnings("unused")
