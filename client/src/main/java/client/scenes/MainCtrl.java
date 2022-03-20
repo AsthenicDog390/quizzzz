@@ -57,8 +57,7 @@ public class MainCtrl {
         this.multipleChoiceSingleCtrl = multipleSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleSingle.getValue());
 
-//        showMainMenu();
-        showMultipleSingle();
+        showMainMenu();
         primaryStage.show();
     }
 
