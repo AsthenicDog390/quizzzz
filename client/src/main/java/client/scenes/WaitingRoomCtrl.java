@@ -10,9 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
 
 
 public class WaitingRoomCtrl {
