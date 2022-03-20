@@ -11,8 +11,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestionBuilder {
 
+    ActivityRepository repo;
 
-    private static List<Activity> generate3Activities(ActivityRepository repo){
+    public QuestionBuilder(ActivityRepository repo) {
+        this.repo = repo;
+    }
+
+    private List<Activity> generate3Activities(ActivityRepository repo){
         long len = repo.count();
         var id = (long) ThreadLocalRandom.current().nextInt(0, (int)len);
         List<Activity> activities = new ArrayList<>();
@@ -40,7 +45,7 @@ public class QuestionBuilder {
         return activities;
     }
 
-    public static MoreExpensive generateMoreExpensiveQuestion(ActivityRepository repo)
+    public MoreExpensive generateMoreExpensiveQuestion()
     {
         List<Activity> activities = generate3Activities(repo);
         Activity[] options = new Activity[3];
@@ -55,7 +60,7 @@ public class QuestionBuilder {
         return ans;
     }
 
-    public static LessExpensive generateLessExpensiveQuestion(ActivityRepository repo)
+    public LessExpensive generateLessExpensiveQuestion()
     {
         List<Activity> activities = generate3Activities(repo);
         Activity[] options = new Activity[3];
