@@ -18,4 +18,7 @@ public class MainMenuCtrl {
         mainCtrl.showHowToPlay();
     }
 
+    public void showLead(){
+        mainCtrl.showLeaderboard();
+    }
 }
