@@ -16,7 +16,7 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     /* activity_id is a field needed to be able to easily select a random activity */
-    public Long activity_id;
+    public long activity_id;
 
     @JsonProperty("id")
     @Column(name = "id")
@@ -26,7 +26,7 @@ public class Activity {
     private String title;
     @JsonProperty("consumption_in_wh")
     @Column(name = "consumption_in_wh")
-    private Long consumptionInWh;
+    private long consumptionInWh;
     @JsonProperty("image_path")
     @Column(name = "imagePath")
     private String imagePath;
@@ -38,7 +38,7 @@ public class Activity {
         // for object mapper
     }
 
-    public Activity(String id, String imagePath, String title, Long consumptionInWh, String source) {
+    public Activity(String id, String imagePath, String title, long consumptionInWh, String source) {
         this.id = id;
         this.imagePath = imagePath;
         this.title = title;
@@ -46,11 +46,11 @@ public class Activity {
         this.source = source;
     }
 
-    public Long getActivity_ID() {
+    public long getActivity_ID() {
         return activity_id;
     }
 
-    public void setActivity_ID(Long activity_ID) {
+    public void setActivity_ID(long activity_ID) {
         this.activity_id = activity_ID;
     }
 
@@ -70,11 +70,11 @@ public class Activity {
         this.title = title;
     }
 
-    public Long getConsumptionInWh() {
+    public long getConsumptionInWh() {
         return consumptionInWh;
     }
 
-    public void setConsumptionInWh(Long consumptionInWh) {
+    public void setConsumptionInWh(long consumptionInWh) {
         this.consumptionInWh = consumptionInWh;
     }
 
