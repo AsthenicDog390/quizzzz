@@ -29,5 +29,6 @@ public class MyModule implements Module {
         binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MainMenuCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HowToPlayCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultipleChoiceSingeCtrl.class).in(Scopes.SINGLETON);
     }
 }

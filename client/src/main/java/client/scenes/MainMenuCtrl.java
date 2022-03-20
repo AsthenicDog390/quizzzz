@@ -18,4 +18,8 @@ public class MainMenuCtrl {
         mainCtrl.showHowToPlay();
     }
 
+    public void startSinglePlayerGame() {
+        mainCtrl.startSinglePlayerGame();
+    }
+
 }

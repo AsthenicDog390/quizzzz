@@ -15,6 +15,9 @@
  */
 package client.scenes;
 
+import client.utils.SinglePlayerGame;
+import commons.questions.MoreExpensive;
+import commons.questions.Question;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -36,8 +39,13 @@ public class MainCtrl {
     private HowToPlayCtrl howToPlayCtrl;
     private Scene howToPlay;
 
+    private MultipleChoiceSingeCtrl multipleChoiceSingleCtrl;
+    private Scene multipleChoiceSingle;
+
+    private SinglePlayerGame singlePlayerGame;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingeCtrl, Parent> multipleChoiceSingle) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -50,6 +58,9 @@ public class MainCtrl {
 
         this.howToPlayCtrl = howToPlay.getKey();
         this.howToPlay = new Scene(howToPlay.getValue());
+
+        this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
+        this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
 
         showMainMenu();
         primaryStage.show();
@@ -77,5 +88,27 @@ public class MainCtrl {
         primaryStage.setScene(howToPlay);
     }
 
+    public void showMultipleChoiceSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(multipleChoiceSingle);
+    }
 
+    public SinglePlayerGame getGame() {
+        return this.singlePlayerGame;
+    }
+
+    public void startSinglePlayerGame() {
+        this.singlePlayerGame = new SinglePlayerGame(this);
+    }
+
+    public void setQuestionSinglePlayer(Question question) {
+        if (question instanceof MoreExpensive) {
+            this.showMultipleChoiceSingle();
+            this.multipleChoiceSingleCtrl.setQuestion((MoreExpensive) question);
+        }
+    }
+
+    public void gameEnded() {
+        this.showMainMenu();
+    }
 }
