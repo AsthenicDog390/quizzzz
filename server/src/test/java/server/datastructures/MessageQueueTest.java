@@ -1,6 +1,5 @@
 package server.datastructures;
 
-import commons.messages.Message;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
