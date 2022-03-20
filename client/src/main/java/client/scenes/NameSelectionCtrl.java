@@ -1,5 +1,7 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
+import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NameSelectionCtrl implements Initializable {
+    private final ServerUtils server;
+    private final MainCtrl mainCtrl;
     @FXML
     private TextField nameField;
     @FXML
@@ -25,6 +29,7 @@ public class NameSelectionCtrl implements Initializable {
             errorPopup.setVisible(true);
             nameField.setStyle("-fx-background-color: red");
         }
+        else mainCtrl.showWaitingRoom();
     }
 
     @FXML
@@ -41,5 +46,15 @@ public class NameSelectionCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         errorPopup.setVisible(false);
+    }
+
+    @Inject
+    public NameSelectionCtrl(ServerUtils server, MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+        this.server = server;
+    }
+
+    public void showMainMenu() {
+        mainCtrl.showMainMenu();
     }
 }

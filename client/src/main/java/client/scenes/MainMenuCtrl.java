@@ -18,4 +18,13 @@ public class MainMenuCtrl {
         mainCtrl.showHowToPlay();
     }
 
+
+    public void showWaitingRoom() {
+        mainCtrl.showWaitingRoom();
+    }
+
+    public void showNameSelection() {
+        mainCtrl.showNameSelection();
+    }
 }
+
