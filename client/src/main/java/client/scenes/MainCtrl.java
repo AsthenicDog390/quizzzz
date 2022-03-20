@@ -33,8 +33,14 @@ public class MainCtrl {
     private ServerLocationCtrl serverLocationCtrl;
     private Scene serverLocation;
 
+    private MainMenuCtrl menuCtrl;
+    private Scene menu;
+
+    private HowToPlayCtrl howToPlayCtrl;
+    private Scene howToPlay;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<ServerLocationCtrl, Parent> serverLocation) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<ServerLocationCtrl, Parent> serverLocation) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -45,7 +51,13 @@ public class MainCtrl {
         this.serverLocationCtrl = serverLocation.getKey();
         this.serverLocation = new Scene(serverLocation.getValue());
 
-        showOverview();
+        this.menuCtrl = menu.getKey();
+        this.menu = new Scene(menu.getValue());
+
+        this.howToPlayCtrl = howToPlay.getKey();
+        this.howToPlay = new Scene(howToPlay.getValue());
+
+        showMainMenu();
         primaryStage.show();
     }
 
@@ -60,4 +72,16 @@ public class MainCtrl {
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+
+    public void showMainMenu() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(menu);
+    }
+
+    public void showHowToPlay() {
+        primaryStage.setTitle("How To Play");
+        primaryStage.setScene(howToPlay);
+    }
+
+
 }
