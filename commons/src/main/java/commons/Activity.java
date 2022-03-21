@@ -31,7 +31,9 @@ public class Activity {
     @Column(name = "imagePath")
     private String imagePath;
     @Column(name = "source")
+    @Column(length=450)
     private String source;
+
 
     @SuppressWarnings("unused")
     private Activity() {
