@@ -19,9 +19,10 @@ public class Activity {
     public String id;
     public String title;
     @JsonProperty("consumption_in_wh")
-    public int consumptionInWh;
+    public long consumptionInWh;
     @JsonProperty("image_path")
     public String imagePath;
+    @Column(length=450)
     public String source;
 
     @SuppressWarnings("unused")
