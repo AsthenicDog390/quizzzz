@@ -18,9 +18,12 @@ public class ActivityLoader {
     @Bean
     ApplicationRunner initialiseRepo(ActivityRepository repo)
     {
+        boolean run = false;
+        //change this value to true in order to autorun the saveToRepo at the start of the server
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
+                if(run)
                 saveToRepo(repo);
             }
         };
