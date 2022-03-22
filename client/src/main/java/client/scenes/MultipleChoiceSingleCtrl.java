@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ProgressBar;
 
 import java.util.Timer;
@@ -21,6 +22,12 @@ public class MultipleChoiceSingleCtrl {
     private Button answerC;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private DialogPane dialogPane;
+    @FXML
+    private Button YesExit;
+    @FXML
+    private Button NoExit;
 
     @Inject
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -71,6 +78,14 @@ public class MultipleChoiceSingleCtrl {
         };
         gameTimer.schedule(timeOut,10000);
         progressBarTimer.schedule(lowerBar,0,40);
+    }
+
+    public void showDialogExit() {
+        dialogPane.setVisible(true);
+    }
+
+    public void hideDialogExit() {
+        dialogPane.setVisible(false);
     }
 
 }
