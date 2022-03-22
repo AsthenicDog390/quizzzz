@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
+import commons.Activity;
 import org.glassfish.jersey.client.ClientConfig;
 
 import commons.Quote;
@@ -50,6 +51,31 @@ public class ServerUtils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<List<Quote>>() {});
+    }
+
+    public List<Activity> getActivities() {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("api/activities") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<List<Activity>>() {});
+    }
+
+    public List<Activity> getNRandomActivities(int no) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("api/activities/randomN") //
+                .queryParam("num",no)
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<List<Activity>>() {});
+    }
+
+    public Activity getRandomActivity() {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("api/activities/random") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<Activity>() {});
     }
 
     public Quote addQuote(Quote quote) {

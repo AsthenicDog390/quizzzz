@@ -219,4 +219,10 @@ public class TestActivityRepository implements ActivityRepository {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public List<Activity> findActivitiesInRange(Long lowerBound, Long upperBound) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
