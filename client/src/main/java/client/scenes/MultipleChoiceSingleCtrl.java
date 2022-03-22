@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class MultipleChoiceSingeCtrl {
+public class MultipleChoiceSingleCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
@@ -25,7 +25,7 @@ public class MultipleChoiceSingeCtrl {
 
 
     @Inject
-    public MultipleChoiceSingeCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -54,9 +54,9 @@ public class MultipleChoiceSingeCtrl {
             this.questionText.setText("What activity takes more energy?");
         }
 
-        this.buttonA.setText(question.getOptions()[0].title);
-        this.buttonB.setText(question.getOptions()[1].title);
-        this.buttonC.setText(question.getOptions()[2].title);
+        this.buttonA.setText(question.getOptions()[0].getTitle());
+        this.buttonB.setText(question.getOptions()[1].getTitle());
+        this.buttonC.setText(question.getOptions()[2].getTitle());
 
         //TODO: Set images
     }
