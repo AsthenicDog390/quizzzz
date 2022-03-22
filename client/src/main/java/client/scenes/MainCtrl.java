@@ -30,6 +30,9 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
+    private ServerLocationCtrl serverLocationCtrl;
+    private Scene serverLocation;
+
     private MainMenuCtrl menuCtrl;
     private Scene menu;
 
@@ -40,13 +43,18 @@ public class MainCtrl {
     private Scene multipleChoiceSingle;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleSingle) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, 
+                           Pair<HowToPlayCtrl, Parent> howToPlay, Pair<ServerLocationCtrl, Parent> serverLocation,
+                           Pair<MultipleChoiceSingleCtrl, Parent> multipleSingle) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
 
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
+
+        this.serverLocationCtrl = serverLocation.getKey();
+        this.serverLocation = new Scene(serverLocation.getValue());
 
         this.menuCtrl = menu.getKey();
         this.menu = new Scene(menu.getValue());
