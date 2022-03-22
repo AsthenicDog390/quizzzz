@@ -84,9 +84,9 @@ public class MultipleChoiceSingleCtrl {
      * Disable all the buttons so the user won't have the option to press multiple answers
      */
     public void disableAllButtons() {
-        answerA.setDisable(true);
-        answerB.setDisable(true);
-        answerC.setDisable(true);
+        buttonA.setDisable(true);
+        buttonB.setDisable(true);
+        buttonC.setDisable(true);
     }
 
     /**
