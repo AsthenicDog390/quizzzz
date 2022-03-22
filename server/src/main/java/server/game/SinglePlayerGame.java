@@ -38,8 +38,8 @@ public class SinglePlayerGame {
         this.id = id;
         this.messageQueue = new MessageQueue();
         this.currentQuestion = 0;
-        this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
         this.state = State.QUESTION_PERIOD;
+        this.advanceState();
     }
 
     protected SinglePlayerGame(UUID id) {
@@ -50,7 +50,7 @@ public class SinglePlayerGame {
     private void advanceState() {
         switch (this.state) {
             case QUESTION_PERIOD:
-                if (this.currentQuestion + 1 >= this.questions.size()) {
+                if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
                     this.messageQueue.addMessage(new GameEndedMessage());
                     return;
@@ -65,6 +65,9 @@ public class SinglePlayerGame {
         this.advanceState();
     }
 
+    /**
+     * handleMessage handles messages sent from the client to the server.
+     * */
     public void handleMessage(Message m) {
         if (m instanceof AnswerMessage) {
             var answer = (AnswerMessage)m;
