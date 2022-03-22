@@ -44,8 +44,8 @@ public class Main extends Application {
         var menu = FXML.load(MainMenuCtrl.class, "client", "scenes", "MainMenu.fxml");
         var howToPlay = FXML.load(HowToPlayCtrl.class, "client", "scenes", "HowToPlay.fxml");
         var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
-        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, leaderboard);
         var multipleChoiceSingle = FXML.load(MultipleChoiceSingeCtrl.class, "client", "scenes", "MultipleChoiceSingle.fxml");
+        var multipleChoiceSingle = FXML.load(MultipleChoiceSingleCtrl.class, "client", "scenes", "MultipleChoiceSingle.fxml");
         var serverLocation = FXML.load(ServerLocationCtrl.class, "client", "scenes", "ServerLocation.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
         mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation, leaderboard);

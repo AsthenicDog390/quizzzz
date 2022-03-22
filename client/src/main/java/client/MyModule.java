@@ -31,5 +31,6 @@ public class MyModule implements Module {
         binder.bind(HowToPlayCtrl.class).in(Scopes.SINGLETON);
         binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultipleChoiceSingeCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultipleChoiceSingleCtrl.class).in(Scopes.SINGLETON);
     }
 }
