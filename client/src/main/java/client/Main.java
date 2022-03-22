@@ -20,6 +20,7 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import client.scenes.ServerLocationCtrl;
 import client.scenes.*;
 import com.google.inject.Injector;
 
@@ -43,8 +44,10 @@ public class Main extends Application {
         var menu = FXML.load(MainMenuCtrl.class, "client", "scenes", "MainMenu.fxml");
         var howToPlay = FXML.load(HowToPlayCtrl.class, "client", "scenes", "HowToPlay.fxml");
         var multipleChoiceSingle = FXML.load(MultipleChoiceSingleCtrl.class,"client","scenes","MultipleChoiceSingle.fxml");
+        var serverLocation = FXML.load(ServerLocationCtrl.class, "client", "scenes", "ServerLocation.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle);
+        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, serverLocation, multipleChoiceSingle);
+        
     }
 }
