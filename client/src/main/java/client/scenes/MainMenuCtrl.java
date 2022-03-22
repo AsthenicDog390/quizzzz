@@ -21,4 +21,8 @@ public class MainMenuCtrl {
     public void showLead(){
         mainCtrl.showLeaderboard();
     }
+
+    public void startSinglePlayerGame() {
+        mainCtrl.startSinglePlayerGame();
+    }
 }

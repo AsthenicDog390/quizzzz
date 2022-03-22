@@ -23,7 +23,7 @@ public class ActivityController {
      * @return a list containing all stored activities
      */
     @GetMapping(path = { "", "/" })
-    public List<Activity> getAll() {
+    public List<Activity> getAll()   {
         return repo.findAll();
     }
 
@@ -51,9 +51,9 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> add(@RequestBody List<Activity> activities) {
 
         for (Activity activity: activities) {
-            if (isNullOrEmpty(activity.id) || isNullOrEmpty(activity.source)
-                    || isNullOrEmpty(activity.title)
-                    || isNullOrEmpty(activity.imagePath)) {
+            if (isNullOrEmpty(activity.getSource())
+                    || isNullOrEmpty(activity.getTitle())
+                    || isNullOrEmpty(activity.getImagePath())) {
                 return ResponseEntity.badRequest().build();
             }
         }
@@ -85,8 +85,8 @@ public class ActivityController {
      * @param num the amount of activities to return
      * @return a ResponseActivity holding the random activities
      */
-    @GetMapping("/random/{num}")
-    public ResponseEntity<List<Activity>> getNRandom(@PathVariable("num") int num) {
+    @GetMapping("/randomN")
+    public ResponseEntity<List<Activity>> getNRandom(@RequestParam("num") int num) {
         long len = repo.count();
         if (len < 1) {
             return ResponseEntity.badRequest().build();
@@ -125,7 +125,7 @@ public class ActivityController {
         return random.nextInt(upper - lower + 1) + lower;
     }
 
-    private Activity activityById(long id) {
+    private Activity activityById(Long id) {
         return repo.findById(id).get();
     }
 }

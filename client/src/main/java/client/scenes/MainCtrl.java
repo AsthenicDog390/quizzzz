@@ -15,6 +15,9 @@
  */
 package client.scenes;
 
+import client.utils.SinglePlayerGame;
+import commons.questions.MoreExpensive;
+import commons.questions.Question;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,6 +33,9 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
+    private ServerLocationCtrl serverLocationCtrl;
+    private Scene serverLocation;
+
     private MainMenuCtrl menuCtrl;
     private Scene menu;
 
@@ -39,9 +45,14 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private MultipleChoiceSingeCtrl multipleChoiceSingleCtrl;
+    private Scene multipleChoiceSingle;
+
+    private SinglePlayerGame singlePlayerGame;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
-                           Pair<LeaderboardCtrl, Parent> leaderboard) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingeCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<LeaderboardCtrl, Parent> leaderboard) {
+
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -49,14 +60,22 @@ public class MainCtrl {
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
 
+        this.serverLocationCtrl = serverLocation.getKey();
+        this.serverLocation = new Scene(serverLocation.getValue());
+
         this.menuCtrl = menu.getKey();
         this.menu = new Scene(menu.getValue());
 
         this.howToPlayCtrl = howToPlay.getKey();
         this.howToPlay = new Scene(howToPlay.getValue());
 
+
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
+
+        this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
+        this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
+
 
         showMainMenu();
         primaryStage.show();
@@ -88,6 +107,27 @@ public class MainCtrl {
         primaryStage.setTitle("Leaderboard");
         primaryStage.setScene(leaderboard);
 
+    public void showMultipleChoiceSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(multipleChoiceSingle);
     }
 
+    public SinglePlayerGame getGame() {
+        return this.singlePlayerGame;
+    }
+
+    public void startSinglePlayerGame() {
+        this.singlePlayerGame = new SinglePlayerGame(this);
+    }
+
+    public void setQuestionSinglePlayer(Question question) {
+        if (question instanceof MoreExpensive) {
+            this.showMultipleChoiceSingle();
+            this.multipleChoiceSingleCtrl.setQuestion((MoreExpensive) question);
+        }
+    }
+
+    public void gameEnded() {
+        this.showMainMenu();
+    }
 }
