@@ -4,6 +4,7 @@ import commons.Activity;
 
 import java.util.Arrays;
 
+
 public class MoreExpensive extends Question {
     protected Activity[] options;
     protected Activity answer;
@@ -27,7 +28,8 @@ public class MoreExpensive extends Question {
             }
             if (a.equals(answer)) {
                 found = true;
-                break;
+                //break;
+                //I deleted this line because if the first option is also the answer, it won't check that the other activities are not null
             }
         }
 

@@ -1,9 +1,12 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import commons.questions.LessExpensive;
 import com.google.inject.Inject;
+import commons.questions.MoreExpensive;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ProgressBar;
 
@@ -14,12 +17,16 @@ public class MultipleChoiceSingleCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
+    private MoreExpensive question;
+
     @FXML
-    private Button answerA;
+    private Button buttonA;
     @FXML
-    private Button answerB;
+    private Button buttonB;
     @FXML
-    private Button answerC;
+    private Button buttonC;
+    @FXML
+    private Label questionText;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -31,8 +38,42 @@ public class MultipleChoiceSingleCtrl {
 
     @Inject
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
-        this.mainCtrl = mainCtrl;
         this.server = server;
+        this.mainCtrl = mainCtrl;
+    }
+
+    public void answerA() {
+        disableAllButtons();
+        giveAnswer(0);
+    }
+
+    public void answerB() {
+        disableAllButtons();
+        giveAnswer(1);
+    }
+
+    public void answerC() {
+        disableAllButtons();
+        giveAnswer(2);
+    }
+
+    public void giveAnswer(int answer) {
+        mainCtrl.getGame().giveAnswer(answer);
+    }
+
+    public void setQuestion(MoreExpensive question) {
+        this.question = question;
+        if (question instanceof LessExpensive) {
+            this.questionText.setText("What activity takes less energy?");
+        } else {
+            this.questionText.setText("What activity takes more energy?");
+        }
+
+        this.buttonA.setText(question.getOptions()[0].getTitle());
+        this.buttonB.setText(question.getOptions()[1].getTitle());
+        this.buttonC.setText(question.getOptions()[2].getTitle());
+
+        //TODO: Set images
     }
 
     public void goBackMainMenu() {
