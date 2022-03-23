@@ -26,5 +26,10 @@ public class MainMenuCtrl {
     public void showNameSelection() {
         mainCtrl.showNameSelection();
     }
+
+    public void startSinglePlayerGame() {
+        mainCtrl.startSinglePlayerGame();
+    }
+
 }
 

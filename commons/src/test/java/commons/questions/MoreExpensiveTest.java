@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MoreExpensiveTest {
 
     private Activity getActivity(String name, long id) {
-        var a = new Activity(name, name, name, 0, name);
+        var a = new Activity(name, name, name, 0L, name);
         a.activity_id = id;
         return a;
     }
