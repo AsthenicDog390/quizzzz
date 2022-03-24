@@ -55,11 +55,13 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
-    private SinglePlayerGame singlePlayerGame;
+    private SinglePlayerGame singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<StartingScreenCtrl, Parent> startingScreen) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
+                           Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -126,9 +128,10 @@ public class MainCtrl {
         primaryStage.setScene(nameSelection);
     }
 
-    public void showStartingScreen(){
+    public void showStartingScreen() {
         primaryStage.setTitle("Starting Screen");
         primaryStage.setScene(startingScreen);
+    }
 
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
@@ -136,11 +139,11 @@ public class MainCtrl {
     }
 
     public SinglePlayerGame getGame() {
-        return this.singlePlayerGame;
+        return this.singlePlayerGameCtrl;
     }
 
     public void startSinglePlayerGame() {
-        this.singlePlayerGame = new SinglePlayerGame(this);
+        this.singlePlayerGameCtrl = new SinglePlayerGame(this);
     }
 
     public void setQuestionSinglePlayer(Question question) {
