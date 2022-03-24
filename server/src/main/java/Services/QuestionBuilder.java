@@ -6,17 +6,22 @@ import commons.questions.MoreExpensive;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestionBuilder {
 
     ActivityRepository repo;
+    String gameID;
+    Set<Long> ids = new HashSet<>();
 
-    public QuestionBuilder(ActivityRepository repo) {
+    public QuestionBuilder(ActivityRepository repo, String gameID) {
         this.repo = repo;
+        this.gameID = gameID;
     }
-
+    /*
     private List<Activity> generate3Activities(ActivityRepository repo){
         long len = repo.count();
         var id = (long) ThreadLocalRandom.current().nextInt(0, (int)len);
@@ -43,6 +48,38 @@ public class QuestionBuilder {
             activities.set(2, options.get(random));
         }
         return activities;
+    }
+     */
+
+    private List<Activity> generate3Activities(ActivityRepository repo){
+        long len = repo.count();
+        List<Activity> options = new ArrayList<>();
+        var id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
+        while(ids.contains(id)){
+            id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
+        }
+        int center = (int)repo.getById(id).getConsumptionInWh();
+        long minn = center - center/5;
+        long maxx = center + center/5;
+        List<Activity> activities = new ArrayList<>();
+        int count = 0;
+        while(count <= 3){
+            if (ids.size() == (len - (3-count) +1)) {
+                ids.clear();
+            }
+            activities = repo.findActivitiesInRange(minn, maxx);
+            for(int i = 0; i <= activities.size() ; i++){
+                Activity current = activities.get(i);
+                if(!ids.contains(current.getActivity_ID())){
+                   options.add(current);
+                   ids.add(current.getActivity_ID());
+                   count++;
+                }
+            }
+            minn/=2;
+            maxx*=2;
+        }
+        return options;
     }
 
     public MoreExpensive generateMoreExpensiveQuestion()
