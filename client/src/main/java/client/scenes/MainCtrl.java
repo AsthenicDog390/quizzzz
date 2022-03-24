@@ -69,6 +69,7 @@ public class MainCtrl {
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
 
         showMainMenu();
+//        showMultipleSingle();
         primaryStage.show();
     }
 
@@ -97,6 +98,7 @@ public class MainCtrl {
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
+        multipleChoiceSingleCtrl.startTimer();
     }
 
     public SinglePlayerGame getGame() {

@@ -1,6 +1,5 @@
 package client.scenes;
 
-
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
@@ -20,6 +19,10 @@ public class MainMenuCtrl {
 
     public void startSinglePlayerGame() {
         mainCtrl.startSinglePlayerGame();
+    }
+
+    public void closeApp() {
+        System.exit(0);
     }
 
 }
