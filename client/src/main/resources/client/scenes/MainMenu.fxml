@@ -46,7 +46,7 @@
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" layoutX="505.0" layoutY="136.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="MULTIPLAYER" textAlignment="CENTER">
+                        <Button alignment="CENTER" layoutX="505.0" layoutY="136.0" onAction="#showNameSelectionMulti" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="MULTIPLAYER" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>

@@ -23,6 +23,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.naming.Name;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -45,10 +47,25 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
+    private WaitingRoomCtrl waitingRoomCtrl;
+    private Scene waitingRoom;
+
+    private NameSelectionCtrl nameSelectionCtrl;
+    private Scene nameSelection;
+
+    private StartingScreenCtrl startingScreenCtrl;
+    private Scene startingScreen;
+
+    private NameSelectionMultiCtrl nameSelectionMultiCtrl;
+    private Scene nameSelectionMulti;
+
     private SinglePlayerGame singlePlayerGame;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl,
+                           Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection,
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti) {
+
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -67,6 +84,18 @@ public class MainCtrl {
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
+
+        this.waitingRoomCtrl = waitingRoom.getKey();
+        this.waitingRoom = new Scene(waitingRoom.getValue());
+
+        this.nameSelectionCtrl = nameSelection.getKey();
+        this.nameSelection = new Scene(nameSelection.getValue());
+
+        this.startingScreenCtrl = startingScreen.getKey();
+        this.startingScreen = new Scene(startingScreen.getValue());
+
+        this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
+        this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
 
         showMainMenu();
 //        showMultipleSingle();
@@ -99,6 +128,26 @@ public class MainCtrl {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
         multipleChoiceSingleCtrl.startTimer();
+    }
+
+    public void showWaitingRoom(){
+        primaryStage.setTitle("Waiting Room");
+        primaryStage.setScene(waitingRoom);
+    }
+
+    public void showNameSelect(){
+        primaryStage.setTitle("Name Selection");
+        primaryStage.setScene(nameSelection);
+    }
+
+    public void showStartingScreen(){
+        primaryStage.setTitle("Starting Screen");
+        primaryStage.setScene(startingScreen);
+    }
+
+    public void showNameSelectionMulti(){
+        primaryStage.setTitle("Multiplayer Name Selection");
+        primaryStage.setScene(nameSelectionMulti);
     }
 
     public SinglePlayerGame getGame() {

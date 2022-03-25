@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NameSelectionCtrl implements Initializable {
+public class NameSelectionMultiCtrl implements Initializable {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
@@ -24,7 +24,7 @@ public class NameSelectionCtrl implements Initializable {
     private AnchorPane background;
 
     @Inject
-    public NameSelectionCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public NameSelectionMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
@@ -55,7 +55,9 @@ public class NameSelectionCtrl implements Initializable {
         errorPopup.setVisible(false);
     }
 
-    public void showStartingScreen(){
-        mainCtrl.showStartingScreen();
+    public void showWaitingRoom(){
+        mainCtrl.showWaitingRoom();
     }
+
+    public void showMainMenu(){mainCtrl.showMainMenu();}
 }
