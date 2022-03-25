@@ -1,5 +1,7 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
+import com.google.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,12 +12,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NameSelectionCtrl implements Initializable {
+    private final MainCtrl mainCtrl;
+    private final ServerUtils server;
+
     @FXML
     private TextField nameField;
     @FXML
     private AnchorPane errorPopup;
     @FXML
     private AnchorPane background;
+
+    @Inject
+    public NameSelectionCtrl(MainCtrl mainCtrl, ServerUtils server) {
+        this.mainCtrl = mainCtrl;
+        this.server = server;
+    }
 
     @FXML
     private void submitName(ActionEvent e) {
@@ -24,6 +35,8 @@ public class NameSelectionCtrl implements Initializable {
             background.setOpacity(0.8f);
             errorPopup.setVisible(true);
             nameField.setStyle("-fx-background-color: red");
+        } else{
+                mainCtrl.startSinglePlayerGame();
         }
     }
 

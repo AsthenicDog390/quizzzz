@@ -25,4 +25,6 @@ public class MainMenuCtrl {
         System.exit(0);
     }
 
+    public void showNameScreen(){mainCtrl.showNameScreen();}
+
 }

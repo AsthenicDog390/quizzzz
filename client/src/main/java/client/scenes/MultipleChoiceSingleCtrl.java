@@ -20,6 +20,8 @@ public class MultipleChoiceSingleCtrl {
     private MoreExpensive question;
 
     @FXML
+    private Label score;
+    @FXML
     private Button buttonA;
     @FXML
     private Button buttonB;
@@ -42,6 +44,7 @@ public class MultipleChoiceSingleCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+
     public void answerA() {
         disableAllButtons();
         giveAnswer(0);
@@ -59,6 +62,11 @@ public class MultipleChoiceSingleCtrl {
 
     public void giveAnswer(int answer) {
         mainCtrl.getGame().giveAnswer(answer);
+    }
+
+
+    public void setScore(int tscore){
+        this.score.setText("Your Score:"+"\n"+tscore);
     }
 
     public void setQuestion(MoreExpensive question) {
