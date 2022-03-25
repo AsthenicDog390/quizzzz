@@ -51,7 +51,7 @@
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER" layoutX="505.0" layoutY="182.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="HOW TO PLAY" textAlignment="CENTER">
+                        <Button alignment="CENTER" layoutX="505.0" layoutY="182.0" onAction="#showHowToPlay" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" styleClass="text" text="HOW TO PLAY" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>
