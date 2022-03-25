@@ -23,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
-import javax.naming.Name;
 
 public class MainCtrl {
 
