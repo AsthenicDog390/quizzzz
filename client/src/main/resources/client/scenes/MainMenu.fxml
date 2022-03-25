@@ -21,7 +21,7 @@
           <RowConstraints maxHeight="632.6000122070312" minHeight="10.0" prefHeight="622.9999755859375" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="CloseButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="text" text="X" textAlignment="CENTER">
+            <Button id="CloseButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeApp" prefHeight="60.0" prefWidth="60.0" styleClass="text" text="X" textAlignment="CENTER">
                <font>
                   <Font size="36.0" />
                </font>
