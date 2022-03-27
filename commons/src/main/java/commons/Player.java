@@ -1,11 +1,23 @@
 package commons;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "Player")
+@Table(name = "players")
 public class Player {
+    @Id
     private String id;
     private String name;
     private String gameId;
+
+    @Transient
+    private int score;
+
+    @SuppressWarnings("unused")
+    private Player() {
+        // for object mapper
+    }
 
     public Player(String id, String name) {
         this.id = id;
@@ -36,6 +48,10 @@ public class Player {
     public void setGameId(String gameId) {
         this.gameId = gameId;
     }
+
+    public void setScore(int score) { this.score = score; }
+
+    public int getScore() { return this.score; }
 
     @Override
     public boolean equals(Object o) {
