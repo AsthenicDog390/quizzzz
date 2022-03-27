@@ -35,10 +35,9 @@ public class NameSelectionCtrl implements Initializable {
             background.setOpacity(0.8f);
             errorPopup.setVisible(true);
             nameField.setStyle("-fx-background-color: red");
-        } else{
-                mainCtrl.startSinglePlayerGame();
+        } else {
+            mainCtrl.startSinglePlayerGame();
         }
-        else mainCtrl.showWaitingRoom();
     }
 
     @FXML
