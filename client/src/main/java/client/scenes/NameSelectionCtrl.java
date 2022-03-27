@@ -56,9 +56,9 @@ public class NameSelectionCtrl implements Initializable {
         errorPopup.setVisible(false);
     }
 
-    public void showStartingScreen(){
+    public void showStartingScreen() {
         mainCtrl.showStartingScreen();
-
+    }
     public void showMainMenu() {
         mainCtrl.showMainMenu();
     }

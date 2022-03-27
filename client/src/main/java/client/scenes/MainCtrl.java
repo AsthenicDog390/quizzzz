@@ -44,7 +44,7 @@ public class MainCtrl {
     private Scene howToPlay;
 
     private WaitingRoomCtrl waitingRoomCtrl;
-    private Scene waitRoom;
+    private Scene waitingRoom;
 
     private NameSelectionCtrl nameSelectionCtrl;
     private Scene nameSelection;
@@ -56,25 +56,15 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
-    private WaitingRoomCtrl waitingRoomCtrl;
-    private Scene waitingRoom;
-
-    private NameSelectionCtrl nameSelectionCtrl;
-    private Scene nameSelection;
-
-    private StartingScreenCtrl startingScreenCtrl;
-    private Scene startingScreen;
-
     private NameSelectionMultiCtrl nameSelectionMultiCtrl;
     private Scene nameSelectionMulti;
 
-    private SinglePlayerGame singlePlayerGame;
-    private Scene singlePlayerGame;
+    private SinglePlayerGame singlePlayerGameCtrl;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl,
-                           Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection,
-                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti) {
+                           Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom,
+                           Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, Pair<NameSelectionCtrl, Parent> nameSelection) {
 
 
         this.primaryStage = primaryStage;
@@ -94,7 +84,7 @@ public class MainCtrl {
         this.howToPlay = new Scene(howToPlay.getValue());
 
         this.waitingRoomCtrl = waitingRoom.getKey();
-        this.waitRoom = new Scene(waitingRoom.getValue());
+        this.waitingRoom = new Scene(waitingRoom.getValue());
 
         this.nameSelectionCtrl = nameSelection.getKey();
         this.nameSelection = new Scene(nameSelection.getValue());
@@ -104,9 +94,6 @@ public class MainCtrl {
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
-
-        this.waitingRoomCtrl = waitingRoom.getKey();
-        this.waitingRoom = new Scene(waitingRoom.getValue());
 
         this.nameSelectionCtrl = nameSelection.getKey();
         this.nameSelection = new Scene(nameSelection.getValue());
@@ -146,7 +133,7 @@ public class MainCtrl {
 
     public void showWaitingRoom() {
         primaryStage.setTitle("Waiting Room");
-        primaryStage.setScene(waitRoom);
+        primaryStage.setScene(waitingRoom);
     }
 
     public void showNameSelection() {
@@ -154,20 +141,10 @@ public class MainCtrl {
         primaryStage.setScene(nameSelection);
     }
 
-    public void showStartingScreen() {
-        primaryStage.setTitle("Starting Screen");
-        primaryStage.setScene(startingScreen);
-    }
-
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
         multipleChoiceSingleCtrl.startTimer();
-    }
-
-    public void showWaitingRoom(){
-        primaryStage.setTitle("Waiting Room");
-        primaryStage.setScene(waitingRoom);
     }
 
     public void showNameSelect(){
