@@ -7,10 +7,10 @@ public class Player {
     private String name;
     private String gameId;
 
-    public Player(String id, String name, String gameId) {
+    public Player(String id, String name) {
         this.id = id;
         this.name = name;
-        this.gameId = gameId;
+        this.gameId = "unknown";
     }
 
     public String getId() {
