@@ -21,8 +21,11 @@ public class MainMenuCtrl {
         mainCtrl.startSinglePlayerGame();
     }
 
+    public void startMultiPlayerGame() {
+        mainCtrl.startMultiPlayerGame();
+    }
+
     public void closeApp() {
         System.exit(0);
     }
-
 }
