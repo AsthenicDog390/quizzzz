@@ -43,7 +43,7 @@ public class MultipleChoiceSingleCtrl {
     }
 
     public void giveAnswer(int answer) {
-        mainCtrl.getGame().giveAnswer(answer);
+        mainCtrl.getSinglePlayerGame().giveAnswer(answer);
     }
 
     public void setQuestion(MoreExpensive question) {

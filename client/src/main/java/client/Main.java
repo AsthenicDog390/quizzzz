@@ -45,9 +45,10 @@ public class Main extends Application {
         var howToPlay = FXML.load(HowToPlayCtrl.class, "client", "scenes", "HowToPlay.fxml");
         var multipleChoiceSingle = FXML.load(MultipleChoiceSingleCtrl.class, "client", "scenes", "MultipleChoiceSingle.fxml");
         var serverLocation = FXML.load(ServerLocationCtrl.class, "client", "scenes", "ServerLocation.fxml");
+        var multipleChoiceMulti = FXML.load(MultipleChoiceMultiCtrl.class, "client", "scenes", "MultipleChoiceMulti.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation);
+        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation, multipleChoiceMulti);
     }
 }

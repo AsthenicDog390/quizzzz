@@ -22,4 +22,8 @@ public class MainMenuCtrl {
         mainCtrl.startSinglePlayerGame();
     }
 
+    public void startMultiPlayerGame() {
+        mainCtrl.startMultiPlayerGame();
+    }
+
 }

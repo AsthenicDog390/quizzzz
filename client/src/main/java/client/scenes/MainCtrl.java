@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -45,10 +46,14 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
+    private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
+    private Scene multipleChoiceMulti;
+
     private SinglePlayerGame singlePlayerGame;
+    private MultiPlayerGame multiPlayerGame;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation) {
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -67,6 +72,9 @@ public class MainCtrl {
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
+
+        this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
+        this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
 
         showMainMenu();
         primaryStage.show();
@@ -99,12 +107,18 @@ public class MainCtrl {
         primaryStage.setScene(multipleChoiceSingle);
     }
 
-    public SinglePlayerGame getGame() {
+    public SinglePlayerGame getSinglePlayerGame() {
         return this.singlePlayerGame;
     }
 
+    public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+
     public void startSinglePlayerGame() {
         this.singlePlayerGame = new SinglePlayerGame(this);
+    }
+
+    public void startMultiPlayerGame() {
+        this.multiPlayerGame = new MultiPlayerGame(this);
     }
 
     public void setQuestionSinglePlayer(Question question) {
@@ -116,5 +130,20 @@ public class MainCtrl {
 
     public void gameEnded() {
         this.showMainMenu();
+        this.singlePlayerGame = null;
+        this.multiPlayerGame = null;
     }
+
+    public void setQuestionMultiPlayer(Question question) {
+        if (question instanceof MoreExpensive) {
+            this.showMultipleMultiSingle();
+            this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
+        }
+    }
+
+    private void showMultipleMultiSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(multipleChoiceMulti);
+    }
+
 }
