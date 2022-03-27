@@ -38,6 +38,7 @@ public class NameSelectionCtrl implements Initializable {
         } else{
                 mainCtrl.startSinglePlayerGame();
         }
+        else mainCtrl.showWaitingRoom();
     }
 
     @FXML
@@ -54,5 +55,15 @@ public class NameSelectionCtrl implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         errorPopup.setVisible(false);
+    }
+
+    @Inject
+    public NameSelectionCtrl(ServerUtils server, MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+        this.server = server;
+    }
+
+    public void showMainMenu() {
+        mainCtrl.showMainMenu();
     }
 }
