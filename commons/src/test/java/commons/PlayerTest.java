@@ -11,6 +11,7 @@ class PlayerTest {
 
         assertEquals("id", p.getId());
         assertEquals("name", p.getName());
+        assertEquals("unknown", p.getGameId());
     }
 
     @Test
