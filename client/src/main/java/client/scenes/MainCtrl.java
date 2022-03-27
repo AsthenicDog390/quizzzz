@@ -43,6 +43,16 @@ public class MainCtrl {
     private HowToPlayCtrl howToPlayCtrl;
     private Scene howToPlay;
 
+    private WaitingRoomCtrl waitingRoomCtrl;
+    private Scene waitRoom;
+
+    private NameSelectionCtrl nameSelectionCtrl;
+    private Scene nameSelection;
+
+    private StartingScreenCtrl startingScreenCtrl;
+    private Scene startingScreen;
+
+
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
@@ -59,11 +69,13 @@ public class MainCtrl {
     private Scene nameSelectionMulti;
 
     private SinglePlayerGame singlePlayerGame;
+    private Scene singlePlayerGame;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl,
                            Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection,
                            Pair<StartingScreenCtrl, Parent> startingScreen, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti) {
+
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -80,6 +92,15 @@ public class MainCtrl {
 
         this.howToPlayCtrl = howToPlay.getKey();
         this.howToPlay = new Scene(howToPlay.getValue());
+
+        this.waitingRoomCtrl = waitingRoom.getKey();
+        this.waitRoom = new Scene(waitingRoom.getValue());
+
+        this.nameSelectionCtrl = nameSelection.getKey();
+        this.nameSelection = new Scene(nameSelection.getValue());
+
+        this.startingScreenCtrl = startingScreen.getKey();
+        this.startingScreen = new Scene(startingScreen.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
@@ -123,6 +144,21 @@ public class MainCtrl {
         primaryStage.setScene(howToPlay);
     }
 
+    public void showWaitingRoom() {
+        primaryStage.setTitle("Waiting Room");
+        primaryStage.setScene(waitRoom);
+    }
+
+    public void showNameSelection() {
+        primaryStage.setTitle("Name Selection");
+        primaryStage.setScene(nameSelection);
+    }
+
+    public void showStartingScreen() {
+        primaryStage.setTitle("Starting Screen");
+        primaryStage.setScene(startingScreen);
+    }
+
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
@@ -150,11 +186,11 @@ public class MainCtrl {
     }
 
     public SinglePlayerGame getGame() {
-        return this.singlePlayerGame;
+        return this.singlePlayerGameCtrl;
     }
 
     public void startSinglePlayerGame() {
-        this.singlePlayerGame = new SinglePlayerGame(this);
+        this.singlePlayerGameCtrl = new SinglePlayerGame(this);
     }
 
     public void setQuestionSinglePlayer(Question question) {
@@ -166,5 +202,6 @@ public class MainCtrl {
 
     public void gameEnded() {
         this.showMainMenu();
+
     }
 }

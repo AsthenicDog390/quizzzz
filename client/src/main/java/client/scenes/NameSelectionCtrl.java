@@ -37,6 +37,7 @@ public class NameSelectionCtrl implements Initializable {
             errorPopup.setVisible(true);
             nameField.setStyle("-fx-background-color: red");
         }
+        else mainCtrl.showWaitingRoom();
     }
 
     @FXML
@@ -57,5 +58,8 @@ public class NameSelectionCtrl implements Initializable {
 
     public void showStartingScreen(){
         mainCtrl.showStartingScreen();
+
+    public void showMainMenu() {
+        mainCtrl.showMainMenu();
     }
 }
