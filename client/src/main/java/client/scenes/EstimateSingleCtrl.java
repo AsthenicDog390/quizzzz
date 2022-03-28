@@ -29,6 +29,8 @@ public class EstimateSingleCtrl {
     private Button YesExit;
     @FXML
     private Button NoExit;
+    @FXML
+    private Label warning;
 
     @Inject
     public EstimateSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -37,8 +39,20 @@ public class EstimateSingleCtrl {
     }
 
     public void answerField() {
-        disableAll();
-        mainCtrl.getGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+        boolean checkFailed = false;
+        try {
+            int d = Integer.parseInt(answer.getText());
+        } catch (NumberFormatException nfe) {
+            answer.setText("");
+            warning.setVisible(true);
+            checkFailed = true;
+        }
+        if(!checkFailed){
+            warning.setVisible(false);
+            disableAll();
+            mainCtrl.getGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+            //TODO: last line causes a null pointer exception
+        }
     }
 
     public void setQuestion(Estimate question) {

@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import com.sun.jdi.PrimitiveValue;
 import commons.questions.Estimate;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -29,6 +30,8 @@ public class EstimateMultiCtrl {
     private Button YesExit;
     @FXML
     private Button NoExit;
+    @FXML
+    private Label warning;
 
     @Inject
     public EstimateMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -37,8 +40,20 @@ public class EstimateMultiCtrl {
     }
 
     public void answerField() {
-        disableAll();
-        mainCtrl.getGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+        boolean checkFailed = false;
+        try {
+            int d = Integer.parseInt(answer.getText());
+        } catch (NumberFormatException nfe) {
+            answer.setText("");
+            warning.setVisible(true);
+            checkFailed = true;
+        }
+        if(!checkFailed){
+            warning.setVisible(false);
+            disableAll();
+            mainCtrl.getGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+            //TODO: last line causes a null pointer exception
+        }
     }
 
     public void setQuestion(Estimate question) {

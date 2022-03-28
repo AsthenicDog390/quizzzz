@@ -122,6 +122,11 @@
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>
                 </Button>
+            <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="400.0" text="Answer must be a number!" textAlignment="CENTER" textFill="RED" visible="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             </children>
         </VBox>
     </children>
