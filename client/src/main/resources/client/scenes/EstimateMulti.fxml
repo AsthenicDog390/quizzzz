@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1b3864;" stylesheets="@../../CSS/font.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EstimateMultiCtrl">
     <children>
         <Label layoutX="185.0" layoutY="90.0" prefHeight="46.0" prefWidth="150.0" styleClass="text" text="Question" textFill="WHITE">
@@ -30,7 +29,7 @@
                 <Font size="35.0" />
             </font>
         </Label>
-        <Label layoutX="441.0" layoutY="90.0" prefHeight="53.0" prefWidth="803.0" styleClass="text" text="QUESTION TEXT" textFill="WHITE">
+        <Label fx:id="questionText" layoutX="441.0" layoutY="90.0" prefHeight="53.0" prefWidth="803.0" styleClass="text" text="QUESTION TEXT" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
@@ -40,8 +39,8 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <ProgressBar layoutX="-312.0" layoutY="354.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
-        <Button layoutX="1120.0" layoutY="29.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
+        <ProgressBar fx:id="progressBar" layoutX="-312.0" layoutY="354.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
+        <Button fx:id="backToMenu" layoutX="1120.0" layoutY="29.0" mnemonicParsing="false" onAction="#showDialogExit" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
         <HBox layoutX="710.0" layoutY="585.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
             <children>
                 <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 1">
@@ -112,12 +111,12 @@
                 <ImageView fitHeight="350.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
                 <TextField fx:id="answer" prefHeight="50.0" prefWidth="400.0" promptText="Your estimate">
                     <font>
-                        <Font size="36.0" />
+                        <Font size="24.0" />
                     </font>
                 </TextField>
                 <Button fx:id="confirm" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#answerField" prefHeight="50.0" prefWidth="400.0" text="Confirm" textAlignment="CENTER">
                     <font>
-                        <Font size="72.0" />
+                        <Font size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="DEFAULT" />

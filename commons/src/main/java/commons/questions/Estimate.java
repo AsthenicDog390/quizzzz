@@ -2,7 +2,6 @@ package commons.questions;
 
 import commons.Activity;
 
-import java.util.Arrays;
 
 public class Estimate extends Question{
     protected Activity activity;
