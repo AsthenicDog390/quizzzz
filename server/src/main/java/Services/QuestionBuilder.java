@@ -55,17 +55,25 @@ public class QuestionBuilder {
         long len = repo.count();
         List<Activity> options = new ArrayList<>();
         var id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
-        while(ids.contains(id)){
+        while(ids.contains(id)) {
             id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
         }
+        //got a random activity, whose consumption will be used as the center of the interval of consumptions
+        //from which the activities will be chosen
         int center = (int)repo.getById(id).getConsumptionInWh();
+        //center
         long minn = center - center/5;
+        //lower bound
         long maxx = center + center/5;
+        //upper bound
         List<Activity> activities = new ArrayList<>();
         int count = 0;
         while(count <= 3){
             if (ids.size() == (len - (3-count) +1)) {
                 ids.clear();
+                //if there are less than the 3 activities available, they will be reset
+                //the formula above was made in order to not reset the activities if there are less than 3 available and
+                //the rest were already chosen
             }
             activities = repo.findActivitiesInRange(minn, maxx);
             for(int i = 0; i <= activities.size() ; i++){
@@ -75,9 +83,11 @@ public class QuestionBuilder {
                    ids.add(current.getActivity_ID());
                    count++;
                 }
+                //going through the interval to get the activities.
             }
             minn/=2;
             maxx*=2;
+            //if not enough activities were found, the interval will get bigger
         }
         return options;
     }
