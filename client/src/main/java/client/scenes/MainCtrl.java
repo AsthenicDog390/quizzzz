@@ -56,7 +56,6 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
-<<<<<<< client/src/main/java/client/scenes/MainCtrl.java
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
     private Scene multipleChoiceMulti;
 
