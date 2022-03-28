@@ -153,7 +153,7 @@ public class MainCtrl {
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
 
     public void startSinglePlayerGame() {
-        this.singlePlayerGameCtrl = new SinglePlayerGame(this);
+        this.singlePlayerGame = new SinglePlayerGame(this);
     }
 
     public void startMultiPlayerGame() {
