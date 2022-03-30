@@ -62,8 +62,13 @@ public class MainCtrl {
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
     private Scene multipleChoiceMulti;
 
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
+
     private SinglePlayerGame singlePlayerGame;
     private MultiPlayerGame multiPlayerGame;
+
+
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
@@ -103,14 +108,11 @@ public class MainCtrl {
         this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
         this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
-
         this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene (leaderboard.getValue());
 
         showMainMenu();
 //        showMultipleSingle();
@@ -165,6 +167,11 @@ public class MainCtrl {
         primaryStage.setScene(startingScreen);
     }
 
+    public void showLeaderboard(){
+        primaryStage.setTitle("LeaderBoard");
+        primaryStage.setScene(leaderboard);
+    }
+
     public void showNameSelectionMulti(){
         primaryStage.setTitle("Multiplayer Name Selection");
         primaryStage.setScene(nameSelectionMulti);
@@ -207,11 +214,6 @@ public class MainCtrl {
             this.showMultipleMultiSingle();
             this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
         }
-    }
-
-
-    public void showLeaderboard(){
-        this.showLeaderboard();
     }
 }
 
