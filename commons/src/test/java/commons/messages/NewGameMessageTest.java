@@ -8,7 +8,8 @@ class NewGameMessageTest {
 
     @Test
     void getId() {
-        var m = new NewGameMessage("test");
+        var m = new NewGameMessage("test", "id");
         assertEquals("test", m.getId());
+        assertEquals("id", m.getPlayerId());
     }
 }

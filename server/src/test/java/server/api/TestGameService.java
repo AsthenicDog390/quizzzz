@@ -1,6 +1,6 @@
 package server.api;
 
-import server.game.SinglePlayerGame;
+import server.game.Game;
 import server.services.GameService;
 
 import java.util.HashMap;
@@ -8,16 +8,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class TestGameService implements GameService {
-    HashMap<String, TestSinglePlayerGame> games;
+    HashMap<String, TestGame> games;
 
     public TestGameService() {
         this.games = new HashMap<>();
     }
 
     @Override
-    public SinglePlayerGame newSinglePlayerGame() {
+    public Game newGame() {
         var id = UUID.randomUUID();
-        var game = new TestSinglePlayerGame(id, null);
+        var game = new TestGame(id, null);
 
         games.put(id.toString(), game);
 
@@ -25,12 +25,12 @@ public class TestGameService implements GameService {
     }
 
     @Override
-    public Optional<SinglePlayerGame> getSinglePlayerGame(String id) {
+    public Optional<Game> getGame(String id) {
         return Optional.ofNullable(games.get(id));
     }
 
     @Override
-    public void singlePlayerGameFinished(String id) {
+    public void gameFinished(String id) {
         games.remove(id);
     }
 }

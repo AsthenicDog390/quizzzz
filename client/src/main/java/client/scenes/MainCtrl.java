@@ -52,6 +52,7 @@ public class MainCtrl {
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
 
+
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
@@ -85,6 +86,9 @@ public class MainCtrl {
         this.waitingRoomCtrl = waitingRoom.getKey();
         this.waitingRoom = new Scene(waitingRoom.getValue());
 
+        this.nameSelectionCtrl = nameSelection.getKey();
+        this.nameSelection = new Scene(nameSelection.getValue());
+
         this.startingScreenCtrl = startingScreen.getKey();
         this.startingScreen = new Scene(startingScreen.getValue());
 
@@ -93,6 +97,9 @@ public class MainCtrl {
 
         this.nameSelectionCtrl = nameSelection.getKey();
         this.nameSelection = new Scene(nameSelection.getValue());
+
+        this.startingScreenCtrl = startingScreen.getKey();
+        this.startingScreen = new Scene(startingScreen.getValue());
 
         this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
@@ -138,7 +145,6 @@ public class MainCtrl {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
         multipleChoiceSingleCtrl.startTimer();
-        multipleChoiceSingleCtrl.setScore(0);
     }
 
     public void showNameSelect(){

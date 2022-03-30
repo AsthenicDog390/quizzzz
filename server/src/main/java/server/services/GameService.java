@@ -1,11 +1,11 @@
 package server.services;
 
-import server.game.SinglePlayerGame;
+import server.game.Game;
 
 import java.util.Optional;
 
 public interface GameService {
-    public SinglePlayerGame newSinglePlayerGame();
-    public Optional<SinglePlayerGame> getSinglePlayerGame(String id);
-    public void singlePlayerGameFinished(String id);
+    public Game newGame();
+    public Optional<Game> getGame(String id);
+    public void gameFinished(String id);
 }
