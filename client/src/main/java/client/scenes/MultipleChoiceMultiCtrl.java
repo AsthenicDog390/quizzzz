@@ -30,19 +30,26 @@ public class MultipleChoiceMultiCtrl {
     }
 
     public void answerA() {
+        disableAllButtons();
         giveAnswer(0);
     }
 
     public void answerB() {
+        disableAllButtons();
         giveAnswer(1);
     }
 
     public void answerC() {
+        disableAllButtons();
         giveAnswer(2);
     }
 
     public void giveAnswer(int answer) {
         mainCtrl.getMultiPlayerGame().giveAnswer(answer);
+    }
+
+    public void goBackMainMenu() {
+        mainCtrl.showMainMenu();
     }
 
     public void setQuestion(MoreExpensive question) {
@@ -58,6 +65,15 @@ public class MultipleChoiceMultiCtrl {
         this.buttonC.setText(question.getOptions()[2].getTitle());
 
         //TODO: Set images
+    }
+
+    /**
+     * Disable all the buttons so the user won't have the option to press multiple answers
+     */
+    public void disableAllButtons() {
+        buttonA.setDisable(true);
+        buttonB.setDisable(true);
+        buttonC.setDisable(true);
     }
 
 }

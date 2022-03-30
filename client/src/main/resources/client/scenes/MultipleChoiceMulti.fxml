@@ -65,7 +65,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
+      <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" onAction="#goBackMainMenu" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
       <HBox layoutX="700.0" layoutY="575.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 1">
