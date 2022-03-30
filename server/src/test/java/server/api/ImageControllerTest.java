@@ -4,8 +4,6 @@ import commons.ImageUpload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,9 +19,8 @@ class ImageControllerTest {
 
     @Test
     public void addImage() {
-        String name = "test";
         byte[] content = {1, 2, 3};
-        var img = new ImageUpload(name.getBytes());
+        var img = new ImageUpload(content);
 
         var res = sut.addImage("group", "image", img);
 
@@ -36,9 +33,8 @@ class ImageControllerTest {
 
     @Test
     public void addImageError() {
-        String name = "test";
         byte[] content = {1, 2, 3};
-        var img = new ImageUpload(name.getBytes());
+        var img = new ImageUpload(content);
 
         repo.shouldThrow = true;
 
@@ -49,9 +45,8 @@ class ImageControllerTest {
 
     @Test
     public void removeImage() {
-        String name = "test";
         byte[] content = {1, 2, 3};
-        var img = new ImageUpload(name.getBytes());
+        var img = new ImageUpload(content);
 
         sut.addImage("group", "image", img);
 
@@ -62,9 +57,8 @@ class ImageControllerTest {
 
     @Test
     public void removeImageError() {
-        String name = "test";
         byte[] content = {1, 2, 3};
-        var img = new ImageUpload(name.getBytes());
+        var img = new ImageUpload(content);
 
         repo.shouldFail = true;
 
@@ -77,9 +71,8 @@ class ImageControllerTest {
 
     @Test
     public void removeImageNotExists() {
-        String name = "test";
         byte[] content = {1, 2, 3};
-        var img = new ImageUpload(name.getBytes());
+        var img = new ImageUpload(content);
 
         sut.addImage("group", "image", img);
 

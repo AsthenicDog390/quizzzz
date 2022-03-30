@@ -7,14 +7,11 @@ import commons.Activity;
 import commons.ImageUpload;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Arrays;
@@ -23,7 +20,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-import static jakarta.ws.rs.core.MediaType.MULTIPART_FORM_DATA_TYPE;
 
 public class ActivityUtils {
     private static final String SERVER = "http://localhost:8080/";

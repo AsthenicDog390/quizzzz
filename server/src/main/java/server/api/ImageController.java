@@ -3,7 +3,6 @@ package server.api;
 import commons.ImageUpload;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import server.database.ImageRepository;
 
 import java.io.IOException;
