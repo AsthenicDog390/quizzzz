@@ -44,9 +44,16 @@ public class Main extends Application {
         var menu = FXML.load(MainMenuCtrl.class, "client", "scenes", "MainMenu.fxml");
         var howToPlay = FXML.load(HowToPlayCtrl.class, "client", "scenes", "HowToPlay.fxml");
         var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
-        var multipleChoiceSingle = FXML.load(MultipleChoiceSingleCtrl.class, "client", "scenes", "MultipleChoiceSingle.fxml");
         var serverLocation = FXML.load(ServerLocationCtrl.class, "client", "scenes", "ServerLocation.fxml");
+        var startingScreen = FXML.load(StartingScreenCtrl.class, "client", "scenes", "StartingScreen.fxml");
+        var multipleChoiceSingle = FXML.load(MultipleChoiceSingleCtrl.class, "client", "scenes", "MultipleChoiceSingle.fxml");
+        var multipleChoiceMulti = FXML.load(MultipleChoiceMultiCtrl.class, "client", "scenes", "MultipleChoiceMulti.fxml");
+        var waitingRoom = FXML.load(WaitingRoomCtrl.class, "client", "scenes", "WaitingRoom.fxml");
+        var nameSelectionMulti = FXML.load(NameSelectionMultiCtrl.class, "client", "scenes", "NameSelectionMulti.fxml");
+        var nameSelection = FXML.load(NameSelectionCtrl.class, "client", "scenes", "NameSelection.fxml");
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation, leaderboard);
+
+        mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation, startingScreen, waitingRoom, nameSelection, nameSelectionMulti, multipleChoiceMulti, leaderboard);
     }
 }
