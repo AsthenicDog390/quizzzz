@@ -6,13 +6,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MessageQueueTest {
+class MultiMessageQueueTest {
 
     @Test
     void setConsumer() {
-        var queue = new MessageQueue();
+        var queue = new MultiMessageQueue();
         var cons = new TestConsumer();
-        queue.setConsumer(cons);
+        queue.setConsumer("id", cons);
 
         assertEquals(Optional.empty(), cons.getMessage());
 
@@ -21,17 +21,17 @@ class MessageQueueTest {
 
         queue.addMessage(new TestMessage(1));
         cons = new TestConsumer();
-        queue.setConsumer(cons);
+        queue.setConsumer("id", cons);
 
         assertEquals(new TestMessage(1), cons.getMessage().get());
     }
 
     @Test
     void resetConsumer() {
-        var queue = new MessageQueue();
+        var queue = new MultiMessageQueue();
         var cons = new TestConsumer();
-        queue.setConsumer(cons);
-        queue.resetConsumer();
+        queue.setConsumer("id", cons);
+        queue.resetConsumer("id");
         queue.addMessage(new TestMessage(0));
 
         assertEquals(Optional.empty(), cons.getMessage());
@@ -39,7 +39,7 @@ class MessageQueueTest {
 
     @Test
     void addMessage() {
-        var queue = new MessageQueue();
+        var queue = new MultiMessageQueue();
         assertEquals(0, queue.size());
         queue.addMessage(new TestMessage(0));
         assertEquals(1, queue.size());

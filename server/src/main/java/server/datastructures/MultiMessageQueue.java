@@ -5,23 +5,28 @@ import commons.messages.Message;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class MessageQueue {
-    private Queue<Message> messageQueue;
+public class MultiMessageQueue {
+    private ArrayList<Message> messages;
 
-    private Optional<Consumer<Message>> consumer;
+    private HashMap<String, Optional<Consumer<Message>>> consumers;
+    private HashMap<String, Integer> indices;
 
-    public MessageQueue() {
-        this.messageQueue = new LinkedList<>();
-        this.consumer = Optional.empty();
+    public MultiMessageQueue() {
+        this.messages = new ArrayList<>();
+        this.consumers = new HashMap<>();
+        this.indices = new HashMap<>();
     }
 
     /**
      * setConsumer sets the message consumer of the queue.
      * @param consumer The consumer that will be set.
      */
-    public void setConsumer(Consumer<Message> consumer) {
+    public void setConsumer(String playerId, Consumer<Message> consumer) {
         synchronized (this) {
-            this.consumer = Optional.of(consumer);
+            this.consumers.put(playerId, Optional.of(consumer));
+            if (!this.indices.containsKey(playerId)) {
+                this.indices.put(playerId, 0);
+            }
 
             this.maybeSendMessage();
         }
@@ -30,9 +35,9 @@ public class MessageQueue {
     /**
      * resetConsumer removes the consumer from the queue.
      */
-    public void resetConsumer() {
+    public void resetConsumer(String playerId) {
         synchronized (this) {
-            this.consumer = Optional.empty();
+            this.consumers.put(playerId, Optional.empty());
         }
     }
 
@@ -43,7 +48,7 @@ public class MessageQueue {
      */
     public void addMessage(Message m) {
         synchronized (this) {
-            this.messageQueue.add(m);
+            this.messages.add(m);
 
             this.maybeSendMessage();
         }
@@ -54,14 +59,19 @@ public class MessageQueue {
      * After the message is sent the consumer is reset.
      */
     private void maybeSendMessage() {
-        if (this.consumer.isPresent() && this.messageQueue.size() > 0) {
-            this.consumer.get().accept(this.messageQueue.poll());
-            this.consumer = Optional.empty();
+        for (String id: this.consumers.keySet()) {
+            var consumer = this.consumers.get(id);
+            int index = this.indices.get(id);
+            if (consumer.isPresent() && this.messages.size() > index) {
+                consumer.get().accept(this.messages.get(index));
+                this.consumers.put(id, Optional.empty());
+                this.indices.put(id, index + 1);
+            }
         }
     }
 
     public int size() {
-        return this.messageQueue.size();
+        return this.messages.size();
     }
 
     /**
@@ -70,7 +80,7 @@ public class MessageQueue {
      */
     public List<Message> getMessages() {
         synchronized (this) {
-            return new ArrayList<>(this.messageQueue);
+            return new ArrayList<>(this.messages);
         }
     }
 }
