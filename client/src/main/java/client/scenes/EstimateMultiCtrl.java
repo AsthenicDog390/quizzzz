@@ -1,32 +1,24 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
-import commons.questions.LessExpensive;
 import com.google.inject.Inject;
-import commons.questions.MoreExpensive;
+import commons.questions.Estimate;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MultipleChoiceSingleCtrl {
+public class EstimateMultiCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
-    private MoreExpensive question;
+    private Estimate question;
 
     @FXML
-    private Label score;
+    private TextField answer;
     @FXML
-    private Button buttonA;
-    @FXML
-    private Button buttonB;
-    @FXML
-    private Button buttonC;
+    private Button confirm;
     @FXML
     private Label questionText;
     @FXML
@@ -37,64 +29,39 @@ public class MultipleChoiceSingleCtrl {
     private Button YesExit;
     @FXML
     private Button NoExit;
+    @FXML
+    private Label warning;
 
     @Inject
-    public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public EstimateMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
 
-
-    public void answerA() {
-        disableAllButtons();
-        giveAnswer(0);
-    }
-
-    public void answerB() {
-        disableAllButtons();
-        giveAnswer(1);
-    }
-
-    public void answerC() {
-        disableAllButtons();
-        giveAnswer(2);
-    }
-
-    public void giveAnswer(int answer) {
-        mainCtrl.getSinglePlayerGame().giveAnswer(answer);
-    }
-
-
-    public void setScore(int tscore){
-        this.score.setText("Your Score:"+"\n"+tscore);
-    }
-
-    public void setQuestion(MoreExpensive question) {
-        this.question = question;
-        if (question instanceof LessExpensive) {
-            this.questionText.setText("What activity takes less energy?");
-        } else {
-            this.questionText.setText("What activity takes more energy?");
+    public void answerField() {
+        boolean checkFailed = false;
+        try {
+            int d = Integer.parseInt(answer.getText());
+            warning.setVisible(false);
+            disableAll();
+            mainCtrl.getMultiPlayerGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+            //TODO: last line causes a null pointer exception
+        } catch (NumberFormatException nfe) {
+            answer.setText("");
+            warning.setVisible(true);
+            checkFailed = true;
         }
+    }
 
-        this.buttonA.setText(question.getOptions()[0].getTitle());
-        this.buttonB.setText(question.getOptions()[1].getTitle());
-        this.buttonC.setText(question.getOptions()[2].getTitle());
+    public void setQuestion(Estimate question) {
+        this.question = question;
+        this.questionText.setText("How much energy does: " + question.getActivity().getTitle() + " consume?");
 
         //TODO: Set images
     }
 
     public void goBackMainMenu() {
         mainCtrl.showMainMenu();
-    }
-
-    /**
-     * Disable all the buttons so the user won't have the option to press multiple answers
-     */
-    public void disableAllButtons() {
-        buttonA.setDisable(true);
-        buttonB.setDisable(true);
-        buttonC.setDisable(true);
     }
 
     /**
@@ -109,7 +76,7 @@ public class MultipleChoiceSingleCtrl {
         TimerTask timeOut = new TimerTask() {
             @Override
             public void run() {
-                disableAllButtons();
+                disableAll();
                 progressBarTimer.cancel();
             }
         };
@@ -122,11 +89,16 @@ public class MultipleChoiceSingleCtrl {
             public void run() {
                 double progress = progressBar.getProgress();
                 if(progress>0.004)
-                progressBar.setProgress(progress-0.004);
+                    progressBar.setProgress(progress-0.004);
             }
         };
         gameTimer.schedule(timeOut,10000);
         progressBarTimer.schedule(lowerBar,0,40);
+    }
+
+    private void disableAll() {
+        answer.setDisable(true);
+        confirm.setDisable(true);
     }
 
     public void showDialogExit() {
