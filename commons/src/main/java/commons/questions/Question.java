@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = MoreExpensive.class, name = "moreExpensive"),
-        @JsonSubTypes.Type(value = LessExpensive.class, name = "lessExpensive")
+        @JsonSubTypes.Type(value = LessExpensive.class, name = "lessExpensive"),
+        @JsonSubTypes.Type(value = Estimate.class, name = "Estimate")
 })
 public abstract class Question {
 }
