@@ -52,7 +52,6 @@ public class MainCtrl {
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
 
-
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
@@ -86,17 +85,11 @@ public class MainCtrl {
         this.waitingRoomCtrl = waitingRoom.getKey();
         this.waitingRoom = new Scene(waitingRoom.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
+       this.nameSelectionCtrl = nameSelection.getKey();
+       this.nameSelection = new Scene(nameSelection.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
-
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
 
         this.startingScreenCtrl = startingScreen.getKey();
         this.startingScreen = new Scene(startingScreen.getValue());
