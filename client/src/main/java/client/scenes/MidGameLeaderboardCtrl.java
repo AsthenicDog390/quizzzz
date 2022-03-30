@@ -61,13 +61,13 @@ public class MidGameLeaderboardCtrl {
     }
 
     /**
-     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time
+     * Starting 2 timers corresponding to the progress bar
      */
     public void startTimer() {
         Timer gameTimer = new Timer();
         Timer progressBarTimer = new Timer();
         /**
-         * Task for disabling the buttons and not letting the progress bar go under 0
+         * Task for not letting the progress bar go under 0
          */
         TimerTask timeOut = new TimerTask() {
             @Override
