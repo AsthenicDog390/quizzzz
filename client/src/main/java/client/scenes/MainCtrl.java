@@ -50,9 +50,11 @@ public class MainCtrl {
     private NameSelectionCtrl nameSelectionCtrl;
     private Scene nameSelection;
 
+    private NameSelectionMultiCtrl nameSelectionMultiCtrl;
+    private Scene nameSelectionMulti;
+
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
-
 
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
