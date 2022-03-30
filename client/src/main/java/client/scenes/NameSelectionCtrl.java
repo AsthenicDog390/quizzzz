@@ -12,9 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NameSelectionCtrl implements Initializable {
-
-    private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private final ServerUtils server;
 
     @FXML
     private TextField nameField;
@@ -24,9 +23,9 @@ public class NameSelectionCtrl implements Initializable {
     private AnchorPane background;
 
     @Inject
-    public NameSelectionCtrl(ServerUtils server, MainCtrl mainCtrl) {
-        this.server = server;
+    public NameSelectionCtrl(MainCtrl mainCtrl, ServerUtils server) {
         this.mainCtrl = mainCtrl;
+        this.server = server;
     }
 
     @FXML

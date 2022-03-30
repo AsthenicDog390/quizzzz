@@ -145,6 +145,7 @@ public class MainCtrl {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
         multipleChoiceSingleCtrl.startTimer();
+        multipleChoiceSingleCtrl.setScore(0);
     }
 
     public void showNameSelect(){

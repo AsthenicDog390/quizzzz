@@ -34,7 +34,7 @@ public class MainMenuCtrl {
         System.exit(0);
     }
 
-    public void showNameScreen(){mainCtrl.showNameSelect();}
+    public void showNameScreen(){mainCtrl.showNameSelection();}
 
     public void showNameSelectionMulti(){mainCtrl.showNameSelectionMulti();}
 }

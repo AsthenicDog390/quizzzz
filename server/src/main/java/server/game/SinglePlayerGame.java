@@ -22,6 +22,7 @@ public class SinglePlayerGame {
     private State state;
     private int currentQuestion;
 
+
     public SinglePlayerGame(UUID id, List<Question> questions) {
         if (questions == null) {
             throw new IllegalArgumentException("question list must not be null");
