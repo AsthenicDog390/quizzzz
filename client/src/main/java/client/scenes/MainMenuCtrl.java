@@ -33,6 +33,9 @@ public class MainMenuCtrl {
         mainCtrl.startSinglePlayerGame();
     }
 
+    public void showNameSelectionMulti() {
+        mainCtrl.showNameSelectionMulti();
+    }
 
     public void closeApp() {
         System.exit(0);
