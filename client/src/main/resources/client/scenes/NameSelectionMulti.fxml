@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.NameSelectionMultiCtrl">
+    <children>
+        <AnchorPane fx:id="background" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #183864;">
+            <children>
+                <Text fill="WHITE" layoutX="307.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please insert your name" textAlignment="CENTER">
+                    <font>
+                        <Font name="DotGothic16 Regular" size="58.0" />
+                    </font>
+                </Text>
+                <Button layoutX="1100.0" layoutY="14.0" onAction="#showMainMenu" mnemonicParsing="false" styleClass="return-button" text="Return to menu">
+                    <font>
+                        <Font name="DotGothic16 Regular" size="22.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="nameField" layoutX="427.0" layoutY="328.0" prefHeight="51.0" prefWidth="427.0" promptText="Your name">
+                    <font>
+                        <Font name="DotGothic16 Regular" size="25.0" />
+                    </font>
+                </TextField>
+                <Button layoutX="545.0" layoutY="444.0" mnemonicParsing="false" onAction="#showWaitingRoom" prefHeight="53.0" prefWidth="192.0" styleClass="continue-button" text="Continue">
+                    <font>
+                        <Font name="DotGothic16 Regular" size="22.0" />
+                    </font>
+                </Button>
+                <AnchorPane fx:id="errorPopup" layoutX="371.0" layoutY="407.0" prefHeight="173.0" prefWidth="538.0" style="-fx-background-color: white;" visible="false">
+                    <children>
+                        <Text layoutX="8.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This name already exists. Please choose another one!">
+                            <font>
+                                <Font name="DotGothic16 Regular" size="20.0" />
+                            </font>
+                        </Text>
+                        <Button layoutX="180.0" layoutY="87.0" mnemonicParsing="false" onAction="#closeErrorPopup" prefHeight="59.0" prefWidth="177.0" styleClass="wrong-name-popup-button" text="Ok">
+                            <font>
+                                <Font name="DotGothic16 Regular" size="22.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+    <stylesheets>
+        <URL value="@../../stylesheets/button.css" />
+        <URL value="@../../stylesheets/font.css" />
+    </stylesheets>
+</AnchorPane>
