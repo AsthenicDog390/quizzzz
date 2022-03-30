@@ -65,9 +65,6 @@ public class MainCtrl {
     private EstimateMultiCtrl estimateMultiCtrl;
     private Scene estimateMulti;
 
-    private SinglePlayerGame singlePlayerGameCtrl;
-    private Scene singlePlayerGame;
-
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
     private Scene multipleChoiceMulti;
 
@@ -208,14 +205,13 @@ public class MainCtrl {
     }
     ////
 
-    public SinglePlayerGame getGame() {
-        return this.singlePlayerGameCtrl;
-    }
+
     public SinglePlayerGame getSinglePlayerGame() {
         return this.singlePlayerGame;
     }
 
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+
 
     public void startSinglePlayerGame() {
         this.singlePlayerGame = new SinglePlayerGame(this);

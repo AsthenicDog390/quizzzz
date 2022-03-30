@@ -50,7 +50,7 @@ public class EstimateSingleCtrl {
         if(!checkFailed){
             warning.setVisible(false);
             disableAll();
-            mainCtrl.getGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
+            mainCtrl.getSinglePlayerGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
             //TODO: last line causes a null pointer exception
         }
     }
