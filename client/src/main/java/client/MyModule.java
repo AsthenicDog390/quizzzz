@@ -31,8 +31,10 @@ public class MyModule implements Module {
         binder.bind(HowToPlayCtrl.class).in(Scopes.SINGLETON);
         binder.bind(WaitingRoomCtrl.class).in(Scopes.SINGLETON);
         binder.bind(NameSelectionCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(StartingScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultipleChoiceSingleCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(StartingScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(NameSelectionMultiCtrl.class).in(Scopes.SINGLETON);
+
 
     }
 }
