@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.ImageUpload;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,9 @@ class ImageControllerTest {
     public void addImage() {
         String name = "test";
         byte[] content = {1, 2, 3};
-        MultipartFile mockFile = new MockMultipartFile(name, content);
+        var img = new ImageUpload(name.getBytes());
 
-        var res = sut.addImage("group", "image", mockFile);
+        var res = sut.addImage("group", "image", img);
 
         assertEquals(HttpStatus.OK, res.getStatusCode());
 
@@ -37,11 +38,11 @@ class ImageControllerTest {
     public void addImageError() {
         String name = "test";
         byte[] content = {1, 2, 3};
-        MultipartFile mockFile = new MockMultipartFile(name, content);
+        var img = new ImageUpload(name.getBytes());
 
         repo.shouldThrow = true;
 
-        var res = sut.addImage("group", "image", mockFile);
+        var res = sut.addImage("group", "image", img);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
     }
@@ -50,9 +51,9 @@ class ImageControllerTest {
     public void removeImage() {
         String name = "test";
         byte[] content = {1, 2, 3};
-        MultipartFile mockFile = new MockMultipartFile(name, content);
+        var img = new ImageUpload(name.getBytes());
 
-        sut.addImage("group", "image", mockFile);
+        sut.addImage("group", "image", img);
 
         var res = sut.removeImage("group", "image");
 
@@ -63,11 +64,11 @@ class ImageControllerTest {
     public void removeImageError() {
         String name = "test";
         byte[] content = {1, 2, 3};
-        MultipartFile mockFile = new MockMultipartFile(name, content);
+        var img = new ImageUpload(name.getBytes());
 
         repo.shouldFail = true;
 
-        sut.addImage("group", "image", mockFile);
+        sut.addImage("group", "image", img);
 
         var res = sut.removeImage("group", "image");
 
@@ -78,9 +79,9 @@ class ImageControllerTest {
     public void removeImageNotExists() {
         String name = "test";
         byte[] content = {1, 2, 3};
-        MultipartFile mockFile = new MockMultipartFile(name, content);
+        var img = new ImageUpload(name.getBytes());
 
-        sut.addImage("group", "image", mockFile);
+        sut.addImage("group", "image", img);
 
         var res = sut.removeImage("group", "image");
 

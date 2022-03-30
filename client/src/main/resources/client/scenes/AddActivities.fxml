@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddActivitiesCtrl">
+   <children>
+      <Button fx:id="pickFileLocationButton" layoutX="271.0" layoutY="200.0" mnemonicParsing="false" onAction="#pickFile" text="Pick File" />
+      <TextField fx:id="fileLocationField" layoutX="226.0" layoutY="158.0" promptText="Selected File" />
+      <Button layoutX="274.0" layoutY="250.0" mnemonicParsing="false" onAction="#submitActivitiesFile" text="Submit" />
+   </children>
+</AnchorPane>

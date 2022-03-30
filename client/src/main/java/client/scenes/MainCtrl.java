@@ -20,8 +20,11 @@ import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.io.File;
 
 public class MainCtrl {
 
@@ -51,17 +54,23 @@ public class MainCtrl {
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
 
-
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
     private SinglePlayerGame singlePlayerGameCtrl;
     private Scene singlePlayerGame;
 
+    private AddActivitiesCtrl addActivitiesCtrl;
+    private Scene addActivities;
+
+    FileChooser chooser;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
-                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection) {
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection,
+                           Pair<AddActivitiesCtrl, Parent> addActivities) {
+        chooser = new FileChooser();
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -90,6 +99,9 @@ public class MainCtrl {
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
+
+        this.addActivitiesCtrl = addActivities.getKey();
+        this.addActivities = new Scene(addActivities.getValue());
 
 
         showMainMenu();
@@ -140,6 +152,11 @@ public class MainCtrl {
         multipleChoiceSingleCtrl.startTimer();
     }
 
+    public void showAddActivities() {
+        primaryStage.setTitle("Add Activities");
+        primaryStage.setScene(addActivities);
+    }
+
     public SinglePlayerGame getGame() {
         return this.singlePlayerGameCtrl;
     }
@@ -157,6 +174,14 @@ public class MainCtrl {
 
     public void gameEnded() {
         this.showMainMenu();
+    }
 
+    public String pickFileLocation() {
+        File file = chooser.showOpenDialog(primaryStage);
+        if (file == null) {
+            return null;
+        }
+
+        return file.getAbsolutePath();
     }
 }
