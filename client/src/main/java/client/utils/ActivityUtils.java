@@ -96,7 +96,7 @@ public class ActivityUtils {
             }
             var activities = readActivities(new InputStreamReader(file.getInputStream(activitiesEntry)));
             validateActivities(activities, file);
-//            addActivities(activities);
+            addActivities(activities);
             addActivityImages(activities, file);
         } catch (IOException e) {
             throw new RuntimeException("could not read zip file", e);
