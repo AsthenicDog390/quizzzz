@@ -42,16 +42,14 @@ public class EstimateMultiCtrl {
         boolean checkFailed = false;
         try {
             int d = Integer.parseInt(answer.getText());
-        } catch (NumberFormatException nfe) {
-            answer.setText("");
-            warning.setVisible(true);
-            checkFailed = true;
-        }
-        if(!checkFailed){
             warning.setVisible(false);
             disableAll();
             mainCtrl.getMultiPlayerGame().giveAnswer(Integer.parseInt(answer.getText())); //be careful when receiving the answer in the server
             //TODO: last line causes a null pointer exception
+        } catch (NumberFormatException nfe) {
+            answer.setText("");
+            warning.setVisible(true);
+            checkFailed = true;
         }
     }
 

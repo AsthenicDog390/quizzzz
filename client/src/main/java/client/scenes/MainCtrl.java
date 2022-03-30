@@ -124,11 +124,7 @@ public class MainCtrl {
         this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
 
-
         showMainMenu();
-//        showMultipleSingle();
-        //showEstimateSingle();
-        //showEstimateMulti();
         primaryStage.show();
     }
 
@@ -190,8 +186,6 @@ public class MainCtrl {
         primaryStage.setScene(multipleChoiceMulti);
     }
 
-
-    //testing purposes
     public void showEstimateSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(estimateSingle);
@@ -203,8 +197,6 @@ public class MainCtrl {
         primaryStage.setScene(estimateMulti);
         estimateMultiCtrl.startTimer();
     }
-    ////
-
 
     public SinglePlayerGame getSinglePlayerGame() {
         return this.singlePlayerGame;
