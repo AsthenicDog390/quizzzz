@@ -68,15 +68,21 @@ public class MainCtrl {
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
     private Scene multipleChoiceMulti;
 
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
+
     private SinglePlayerGame singlePlayerGame;
     private MultiPlayerGame multiPlayerGame;
+
+
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
                            Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, 
                            Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
-                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti) {
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard, Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti) {
+
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -97,11 +103,8 @@ public class MainCtrl {
         this.waitingRoomCtrl = waitingRoom.getKey();
         this.waitingRoom = new Scene(waitingRoom.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
+       this.nameSelectionCtrl = nameSelection.getKey();
+       this.nameSelection = new Scene(nameSelection.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
@@ -115,14 +118,11 @@ public class MainCtrl {
         this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
         this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
-
         this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene (leaderboard.getValue());
 
         showMainMenu();
         primaryStage.show();
@@ -174,6 +174,11 @@ public class MainCtrl {
     public void showStartingScreen(){
         primaryStage.setTitle("Starting Screen");
         primaryStage.setScene(startingScreen);
+    }
+
+    public void showLeaderboard(){
+        primaryStage.setTitle("LeaderBoard");
+        primaryStage.setScene(leaderboard);
     }
 
     public void showNameSelectionMulti(){
@@ -232,5 +237,5 @@ public class MainCtrl {
             this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
         }
     }
-
 }
+
