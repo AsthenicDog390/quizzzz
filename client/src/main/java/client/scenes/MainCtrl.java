@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -49,23 +50,32 @@ public class MainCtrl {
     private NameSelectionCtrl nameSelectionCtrl;
     private Scene nameSelection;
 
+    private NameSelectionMultiCtrl nameSelectionMultiCtrl;
+    private Scene nameSelectionMulti;
+
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
-
 
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
-    private NameSelectionMultiCtrl nameSelectionMultiCtrl;
-    private Scene nameSelectionMulti;
+    private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
+    private Scene multipleChoiceMulti;
 
-    private SinglePlayerGame singlePlayerGameCtrl;
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
+
+    private SinglePlayerGame singlePlayerGame;
+    private MultiPlayerGame multiPlayerGame;
+
+
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay, Pair<MultipleChoiceSingleCtrl,
-                           Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation, Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom,
-                           Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, Pair<NameSelectionCtrl, Parent> nameSelection) {
-
+                           Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
+                           Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, 
+                           Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard) {
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -86,23 +96,20 @@ public class MainCtrl {
         this.waitingRoomCtrl = waitingRoom.getKey();
         this.waitingRoom = new Scene(waitingRoom.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
+       this.nameSelectionCtrl = nameSelection.getKey();
+       this.nameSelection = new Scene(nameSelection.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
 
-        this.nameSelectionCtrl = nameSelection.getKey();
-        this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
+        this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
+        this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
 
         this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene (leaderboard.getValue());
 
         showMainMenu();
 //        showMultipleSingle();
@@ -157,17 +164,33 @@ public class MainCtrl {
         primaryStage.setScene(startingScreen);
     }
 
+    public void showLeaderboard(){
+        primaryStage.setTitle("LeaderBoard");
+        primaryStage.setScene(leaderboard);
+    }
+
     public void showNameSelectionMulti(){
         primaryStage.setTitle("Multiplayer Name Selection");
         primaryStage.setScene(nameSelectionMulti);
     }
 
-    public SinglePlayerGame getGame() {
-        return this.singlePlayerGameCtrl;
+    private void showMultipleMultiSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(multipleChoiceMulti);
     }
 
+    public SinglePlayerGame getSinglePlayerGame() {
+        return this.singlePlayerGame;
+    }
+
+    public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+
     public void startSinglePlayerGame() {
-        this.singlePlayerGameCtrl = new SinglePlayerGame(this);
+        this.singlePlayerGame = new SinglePlayerGame(this);
+    }
+
+    public void startMultiPlayerGame() {
+        this.multiPlayerGame = new MultiPlayerGame(this);
     }
 
     public void setQuestionSinglePlayer(Question question) {
@@ -179,6 +202,15 @@ public class MainCtrl {
 
     public void gameEnded() {
         this.showMainMenu();
+        this.singlePlayerGame = null;
+        this.multiPlayerGame = null;
+    }
 
+    public void setQuestionMultiPlayer(Question question) {
+        if (question instanceof MoreExpensive) {
+            this.showMultipleMultiSingle();
+            this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
+        }
     }
 }
+

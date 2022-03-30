@@ -29,6 +29,7 @@ public class MyModule implements Module {
         binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MainMenuCtrl.class).in(Scopes.SINGLETON);
         binder.bind(HowToPlayCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
         binder.bind(WaitingRoomCtrl.class).in(Scopes.SINGLETON);
         binder.bind(NameSelectionCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MultipleChoiceSingleCtrl.class).in(Scopes.SINGLETON);
