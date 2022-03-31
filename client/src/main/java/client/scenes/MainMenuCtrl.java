@@ -17,17 +17,22 @@ public class MainMenuCtrl {
         mainCtrl.showHowToPlay();
     }
 
+    public void showLead() {
+        mainCtrl.showLeaderboard();
+    }
 
-    public void showWaitingRoom() {
+    public void showWaitingRoom(){
         mainCtrl.showWaitingRoom();
     }
 
-    public void showNameSelection() {
+    public void showNameSelection(){
         mainCtrl.showNameSelection();
     }
 
-    public void startSinglePlayerGame() {
-        mainCtrl.startSinglePlayerGame();
+
+
+    public void showNameSelectionMulti() {
+        mainCtrl.showNameSelectionMulti();
     }
 
     public void closeApp() {

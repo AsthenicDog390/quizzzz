@@ -9,36 +9,36 @@ import org.glassfish.jersey.client.ClientConfig;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
-public class SinglePlayerGame {
+public class MultiPlayerGame {
     private static final String SERVER = "http://localhost:8080/";
-    private final static String API_PATH = "/api/games/singleplayer";
+    private final static String API_PATH = "/api/games/multiplayer";
     private final MainCtrl mainCtrl;
 
+    private String playerId;
     private String id;
-    private String name;
 
     private boolean gameEnded;
 
-    public SinglePlayerGame(MainCtrl mainCtrl, String name) {
+    public MultiPlayerGame(MainCtrl mainCtrl) {
         this.gameEnded = false;
-        this.name = name;
-        this.id = newGame();
+        var m = newGame();
+        this.id = m.getId();
+        this.playerId = m.getPlayerId();
         this.mainCtrl = mainCtrl;
         this.subscribeToMessages();
-        mainCtrl.showStartingScreen();
     }
 
     /**
      * newGame registers the current game with the server and sets the game id
      * @return the id which the server assigned to this game
      */
-    private String newGame() {
+    private NewGameMessage newGame() {
         var m = ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(API_PATH).path("new") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), NewGameMessage.class);
-        return m.getId();
+                .get(NewGameMessage.class);
+        return m;
     }
 
     /**
@@ -48,7 +48,8 @@ public class SinglePlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH).path(this.id) //
+                .target(SERVER).path(API_PATH) //
+                .path(this.id).path(this.playerId) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(a, APPLICATION_JSON));
@@ -62,7 +63,8 @@ public class SinglePlayerGame {
         new Thread(() -> {
             while (!gameEnded) {
                 var message = ClientBuilder.newClient(new ClientConfig())
-                        .target(SERVER).path(API_PATH).path(this.id)
+                        .target(SERVER).path(API_PATH)
+                        .path(this.id).path(this.playerId)
                         .request(APPLICATION_JSON)
                         .accept(APPLICATION_JSON)
                         .get(Message.class);
@@ -81,7 +83,7 @@ public class SinglePlayerGame {
         if (m instanceof NextQuestionMessage) {
             //TODO(Friso): provide the question to the question controller
             Platform.runLater(() -> {
-                mainCtrl.setQuestionSinglePlayer(((NextQuestionMessage) m).getQuestion());
+                mainCtrl.setQuestionMultiPlayer(((NextQuestionMessage) m).getQuestion());
             });
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;

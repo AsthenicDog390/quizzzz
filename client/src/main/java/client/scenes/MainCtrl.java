@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -46,10 +47,13 @@ public class MainCtrl {
     private Scene howToPlay;
 
     private WaitingRoomCtrl waitingRoomCtrl;
-    private Scene waitRoom;
+    private Scene waitingRoom;
 
     private NameSelectionCtrl nameSelectionCtrl;
     private Scene nameSelection;
+
+    private NameSelectionMultiCtrl nameSelectionMultiCtrl;
+    private Scene nameSelectionMulti;
 
     private StartingScreenCtrl startingScreenCtrl;
     private Scene startingScreen;
@@ -57,8 +61,22 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
-    private SinglePlayerGame singlePlayerGameCtrl;
-    private Scene singlePlayerGame;
+    private EstimateSingleCtrl estimateSingleCtrl;
+    private Scene estimateSingle;
+
+    private EstimateMultiCtrl estimateMultiCtrl;
+    private Scene estimateMulti;
+
+    private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
+    private Scene multipleChoiceMulti;
+
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
+
+    private SinglePlayerGame singlePlayerGame;
+    private MultiPlayerGame multiPlayerGame;
+
+
 
     private AddActivitiesCtrl addActivitiesCtrl;
     private Scene addActivities;
@@ -68,7 +86,8 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
-                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection,
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti,
                            Pair<AddActivitiesCtrl, Parent> addActivities) {
         chooser = new FileChooser();
 
@@ -89,13 +108,10 @@ public class MainCtrl {
         this.howToPlay = new Scene(howToPlay.getValue());
 
         this.waitingRoomCtrl = waitingRoom.getKey();
-        this.waitRoom = new Scene(waitingRoom.getValue());
+        this.waitingRoom = new Scene(waitingRoom.getValue());
 
         this.nameSelectionCtrl = nameSelection.getKey();
         this.nameSelection = new Scene(nameSelection.getValue());
-
-        this.startingScreenCtrl = startingScreen.getKey();
-        this.startingScreen = new Scene(startingScreen.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
@@ -103,9 +119,25 @@ public class MainCtrl {
         this.addActivitiesCtrl = addActivities.getKey();
         this.addActivities = new Scene(addActivities.getValue());
 
+        this.estimateSingleCtrl = estimateSingle.getKey();
+        this.estimateSingle = new Scene(estimateSingle.getValue());
+
+        this.estimateMultiCtrl = estimateMulti.getKey();
+        this.estimateMulti = new Scene(estimateMulti.getValue());
+
+        this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
+        this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
+
+        this.nameSelectionMultiCtrl = nameSelectionMulti.getKey();
+        this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene (leaderboard.getValue());
+
+        this.startingScreenCtrl = startingScreen.getKey();
+        this.startingScreen = new Scene(startingScreen.getValue());
 
         showMainMenu();
-//        showMultipleSingle();
         primaryStage.show();
     }
 
@@ -133,7 +165,7 @@ public class MainCtrl {
 
     public void showWaitingRoom() {
         primaryStage.setTitle("Waiting Room");
-        primaryStage.setScene(waitRoom);
+        primaryStage.setScene(waitingRoom);
     }
 
     public void showNameSelection() {
@@ -141,15 +173,51 @@ public class MainCtrl {
         primaryStage.setScene(nameSelection);
     }
 
-    public void showStartingScreen() {
-        primaryStage.setTitle("Starting Screen");
-        primaryStage.setScene(startingScreen);
-    }
-
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
-        multipleChoiceSingleCtrl.startTimer();
+    }
+
+    public void showNameSelect(){
+        primaryStage.setTitle("Name Selection");
+        primaryStage.setScene(nameSelection);
+    }
+
+    public void showStartingScreen(){
+        primaryStage.setTitle("Starting Screen");
+        primaryStage.setScene(startingScreen);
+        startingScreenCtrl.start();
+    }
+
+    public void showLeaderboard(){
+        primaryStage.setTitle("LeaderBoard");
+        primaryStage.setScene(leaderboard);
+    }
+
+    public void showNameSelectionMulti(){
+        primaryStage.setTitle("Multiplayer Name Selection");
+        primaryStage.setScene(nameSelectionMulti);
+    }
+
+    private void showMultipleMultiSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(multipleChoiceMulti);
+    }
+
+    public void showEstimateSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(estimateSingle);
+        estimateSingleCtrl.startTimer();
+    }
+
+    public void showEstimateMulti() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(estimateMulti);
+        estimateMultiCtrl.startTimer();
+    }
+
+    public SinglePlayerGame getSinglePlayerGame() {
+        return this.singlePlayerGame;
     }
 
     public void showAddActivities() {
@@ -157,12 +225,19 @@ public class MainCtrl {
         primaryStage.setScene(addActivities);
     }
 
-    public SinglePlayerGame getGame() {
+    public SinglePlayerGame geSinglePlayertGame() {
         return this.singlePlayerGameCtrl;
     }
 
-    public void startSinglePlayerGame() {
-        this.singlePlayerGameCtrl = new SinglePlayerGame(this);
+    public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+
+
+    public void startSinglePlayerGame(String name) {
+        this.singlePlayerGame = new SinglePlayerGame(this,name);
+    }
+
+    public void startMultiPlayerGame() {
+        this.multiPlayerGame = new MultiPlayerGame(this);
     }
 
     public void setQuestionSinglePlayer(Question question) {
@@ -173,7 +248,9 @@ public class MainCtrl {
     }
 
     public void gameEnded() {
-        this.showMainMenu();
+        this.showMainMenu();        
+        this.singlePlayerGame = null;
+        this.multiPlayerGame = null;
     }
 
     public String pickFileLocation() {
@@ -184,4 +261,12 @@ public class MainCtrl {
 
         return file.getAbsolutePath();
     }
+
+    public void setQuestionMultiPlayer(Question question) {
+        if (question instanceof MoreExpensive) {
+            this.showMultipleMultiSingle();
+            this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
+        }
+    }
 }
+

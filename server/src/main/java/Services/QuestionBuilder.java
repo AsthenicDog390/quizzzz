@@ -1,6 +1,7 @@
 package Services;
 
 import commons.Activity;
+import commons.questions.Estimate;
 import commons.questions.LessExpensive;
 import commons.questions.MoreExpensive;
 import server.database.ActivityRepository;
@@ -14,12 +15,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class QuestionBuilder {
 
     ActivityRepository repo;
-    String gameID;
     Set<Long> ids = new HashSet<>();
 
-    public QuestionBuilder(ActivityRepository repo, String gameID) {
+    public QuestionBuilder(ActivityRepository repo) {
         this.repo = repo;
-        this.gameID = gameID;
     }
     /*
     private List<Activity> generate3Activities(ActivityRepository repo){
@@ -119,6 +118,18 @@ public class QuestionBuilder {
             }
         }
         LessExpensive ans = new LessExpensive(options, answer);
+        return ans;
+    }
+
+    public Estimate genereateEstimateQuestion(){
+        long len = repo.count();
+        var id = (long) ThreadLocalRandom.current().nextInt(0, (int)len);
+        while (ids.contains(id)) {
+            id = ThreadLocalRandom.current().nextInt(1, (int) len);
+        }
+        ids.add(id);
+        Activity activity = repo.getById(id);
+        Estimate ans = new Estimate(activity);
         return ans;
     }
 }

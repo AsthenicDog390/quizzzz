@@ -1,42 +1,79 @@
 package server.services;
 
+import Services.QuestionBuilder;
 import commons.Activity;
+import commons.questions.LessExpensive;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import org.springframework.stereotype.Service;
-import server.game.SinglePlayerGame;
+import server.database.ActivityRepository;
+import server.database.GameRepository;
+import server.database.PlayerRepository;
+import server.database.ScoreRepository;
+import server.game.Game;
 
 import java.util.*;
 
 @Service
 public class MemoryGameService implements GameService {
-    private Map<String, SinglePlayerGame> singlePlayerGames;
+    private final GameRepository gameRepository;
+    private final ScoreRepository scoreRepository;
+    private final PlayerRepository playerRepository;
+    private final Random random;
+    private Map<String, Game> singlePlayerGames;
+    private QuestionBuilder questionBuilder;
 
-    public MemoryGameService() {
+    public MemoryGameService(
+            GameRepository gameRepository,
+            PlayerRepository playerRepository,
+            ScoreRepository scoreRepository,
+            ActivityRepository activityRepository,
+            Random random
+    ) {
         this.singlePlayerGames = new HashMap<>();
+        this.gameRepository = gameRepository;
+        this.playerRepository = playerRepository;
+        this.scoreRepository = scoreRepository;
+        this.questionBuilder = new QuestionBuilder(activityRepository);
+        this.random = random;
     }
 
     @Override
-    public SinglePlayerGame newSinglePlayerGame() {
+    public Game newGame() {
         var questions = new ArrayList<Question>(20);
+
         for (int i = 0; i < 20; i++) {
-            questions.add(makeQuestion(i));
+            int val = Math.abs(random.nextInt()) % 2;
+            Question question;
+            switch (val) {
+                case 1:
+                    question = questionBuilder.generateMoreExpensiveQuestion();
+                    break;
+                default:
+                    question = questionBuilder.generateLessExpensiveQuestion();
+                    break;
+            }
+
+            questions.add(question);
         }
 
         UUID uuid = UUID.randomUUID();
-        var game = new SinglePlayerGame(uuid, questions);
+        var game = new Game(uuid, questions, gameRepository, playerRepository, scoreRepository, new TimerService());
         singlePlayerGames.put(game.getId(), game);
+
+        var obj = new commons.game.Game(uuid.toString());
+        gameRepository.save(obj);
 
         return game;
     }
 
     @Override
-    public Optional<SinglePlayerGame> getSinglePlayerGame(String id) {
+    public Optional<Game> getGame(String id) {
         return Optional.ofNullable(singlePlayerGames.get(id));
     }
 
     @Override
-    public void singlePlayerGameFinished(String id) {
+    public void gameFinished(String id) {
         singlePlayerGames.remove(id);
     }
 
