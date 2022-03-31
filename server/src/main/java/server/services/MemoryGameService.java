@@ -2,7 +2,6 @@ package server.services;
 
 import Services.QuestionBuilder;
 import commons.Activity;
-import commons.questions.LessExpensive;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import org.springframework.stereotype.Service;

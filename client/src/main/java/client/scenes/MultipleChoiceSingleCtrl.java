@@ -81,7 +81,8 @@ public class MultipleChoiceSingleCtrl {
         this.buttonB.setText(question.getOptions()[1].getTitle());
         this.buttonC.setText(question.getOptions()[2].getTitle());
 
-        this.imageA.setImage(new Image(SERVER + API_PATH + question.getOptions()[0].getImagePath()));
+        var url = SERVER + API_PATH + question.getOptions()[0].getImagePath();
+        this.imageA.setImage(new Image(url));
         this.imageB.setImage(new Image(SERVER + API_PATH + question.getOptions()[1].getImagePath()));
         this.imageC.setImage(new Image(SERVER + API_PATH + question.getOptions()[2].getImagePath()));
     }
