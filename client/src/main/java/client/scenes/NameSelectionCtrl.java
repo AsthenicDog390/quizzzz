@@ -31,12 +31,8 @@ public class NameSelectionCtrl implements Initializable {
     @FXML
     private void submitName(ActionEvent e) {
         String name = nameField.getText();
-        if (!nameIsValid(name)) {
-            background.setOpacity(0.8f);
-            errorPopup.setVisible(true);
-            nameField.setStyle("-fx-background-color: red");
-        }
-        else mainCtrl.showWaitingRoom();
+
+        mainCtrl.startSinglePlayerGame(name);
     }
 
     @FXML

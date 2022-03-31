@@ -15,14 +15,17 @@ public class SinglePlayerGame {
     private final MainCtrl mainCtrl;
 
     private String id;
+    private String name;
 
     private boolean gameEnded;
 
-    public SinglePlayerGame(MainCtrl mainCtrl) {
+    public SinglePlayerGame(MainCtrl mainCtrl, String name) {
         this.gameEnded = false;
+        this.name = name;
         this.id = newGame();
         this.mainCtrl = mainCtrl;
         this.subscribeToMessages();
+        mainCtrl.showStartingScreen();
     }
 
     /**
@@ -34,7 +37,7 @@ public class SinglePlayerGame {
                 .target(SERVER).path(API_PATH).path("new") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(NewGameMessage.class);
+                .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), NewGameMessage.class);
         return m.getId();
     }
 

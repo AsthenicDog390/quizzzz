@@ -2,11 +2,14 @@ package server.api;
 
 import commons.messages.Message;
 import commons.messages.NewGameMessage;
+import commons.messages.SendNameMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import server.game.Game;
 import server.services.GameService;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/games")
@@ -18,14 +21,15 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping("/singleplayer/new")
-    public NewGameMessage newSinglePlayerGame() {
+    @PostMapping("/singleplayer/new")
+    public NewGameMessage newSinglePlayerGame(@RequestBody SendNameMessage nameRetrieve) {
         Game newGame = gameService.newGame();
 
-        var p = newGame.addPlayer("singleplayer");
+        var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), "singleplayer");
 
         return new NewGameMessage(newGame.getId(), p.getId());
     }
+
 
     @GetMapping("/singleplayer/{id}")
     public DeferredResult<ResponseEntity<Message>> getSinglePlayerGameEvents(@PathVariable("id") String id) {
@@ -51,7 +55,7 @@ public class GameController {
             waitingRoom.start();
         }
 
-        var p = waitingRoom.addPlayer("test");
+        var p = waitingRoom.addPlayer("test", UUID.randomUUID().toString());
 
         return new NewGameMessage(waitingRoom.getId(), p.getId());
     }

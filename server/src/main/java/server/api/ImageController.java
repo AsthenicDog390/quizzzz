@@ -1,8 +1,8 @@
 package server.api;
 
+import commons.ImageUpload;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import server.database.ImageRepository;
 
 import java.io.IOException;
@@ -17,9 +17,9 @@ public class ImageController {
     }
 
     @PutMapping("{group}/{image}")
-    public ResponseEntity addImage(@PathVariable("group") String group, @PathVariable("image") String image, @RequestParam("image") MultipartFile file) {
+    public ResponseEntity addImage(@PathVariable("group") String group, @PathVariable("image") String image, @RequestBody ImageUpload data) {
         try {
-            imageRepo.addImage(group, image, file.getBytes());
+            imageRepo.addImage(group, image, data.getData());
             return ResponseEntity.ok().build();
         } catch (IOException e) {
             return ResponseEntity.internalServerError().build();
