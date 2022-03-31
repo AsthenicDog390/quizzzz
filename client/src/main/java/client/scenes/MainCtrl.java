@@ -225,8 +225,8 @@ public class MainCtrl {
         primaryStage.setScene(addActivities);
     }
 
-    public SinglePlayerGame geSinglePlayertGame() {
-        return this.singlePlayerGameCtrl;
+    public SinglePlayerGame geSinglePlayerGame() {
+        return this.singlePlayerGame;
     }
 
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
