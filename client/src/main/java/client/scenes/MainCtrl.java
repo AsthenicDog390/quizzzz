@@ -21,9 +21,11 @@ import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.File;
 
 public class MainCtrl {
 
@@ -76,13 +78,18 @@ public class MainCtrl {
 
 
 
+    private AddActivitiesCtrl addActivitiesCtrl;
+    private Scene addActivities;
+
+    FileChooser chooser;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
-                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, 
-                           Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
-                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti) {
-
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti,
+                           Pair<AddActivitiesCtrl, Parent> addActivities) {
+        chooser = new FileChooser();
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -103,11 +110,14 @@ public class MainCtrl {
         this.waitingRoomCtrl = waitingRoom.getKey();
         this.waitingRoom = new Scene(waitingRoom.getValue());
 
-       this.nameSelectionCtrl = nameSelection.getKey();
-       this.nameSelection = new Scene(nameSelection.getValue());
+        this.nameSelectionCtrl = nameSelection.getKey();
+        this.nameSelection = new Scene(nameSelection.getValue());
 
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
+
+        this.addActivitiesCtrl = addActivities.getKey();
+        this.addActivities = new Scene(addActivities.getValue());
 
         this.estimateSingleCtrl = estimateSingle.getKey();
         this.estimateSingle = new Scene(estimateSingle.getValue());
@@ -210,6 +220,15 @@ public class MainCtrl {
         return this.singlePlayerGame;
     }
 
+    public void showAddActivities() {
+        primaryStage.setTitle("Add Activities");
+        primaryStage.setScene(addActivities);
+    }
+
+    public SinglePlayerGame geSinglePlayerGame() {
+        return this.singlePlayerGame;
+    }
+
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
 
 
@@ -229,9 +248,18 @@ public class MainCtrl {
     }
 
     public void gameEnded() {
-        this.showMainMenu();
+        this.showMainMenu();        
         this.singlePlayerGame = null;
         this.multiPlayerGame = null;
+    }
+
+    public String pickFileLocation() {
+        File file = chooser.showOpenDialog(primaryStage);
+        if (file == null) {
+            return null;
+        }
+
+        return file.getAbsolutePath();
     }
 
     public void setQuestionMultiPlayer(Question question) {
