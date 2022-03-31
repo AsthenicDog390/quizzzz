@@ -9,9 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.ProgressBar;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MultipleChoiceSingleCtrl {
     private final ServerUtils server;
@@ -35,6 +34,15 @@ public class MultipleChoiceSingleCtrl {
     private Button YesExit;
     @FXML
     private Button NoExit;
+    @FXML
+    private ImageView imageA;
+    @FXML
+    private ImageView imageB;
+    @FXML
+    private ImageView imageC;
+
+    private static final String SERVER = "http://localhost:8080/";
+    private static final String API_PATH = "images/";
 
     @Inject
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -43,17 +51,17 @@ public class MultipleChoiceSingleCtrl {
     }
 
     public void answerA() {
-        disableAllButtons();
+//        disableAllButtons();
         giveAnswer(0);
     }
 
     public void answerB() {
-        disableAllButtons();
+//        disableAllButtons();
         giveAnswer(1);
     }
 
     public void answerC() {
-        disableAllButtons();
+//        disableAllButtons();
         giveAnswer(2);
     }
 
@@ -73,7 +81,9 @@ public class MultipleChoiceSingleCtrl {
         this.buttonB.setText(question.getOptions()[1].getTitle());
         this.buttonC.setText(question.getOptions()[2].getTitle());
 
-        //TODO: Set images
+        this.imageA.setImage(new Image(SERVER + API_PATH + question.getOptions()[0].getImagePath()));
+        this.imageB.setImage(new Image(SERVER + API_PATH + question.getOptions()[1].getImagePath()));
+        this.imageC.setImage(new Image(SERVER + API_PATH + question.getOptions()[2].getImagePath()));
     }
 
     public void goBackMainMenu() {
@@ -89,37 +99,16 @@ public class MultipleChoiceSingleCtrl {
         buttonC.setDisable(true);
     }
 
+    public void enableAllButtons() {
+        buttonA.setDisable(false);
+        buttonB.setDisable(false);
+        buttonC.setDisable(false);
+
+    }
+
     /**
      * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time
      */
-    public void startTimer() {
-        Timer gameTimer = new Timer();
-        Timer progressBarTimer = new Timer();
-        /**
-         * Task for disabling the buttons and not letting the progress bar go under 0
-         */
-        TimerTask timeOut = new TimerTask() {
-            @Override
-            public void run() {
-                disableAllButtons();
-                progressBarTimer.cancel();
-            }
-        };
-
-        /**
-         * Task for decreasing the progress bar with a specific amount every 40ms
-         */
-        TimerTask lowerBar = new TimerTask() {
-            @Override
-            public void run() {
-                double progress = progressBar.getProgress();
-                if(progress>0.004)
-                progressBar.setProgress(progress-0.004);
-            }
-        };
-        gameTimer.schedule(timeOut,10000);
-        progressBarTimer.schedule(lowerBar,0,40);
-    }
 
     public void showDialogExit() {
         dialogPane.setVisible(true);

@@ -15,12 +15,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class QuestionBuilder {
 
     ActivityRepository repo;
-    String gameID;
     Set<Long> ids = new HashSet<>();
 
-    public QuestionBuilder(ActivityRepository repo, String gameID) {
+    public QuestionBuilder(ActivityRepository repo) {
         this.repo = repo;
-        this.gameID = gameID;
     }
     /*
     private List<Activity> generate3Activities(ActivityRepository repo){

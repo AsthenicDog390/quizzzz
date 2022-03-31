@@ -11,6 +11,7 @@ import server.database.GameRepository;
 import server.database.PlayerRepository;
 import server.database.ScoreRepository;
 import server.datastructures.MultiMessageQueue;
+import server.services.TimerService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +38,9 @@ public class Game {
     private PlayerRepository playerRepository;
     private GameRepository gameRepository;
 
-    public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository) {
+    private TimerService timerService;
+
+    public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
         if (questions == null) {
             throw new IllegalArgumentException("question list must not be null");
         } else if (questions.size() != 20) {
@@ -58,6 +61,8 @@ public class Game {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
+        this.timerService = timerService;
+        advanceState();
     }
 
     public void start() {
@@ -76,8 +81,10 @@ public class Game {
     private void advanceState() {
         switch (this.state) {
             case STARTING:
-                this.state = State.QUESTION_PERIOD;
-                this.nextQuestion();
+                timerService.runAfter(5, () -> {
+                    this.state = State.QUESTION_PERIOD;
+                    this.nextQuestion();
+                });
                 break;
             case QUESTION_PERIOD:
                 if (this.currentQuestion >= this.questions.size()) {
@@ -151,10 +158,11 @@ public class Game {
     /**
      * addPlayer adds a player with a certain name to the game
      * @param name the name of the player to add
+     * @param id the id of the player
      * @return the newly created player
      */
-    public Player addPlayer(String name) {
-        var p = new Player(UUID.randomUUID().toString(), name);
+    public Player addPlayer(String name, String id) {
+        var p = new Player(id, name);
         p.setGameId(id.toString());
         players.put(p.getId(), p);
 

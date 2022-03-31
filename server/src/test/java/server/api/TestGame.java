@@ -28,7 +28,7 @@ public class TestGame extends Game {
      * @param name the name of the player to add
      * @return the newly created player
      */
-    public Player addPlayer(String name) {
+    public Player addPlayer(String name, String singleplayer) {
         var p = new Player(UUID.randomUUID().toString(), name);
         p.setGameId("test");
 

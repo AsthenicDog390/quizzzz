@@ -38,9 +38,10 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
                <children>
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageA" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageB" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageC" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageC1" fitHeight="175.0" fitWidth="200.0" layoutX="610.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">

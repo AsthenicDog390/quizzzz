@@ -35,6 +35,7 @@ public class StartingScreenCtrl {
                 if (i < 0) {
                     timer.cancel();
                     countdownTimer.setText("0");
+
                 }
             }
         }, 0, 1000);

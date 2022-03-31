@@ -124,6 +124,9 @@ public class MainCtrl {
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene (leaderboard.getValue());
 
+        this.startingScreenCtrl = startingScreen.getKey();
+        this.startingScreen = new Scene(startingScreen.getValue());
+
         showMainMenu();
         primaryStage.show();
     }
@@ -163,7 +166,6 @@ public class MainCtrl {
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
-        multipleChoiceSingleCtrl.startTimer();
     }
 
     public void showNameSelect(){
@@ -174,6 +176,7 @@ public class MainCtrl {
     public void showStartingScreen(){
         primaryStage.setTitle("Starting Screen");
         primaryStage.setScene(startingScreen);
+        startingScreenCtrl.start();
     }
 
     public void showLeaderboard(){
@@ -210,8 +213,8 @@ public class MainCtrl {
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
 
 
-    public void startSinglePlayerGame() {
-        this.singlePlayerGame = new SinglePlayerGame(this);
+    public void startSinglePlayerGame(String name) {
+        this.singlePlayerGame = new SinglePlayerGame(this,name);
     }
 
     public void startMultiPlayerGame() {
