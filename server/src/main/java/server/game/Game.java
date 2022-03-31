@@ -1,11 +1,15 @@
 package server.game;
 
 import commons.Player;
+import commons.game.HighScore;
 import commons.messages.AnswerMessage;
 import commons.messages.GameEndedMessage;
 import commons.messages.Message;
 import commons.messages.NextQuestionMessage;
 import commons.questions.Question;
+import server.database.GameRepository;
+import server.database.PlayerRepository;
+import server.database.ScoreRepository;
 import server.datastructures.MultiMessageQueue;
 
 import java.util.HashMap;
@@ -29,7 +33,11 @@ public class Game {
     private MultiMessageQueue messageQueue;
     private HashMap<String, Integer> answers;
 
-    public Game(UUID id, List<Question> questions) {
+    private ScoreRepository scoreRepository;
+    private PlayerRepository playerRepository;
+    private GameRepository gameRepository;
+
+    public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository) {
         if (questions == null) {
             throw new IllegalArgumentException("question list must not be null");
         } else if (questions.size() != 20) {
@@ -47,6 +55,9 @@ public class Game {
         this.messageQueue = new MultiMessageQueue();
         this.answers = new HashMap<>();
         this.state = State.STARTING;
+        this.gameRepository = gameRepository;
+        this.playerRepository = playerRepository;
+        this.scoreRepository = scoreRepository;
     }
 
     public void start() {
@@ -72,11 +83,29 @@ public class Game {
                 if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
                     this.messageQueue.addMessage(new GameEndedMessage());
+                    this.persistScores();
                     return;
                 }
                 this.nextQuestion();
                 break;
         }
+    }
+
+    private void persistScores() {
+        var maybeGame = gameRepository.findById(this.id.toString());
+
+        if (!maybeGame.isPresent()) {
+            throw new IllegalStateException("game not present in repository");
+        }
+
+        for (Player p: players.values()) {
+            var score = new HighScore(p.getScore(), p, maybeGame.get());
+            scoreRepository.save(score);
+        }
+
+        maybeGame = gameRepository.findById(this.id.toString());
+
+        return;
     }
 
     /**
@@ -95,7 +124,14 @@ public class Game {
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
+        this.updateScore(playerId, 250);
         this.advanceState();
+    }
+
+    private void updateScore(String playerId, int score) {
+        var p = this.players.get(playerId);
+        p.setScore(p.getScore() + score);
+        this.players.put(playerId, p);
     }
 
     /**
@@ -121,6 +157,8 @@ public class Game {
         var p = new Player(UUID.randomUUID().toString(), name);
         p.setGameId(id.toString());
         players.put(p.getId(), p);
+
+        playerRepository.save(p);
 
         return p;
     }

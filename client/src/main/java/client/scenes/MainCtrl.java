@@ -59,6 +59,12 @@ public class MainCtrl {
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
     private Scene multipleChoiceSingle;
 
+    private EstimateSingleCtrl estimateSingleCtrl;
+    private Scene estimateSingle;
+
+    private EstimateMultiCtrl estimateMultiCtrl;
+    private Scene estimateMulti;
+
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
     private Scene multipleChoiceMulti;
 
@@ -75,7 +81,8 @@ public class MainCtrl {
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
                            Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, 
                            Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
-                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard) {
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti) {
+
 
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -102,6 +109,12 @@ public class MainCtrl {
         this.multipleChoiceSingleCtrl = multipleChoiceSingle.getKey();
         this.multipleChoiceSingle = new Scene(multipleChoiceSingle.getValue());
 
+        this.estimateSingleCtrl = estimateSingle.getKey();
+        this.estimateSingle = new Scene(estimateSingle.getValue());
+
+        this.estimateMultiCtrl = estimateMulti.getKey();
+        this.estimateMulti = new Scene(estimateMulti.getValue());
+
         this.multipleChoiceMultiCtrl = multipleChoiceMulti.getKey();
         this.multipleChoiceMulti = new Scene(multipleChoiceMulti.getValue());
 
@@ -112,7 +125,6 @@ public class MainCtrl {
         this.leaderboard = new Scene (leaderboard.getValue());
 
         showMainMenu();
-//        showMultipleSingle();
         primaryStage.show();
     }
 
@@ -179,11 +191,24 @@ public class MainCtrl {
         primaryStage.setScene(multipleChoiceMulti);
     }
 
+    public void showEstimateSingle() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(estimateSingle);
+        estimateSingleCtrl.startTimer();
+    }
+
+    public void showEstimateMulti() {
+        primaryStage.setTitle("Question");
+        primaryStage.setScene(estimateMulti);
+        estimateMultiCtrl.startTimer();
+    }
+
     public SinglePlayerGame getSinglePlayerGame() {
         return this.singlePlayerGame;
     }
 
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+
 
     public void startSinglePlayerGame() {
         this.singlePlayerGame = new SinglePlayerGame(this);
