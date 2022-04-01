@@ -8,9 +8,6 @@ import jakarta.ws.rs.client.Entity;
 import javafx.application.Platform;
 import org.glassfish.jersey.client.ClientConfig;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class SinglePlayerGame {
