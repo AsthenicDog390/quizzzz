@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import javafx.event.ActionEvent;
 
 public class MainMenuCtrl {
     private final MainCtrl mainCtrl;
@@ -39,5 +40,8 @@ public class MainMenuCtrl {
         System.exit(0);
     }
 
+    public void showAddAtivities() {
+        mainCtrl.showAddActivities();
+    }
 }
 

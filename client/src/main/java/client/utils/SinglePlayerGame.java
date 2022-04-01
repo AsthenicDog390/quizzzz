@@ -1,11 +1,15 @@
 package client.utils;
 
 import client.scenes.MainCtrl;
+import commons.Player;
 import commons.messages.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import javafx.application.Platform;
 import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -16,14 +20,17 @@ public class SinglePlayerGame {
 
     private String id;
     private String name;
+    private Integer score;
+    private Player p;
 
     private boolean gameEnded;
 
     public SinglePlayerGame(MainCtrl mainCtrl, String name) {
         this.gameEnded = false;
-        this.name = name;
+        this.p = new Player("id", name);
         this.id = newGame();
         this.mainCtrl = mainCtrl;
+        p.setScore(0);
         this.subscribeToMessages();
         mainCtrl.showStartingScreen();
     }
@@ -86,8 +93,20 @@ public class SinglePlayerGame {
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;
             Platform.runLater(() -> {
-                mainCtrl.gameEnded();
+                mainCtrl.showLeaderboard();
             });
         }
+    }
+
+    public Integer getPlayerScore(){
+        return p.getScore();
+    }
+
+    public Player getPlayer(){
+        return this.p;
+    }
+
+    public void setScore(Integer n){
+        p.setScore(p.getScore()+n);
     }
 }

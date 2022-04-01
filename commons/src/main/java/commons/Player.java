@@ -23,8 +23,8 @@ public class Player {
         this.id = id;
         this.name = name;
         this.gameId = "unknown";
+        this.score = 0;
     }
-
     public String getId() {
         return id;
     }

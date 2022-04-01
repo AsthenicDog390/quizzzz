@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import commons.Activity;
 import commons.questions.LessExpensive;
 import com.google.inject.Inject;
 import commons.questions.MoreExpensive;
@@ -20,6 +21,8 @@ public class MultipleChoiceSingleCtrl {
 
     @FXML
     private Label score;
+    @FXML
+    private Label questionNumber;
     @FXML
     private Button buttonA;
     @FXML
@@ -43,6 +46,10 @@ public class MultipleChoiceSingleCtrl {
     @FXML
     private ImageView imageC;
 
+    private Integer n;
+
+    private Activity correctAnswer;
+
     private static final String SERVER = "http://localhost:8080/";
     private static final String API_PATH = "images/";
 
@@ -50,6 +57,7 @@ public class MultipleChoiceSingleCtrl {
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.n =1;
     }
 
 
@@ -70,15 +78,21 @@ public class MultipleChoiceSingleCtrl {
 
     public void giveAnswer(int answer) {
         mainCtrl.getSinglePlayerGame().giveAnswer(answer);
+        if(correctAnswer.getActivity_ID() == question.getOptions()[answer].getActivity_ID()) {
+            setScore(1);
+        }
     }
 
 
     public void setScore(int tscore){
-        this.score.setText("Your Score:"+"\n"+tscore);
+        mainCtrl.getSinglePlayerGame().setScore(tscore);
+        this.score.setText("Your Score:"+"\n"+ mainCtrl.getSinglePlayerGame().getPlayer().getScore());
     }
 
     public void setQuestion(MoreExpensive question) {
         this.question = question;
+        this.questionNumber.setText(n+"/"+"20");
+        n++;
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
         } else {
@@ -93,10 +107,12 @@ public class MultipleChoiceSingleCtrl {
         this.imageA.setImage(new Image(url));
         this.imageB.setImage(new Image(SERVER + API_PATH + question.getOptions()[1].getImagePath()));
         this.imageC.setImage(new Image(SERVER + API_PATH + question.getOptions()[2].getImagePath()));
+
+        this.correctAnswer = question.getAnswer();
     }
 
     public void goBackMainMenu() {
-        mainCtrl.showMainMenu();
+        mainCtrl.gameEnded();
     }
 
     /**

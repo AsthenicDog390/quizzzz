@@ -176,7 +176,6 @@ public class MainCtrl {
     public void showMultipleChoiceSingle() {
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceSingle);
-        multipleChoiceSingleCtrl.startTimer();
     }
 
     public void showNameSelect(){
@@ -187,9 +186,11 @@ public class MainCtrl {
     public void showStartingScreen(){
         primaryStage.setTitle("Starting Screen");
         primaryStage.setScene(startingScreen);
+        startingScreenCtrl.start();
     }
 
     public void showLeaderboard(){
+        leaderboardCtrl.setLead(singlePlayerGame.getPlayer());
         primaryStage.setTitle("LeaderBoard");
         primaryStage.setScene(leaderboard);
     }
