@@ -33,7 +33,7 @@ public class ActivityLoader {
     {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Activity>> mapType = new TypeReference<List<Activity>>() {};
-        InputStream is = TypeReference.class.getResourceAsStream("/oopp-activity-bank/activities.json");
+        InputStream is = TypeReference.class.getResourceAsStream("/images/activities.json");
         try {
             List<Activity> activityList = mapper.readValue(is, mapType);
             repo.saveAll(activityList);

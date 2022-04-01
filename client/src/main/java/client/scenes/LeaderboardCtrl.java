@@ -20,7 +20,6 @@ public class LeaderboardCtrl {
     public LeaderboardCtrl(MainCtrl mainCtrl, ServerUtils server) {
         this.mainCtrl = mainCtrl;
         this.server = server;
-        Progresss();
     }
 
     public void showMainMenu() {
