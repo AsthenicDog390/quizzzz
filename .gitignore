@@ -40,3 +40,9 @@ out/
 ### VS Code ###
 .vscode/
 /server/resources/
+
+*.jpg
+
+*.jpeg
+
+*.png

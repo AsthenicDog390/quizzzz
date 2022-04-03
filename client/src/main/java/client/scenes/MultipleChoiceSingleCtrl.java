@@ -51,18 +51,48 @@ public class MultipleChoiceSingleCtrl {
     }
 
     public void answerA() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(0);
+        colorAnswers(0);
     }
 
     public void answerB() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(1);
+        colorAnswers(1);
     }
 
     public void answerC() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(2);
+        colorAnswers(2);
+    }
+
+    public void colorAnswers( int option ) {
+        if(buttonA.getText().equals(question.getAnswer().getTitle())) {
+            buttonA.setStyle("-fx-background-color: #00FF00;");
+        } else if(buttonB.getText().equals(question.getAnswer().getTitle())) {
+            buttonB.setStyle("-fx-background-color: #00FF00;");
+        } else {
+            buttonC.setStyle("-fx-background-color: #00FF00;");
+        }
+        switch (option) {
+            case 0:
+                if(!buttonA.getText().equals(question.getAnswer().getTitle())) {
+                    buttonA.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+            case 1:
+                if(!buttonB.getText().equals(question.getAnswer().getTitle())) {
+                    buttonB.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+            case 2:
+                if(!buttonC.getText().equals(question.getAnswer().getTitle())) {
+                    buttonC.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+        }
     }
 
     public void giveAnswer(int answer) {
@@ -70,6 +100,8 @@ public class MultipleChoiceSingleCtrl {
     }
 
     public void setQuestion(MoreExpensive question) {
+        removeStyle();
+        enableAllButtons();
         this.question = question;
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
@@ -89,6 +121,15 @@ public class MultipleChoiceSingleCtrl {
 
     public void goBackMainMenu() {
         mainCtrl.showMainMenu();
+    }
+
+    /**
+     * Removes the background colors from the buttons
+     */
+    public void removeStyle(){
+        buttonA.setStyle(null);
+        buttonB.setStyle(null);
+        buttonC.setStyle(null);
     }
 
     /**
