@@ -127,15 +127,17 @@ public class QuestionBuilder {
 //    }
 
     private List<Activity> generate3Activities() {//takes 3 activities from the list that were not previously used in the same game and returns them
+        Set<Integer> consumptions = new HashSet<>();
         List<Activity> options = new ArrayList<>();
         int length = recivedActivities.size();
         while(options.size() < 3){
             int random = ThreadLocalRandom.current().nextInt(0, length);
-            while(ids.contains(random)){
+            while(ids.contains(random) || consumptions.contains(recivedActivities.get(random).getConsumptionInWh())){
                 random = ThreadLocalRandom.current().nextInt(0, length);
             }
             options.add(recivedActivities.get(random));
             ids.add(random);
+            consumptions.add((int) recivedActivities.get(random).getConsumptionInWh());
             //temp.put(random,(temp.get(random) == null ? 0:1) + 1);
         }
         //System.out.println("Ids used " + temp);
