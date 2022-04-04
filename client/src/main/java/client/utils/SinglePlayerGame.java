@@ -82,6 +82,7 @@ public class SinglePlayerGame {
             //TODO(Friso): provide the question to the question controller
             Platform.runLater(() -> {
                 mainCtrl.setQuestionSinglePlayer(((NextQuestionMessage) m).getQuestion());
+                mainCtrl.startSinglePlayerTimer();
             });
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;

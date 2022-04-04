@@ -268,5 +268,9 @@ public class MainCtrl {
             this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
         }
     }
+
+    public void startSinglePlayerTimer() {
+        multipleChoiceSingleCtrl.startTimer();
+    }
 }
 

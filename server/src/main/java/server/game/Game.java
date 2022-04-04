@@ -13,9 +13,7 @@ import server.database.ScoreRepository;
 import server.datastructures.MultiMessageQueue;
 import server.services.TimerService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Game {
@@ -39,6 +37,14 @@ public class Game {
     private GameRepository gameRepository;
 
     private TimerService timerService;
+    private Timer timer = new Timer();
+
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            advanceState();
+        }
+    };
 
     public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
         if (questions == null) {
@@ -87,13 +93,18 @@ public class Game {
                 });
                 break;
             case QUESTION_PERIOD:
-                if (this.currentQuestion >= this.questions.size()) {
-                    this.state = State.GAME_ENDED;
-                    this.messageQueue.addMessage(new GameEndedMessage());
-                    this.persistScores();
-                    return;
-                }
-                this.nextQuestion();
+                /*
+                 * waiting for the correct answer to be displayed
+                 */
+                timerService.runAfter(3, ()->{
+                    if (this.currentQuestion >= this.questions.size()) {
+                        this.state = State.GAME_ENDED;
+                        this.messageQueue.addMessage(new GameEndedMessage());
+                        this.persistScores();
+                        return;
+                    }
+                    this.nextQuestion();
+                });
                 break;
         }
     }
@@ -119,9 +130,17 @@ public class Game {
      * nextQuestion sends a message to show the next question to all players
      */
     private void nextQuestion() {
-        this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
-        this.currentQuestion++;
-        this.answers.clear();
+            this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
+            this.currentQuestion++;
+            this.answers.clear();
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    advanceState();
+                }
+            };
+            timer.schedule(timerTask, 10000);
     }
 
     /**
@@ -132,6 +151,7 @@ public class Game {
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
         this.updateScore(playerId, 250);
+        timer.cancel();
         this.advanceState();
     }
 
