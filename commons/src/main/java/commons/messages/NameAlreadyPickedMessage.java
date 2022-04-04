@@ -1,7 +1,5 @@
 package commons.messages;
 
-import commons.exceptions.NameAlreadyPickedException;
-
 import java.util.List;
 
 public class NameAlreadyPickedMessage extends Message{
