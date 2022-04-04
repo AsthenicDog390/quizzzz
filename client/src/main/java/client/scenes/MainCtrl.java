@@ -17,6 +17,7 @@ package client.scenes;
 
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
@@ -236,8 +237,8 @@ public class MainCtrl {
         this.singlePlayerGame = new SinglePlayerGame(this,name);
     }
 
-    public void startMultiPlayerGame() {
-        this.multiPlayerGame = new MultiPlayerGame(this);
+    public void startMultiPlayerGame(String name) throws NameAlreadyPickedException {
+        this.multiPlayerGame = new MultiPlayerGame(this, name);
     }
 
     public void setQuestionSinglePlayer(Question question) {

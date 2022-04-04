@@ -1,11 +1,13 @@
 package server.api;
 
 import commons.messages.Message;
+import commons.messages.NameAlreadyPickedMessage;
 import commons.messages.NewGameMessage;
 import commons.messages.SendNameMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+import commons.exceptions.NameAlreadyPickedException;
 import server.game.Game;
 import server.services.GameService;
 
@@ -25,9 +27,12 @@ public class GameController {
     public NewGameMessage newSinglePlayerGame(@RequestBody SendNameMessage nameRetrieve) {
         Game newGame = gameService.newGame();
 
-        var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), "singleplayer");
-
-        return new NewGameMessage(newGame.getId(), p.getId());
+        try {
+            var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), "singleplayer");
+            return new NewGameMessage(newGame.getId(), p.getId());
+        } catch (NameAlreadyPickedException e) {
+            throw new RuntimeException("code path should be unreachable in singleplayer game", e);
+        }
     }
 
 
@@ -48,16 +53,19 @@ public class GameController {
         return deferredResult;
     }
 
-    @GetMapping("/multiplayer/new")
-    public NewGameMessage newMultiPlayerGame() {
+    @PostMapping("/multiplayer/new")
+    public Message newMultiPlayerGame(@RequestBody SendNameMessage nameRetrieve) {
         if (waitingRoom == null) {
             waitingRoom = gameService.newGame();
             waitingRoom.start();
         }
 
-        var p = waitingRoom.addPlayer("test", UUID.randomUUID().toString());
-
-        return new NewGameMessage(waitingRoom.getId(), p.getId());
+        try {
+            var p = waitingRoom.addPlayer(nameRetrieve.getToBePassedName(), UUID.randomUUID().toString());
+            return new NewGameMessage(waitingRoom.getId(), p.getId());
+        } catch (NameAlreadyPickedException e) {
+            return new NameAlreadyPickedMessage(e.getName(), e.getPickedNames());
+        }
     }
 
     @GetMapping("/multiplayer/{gameId}/{playerId}")

@@ -7,6 +7,7 @@ import commons.messages.GameEndedMessage;
 import commons.messages.Message;
 import commons.messages.NextQuestionMessage;
 import commons.questions.Question;
+import commons.exceptions.NameAlreadyPickedException;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
 import server.database.ScoreRepository;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Game {
     private enum State {
@@ -161,11 +163,23 @@ public class Game {
      * @param id the id of the player
      * @return the newly created player
      */
-    public Player addPlayer(String name, String id) {
+    public Player addPlayer(String name, String id) throws NameAlreadyPickedException {
         var p = new Player(id, name);
         p.setGameId(id.toString());
-        players.put(p.getId(), p);
-
+        synchronized (players) {
+            for (Player player: players.values()) {
+                if (player.getName().equals(name)) {
+                    throw new NameAlreadyPickedException(
+                            name,
+                            players
+                                    .values()
+                                    .stream()
+                                    .map(x -> x.getName())
+                                    .collect(Collectors.toList()));
+                }
+            }
+            players.put(p.getId(), p);
+        }
         playerRepository.save(p);
 
         return p;
