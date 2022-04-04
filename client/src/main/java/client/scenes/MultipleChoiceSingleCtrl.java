@@ -79,6 +79,7 @@ public class MultipleChoiceSingleCtrl {
     public void giveAnswer(int answer) {
         mainCtrl.getSinglePlayerGame().giveAnswer(answer);
         if(correctAnswer.getActivity_ID() == question.getOptions()[answer].getActivity_ID()) {
+            mainCtrl.getSinglePlayerGame().updScore(1);
             setScore(1);
         }
     }

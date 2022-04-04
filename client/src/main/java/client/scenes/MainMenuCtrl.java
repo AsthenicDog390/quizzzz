@@ -18,7 +18,7 @@ public class MainMenuCtrl {
     }
 
     public void showLead() {
-        mainCtrl.showLeaderboard();
+        //mainCtrl.showLeaderboard();
     }
 
     public void showWaitingRoom(){

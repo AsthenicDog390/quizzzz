@@ -13,9 +13,9 @@ public class HighScore {
 
     private int score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Player player;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Game game;
 
     @SuppressWarnings("unused")

@@ -2,10 +2,7 @@ package server.game;
 
 import commons.Player;
 import commons.game.HighScore;
-import commons.messages.AnswerMessage;
-import commons.messages.GameEndedMessage;
-import commons.messages.Message;
-import commons.messages.NextQuestionMessage;
+import commons.messages.*;
 import commons.questions.Question;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
@@ -13,9 +10,7 @@ import server.database.ScoreRepository;
 import server.datastructures.MultiMessageQueue;
 import server.services.TimerService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Game {
@@ -89,8 +84,9 @@ public class Game {
             case QUESTION_PERIOD:
                 if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
-                    this.messageQueue.addMessage(new GameEndedMessage());
                     this.persistScores();
+                    this.setLeaderboard();
+                    this.messageQueue.addMessage(new GameEndedMessage());
                     return;
                 }
                 this.nextQuestion();
@@ -124,6 +120,9 @@ public class Game {
         this.answers.clear();
     }
 
+    private void setLeaderboard() {
+        this.messageQueue.addMessage(new SingleLeaderboardMessage(this.scoreRepository.findAll()));
+    }
     /**
      * providedAnswer sets the answer given by a certain player
      * @param playerId the id of the player to set the answer of
@@ -135,7 +134,7 @@ public class Game {
         this.advanceState();
     }
 
-    private void updateScore(String playerId, int score) {
+    public void updateScore(String playerId, int score) {
         var p = this.players.get(playerId);
         p.setScore(p.getScore() + score);
         this.players.put(playerId, p);
@@ -148,6 +147,9 @@ public class Game {
         if (m instanceof AnswerMessage) {
             var answer = (AnswerMessage)m;
             this.providedAnswer(playerId, answer.getAnswer());
+        }else if (m instanceof UpdateScoreMessage){
+            var score = (UpdateScoreMessage)m;
+            this.updateScore(playerId, score.getScore());
         }
     }
 

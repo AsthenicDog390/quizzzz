@@ -17,6 +17,7 @@ package client.scenes;
 
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
+import commons.game.HighScore;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+import java.util.List;
 
 public class MainCtrl {
 
@@ -189,8 +191,8 @@ public class MainCtrl {
         startingScreenCtrl.start();
     }
 
-    public void showLeaderboard(){
-        leaderboardCtrl.setLead(singlePlayerGame.getPlayer());
+    public void showLeaderboard(List<HighScore> scores){
+        leaderboardCtrl.setLeaderboard(scores);
         primaryStage.setTitle("LeaderBoard");
         primaryStage.setScene(leaderboard);
     }

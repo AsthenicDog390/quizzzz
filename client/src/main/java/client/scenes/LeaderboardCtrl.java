@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Player;
 
+import commons.game.HighScore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,11 +33,20 @@ public class LeaderboardCtrl implements Initializable {
         this.server = server;
     }
 
+    public void setLeaderboard(List<HighScore> scores) {
+        List<Player> players = new ArrayList<>();
+        for(HighScore h:scores){
+            players.add(h.getPlayer());
+        }
+        this.table.getItems().setAll(players);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         score.setCellValueFactory(new PropertyValueFactory<Player, Integer>("score"));
         table.setItems(createLead(new Player("1", "George")));
+
     }
 
     public void showMainMenu() {
@@ -49,8 +59,7 @@ public class LeaderboardCtrl implements Initializable {
     }
 
     public ObservableList<Player> createLead(Player p) {
-        ObservableList<Player> data = FXCollections.observableArrayList(
-                p);
+        ObservableList<Player> data = FXCollections.observableArrayList(p);
         return data;
     }
 
