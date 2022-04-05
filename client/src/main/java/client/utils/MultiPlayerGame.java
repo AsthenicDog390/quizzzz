@@ -12,12 +12,16 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class MultiPlayerGame {
     private static final String SERVER = "http://localhost:8080/";
+
     private final static String API_PATH = "/api/games/multiplayer";
+
     private final MainCtrl mainCtrl;
 
     private String playerId;
     private String name;
     private String id;
+
+    private final String id;
 
     private boolean gameEnded;
 
@@ -33,6 +37,7 @@ public class MultiPlayerGame {
 
     /**
      * newGame registers the current game with the server and sets the game id
+     *
      * @return the id which the server assigned to this game
      */
     private NewGameMessage newGame() throws NameAlreadyPickedException {
@@ -52,17 +57,18 @@ public class MultiPlayerGame {
     }
 
     /**
-     * giveAnswer submits an answer to the server
+     * giveAnswer submits an answer to the server.
+     *
      * @param answer the numeric value of the answer, what it means depends on what type of question is being answered
      */
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH) //
-                .path(this.id).path(this.playerId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(a, APPLICATION_JSON));
+            .target(SERVER).path(API_PATH) //
+            .path(this.id).path(this.playerId) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(a, APPLICATION_JSON));
     }
 
     /**
@@ -73,11 +79,11 @@ public class MultiPlayerGame {
         new Thread(() -> {
             while (!gameEnded) {
                 var message = ClientBuilder.newClient(new ClientConfig())
-                        .target(SERVER).path(API_PATH)
-                        .path(this.id).path(this.playerId)
-                        .request(APPLICATION_JSON)
-                        .accept(APPLICATION_JSON)
-                        .get(Message.class);
+                    .target(SERVER).path(API_PATH)
+                    .path(this.id).path(this.playerId)
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(Message.class);
                 this.handleMessage(message);
             }
         }).start();
@@ -85,6 +91,7 @@ public class MultiPlayerGame {
 
     /**
      * handleMessage handles a message sent by the server to the client
+     *
      * @param m the message that was sent
      */
     private void handleMessage(Message m) {

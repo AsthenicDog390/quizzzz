@@ -13,24 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package server.api;
+
+import commons.Person;
+import commons.Quote;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-import java.util.Random;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import commons.Person;
-import commons.Quote;
-
 public class QuoteControllerTest {
 
     public int nextInt;
+
     private MyRandom random;
+
     private TestQuoteRepository repo;
 
     private QuoteController sut;

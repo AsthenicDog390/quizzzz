@@ -1,13 +1,14 @@
 package commons.game;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity(name = "Games")
 @Table(name = "games")
 public class Game {
     @Id
     private String id;
-
 
     @SuppressWarnings("unused")
     private Game() {
@@ -22,6 +23,5 @@ public class Game {
     public String getId() {
         return id;
     }
-
 
 }

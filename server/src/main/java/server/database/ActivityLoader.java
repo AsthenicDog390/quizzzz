@@ -16,23 +16,23 @@ import java.util.List;
 public class ActivityLoader {
 
     @Bean
-    ApplicationRunner initialiseRepo(ActivityRepository repo)
-    {
+    ApplicationRunner initialiseRepo(ActivityRepository repo) {
         boolean run = false;
         //change this value to true in order to autorun the saveToRepo at the start of the server
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                if(run)
-                saveToRepo(repo);
+                if (run) {
+                    saveToRepo(repo);
+                }
             }
         };
     }
 
-    public void saveToRepo(ActivityRepository repo)
-    {
+    public void saveToRepo(ActivityRepository repo) {
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<Activity>> mapType = new TypeReference<List<Activity>>() {};
+        TypeReference<List<Activity>> mapType = new TypeReference<List<Activity>>() {
+        };
         InputStream is = TypeReference.class.getResourceAsStream("/images/activities.json");
         try {
             List<Activity> activityList = mapper.readValue(is, mapType);

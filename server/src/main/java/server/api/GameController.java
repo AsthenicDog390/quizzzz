@@ -16,7 +16,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/games")
 public class GameController {
-    private GameService gameService;
+    private final GameService gameService;
+
     private Game waitingRoom;
 
     public GameController(GameService gameService) {
@@ -34,7 +35,6 @@ public class GameController {
             throw new RuntimeException("code path should be unreachable in singleplayer game", e);
         }
     }
-
 
     @GetMapping("/singleplayer/{id}")
     public DeferredResult<ResponseEntity<Message>> getSinglePlayerGameEvents(@PathVariable("id") String id) {
@@ -111,5 +111,5 @@ public class GameController {
         return ResponseEntity.ok().build();
     }
 
-   // @GetMapping
+    // @GetMapping
 }

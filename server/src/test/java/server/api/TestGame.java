@@ -14,7 +14,7 @@ public class TestGame extends Game {
         this.handledMessages = new ArrayList<>();
     }
 
-    private ArrayList<Message> handledMessages;
+    private final ArrayList<Message> handledMessages;
 
     @Override
     public void handleMessage(String PlayerId, Message m) {

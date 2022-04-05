@@ -11,7 +11,6 @@ public class HighScore {
 
     private int score;
 
-
     private String playerId;
 
     private String gameId;
@@ -35,7 +34,9 @@ public class HighScore {
         return score;
     }
 
-    public String getPlayerId(){return playerId;}
+    public String getPlayerId() {
+        return playerId;
+    }
 
     public String getGameId() {
         return gameId;
