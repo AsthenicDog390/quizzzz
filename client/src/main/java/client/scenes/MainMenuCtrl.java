@@ -18,7 +18,7 @@ public class MainMenuCtrl {
     }
 
     public void showLead() {
-        mainCtrl.showLeaderboard();
+        //mainCtrl.showLeaderboard();
     }
 
     public void showWaitingRoom(){
@@ -39,5 +39,8 @@ public class MainMenuCtrl {
         System.exit(0);
     }
 
+    public void showAddAtivities() {
+        mainCtrl.showAddActivities();
+    }
 }
 
