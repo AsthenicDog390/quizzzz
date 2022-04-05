@@ -9,6 +9,7 @@ build/
 
 **/*.swp
 server/src/main/resources/oopp-activity-bank
+server/resources
 ### STS ###
 .apt_generated
 .classpath
@@ -40,3 +41,9 @@ out/
 ### VS Code ###
 .vscode/
 /server/resources/
+
+*.png
+
+*.jpeg
+
+*.jpg
