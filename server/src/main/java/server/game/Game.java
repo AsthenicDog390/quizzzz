@@ -2,10 +2,7 @@ package server.game;
 
 import commons.Player;
 import commons.game.HighScore;
-import commons.messages.AnswerMessage;
-import commons.messages.GameEndedMessage;
-import commons.messages.Message;
-import commons.messages.NextQuestionMessage;
+import commons.messages.*;
 import commons.questions.Question;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
@@ -15,6 +12,7 @@ import server.services.TimerService;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Game {
     private enum State {
@@ -99,8 +97,9 @@ public class Game {
                 timerService.runAfter(3, ()->{
                 if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
-                    this.messageQueue.addMessage(new GameEndedMessage());
                     this.persistScores();
+                    this.setLeaderboard();
+                    this.messageQueue.addMessage(new GameEndedMessage());
                     return;
                 }
                 this.nextQuestion();
@@ -117,7 +116,7 @@ public class Game {
         }
 
         for (Player p: players.values()) {
-            var score = new HighScore(p.getScore(), p, maybeGame.get());
+            var score = new HighScore(p.getScore(), p.getId(), maybeGame.get().getId());
             scoreRepository.save(score);
         }
 
@@ -143,6 +142,18 @@ public class Game {
             timer.schedule(timerTask, 10000);
     }
 
+    private void setLeaderboard() {
+        var players = this.scoreRepository.findAll()
+                .stream()
+                .map(score -> {
+                    System.out.println(score.getPlayerId());
+                    var player = this.playerRepository.findById(score.getPlayerId()).get();
+                    player.setScore(score.getScore());
+                    return player;
+                })
+                .collect(Collectors.toList());
+        this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
+    }
     /**
      * providedAnswer sets the answer given by a certain player
      * @param playerId the id of the player to set the answer of
@@ -155,7 +166,7 @@ public class Game {
         this.advanceState();
     }
 
-    private void updateScore(String playerId, int score) {
+    public void updateScore(String playerId, int score) {
         var p = this.players.get(playerId);
         p.setScore(p.getScore() + score);
         this.players.put(playerId, p);
@@ -168,6 +179,9 @@ public class Game {
         if (m instanceof AnswerMessage) {
             var answer = (AnswerMessage)m;
             this.providedAnswer(playerId, answer.getAnswer());
+        }else if (m instanceof UpdateScoreMessage){
+            var score = (UpdateScoreMessage)m;
+            this.updateScore(playerId, score.getScore());
         }
     }
 
@@ -181,8 +195,8 @@ public class Game {
      * @param id the id of the player
      * @return the newly created player
      */
-    public Player addPlayer(String name, String id) {
-        var p = new Player(id, name);
+    public Player addPlayer(String name, String id, boolean singleplayer) {
+        var p = new Player(id, name, singleplayer);
         p.setGameId(id.toString());
         players.put(p.getId(), p);
 
