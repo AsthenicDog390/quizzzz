@@ -8,8 +8,12 @@ build/
 **/*.mv.db
 
 **/*.swp
+
 server/src/main/resources/images
 server/src/main/resources/oopp-activity-bank.zip
+server/src/main/resources/oopp-activity-bank
+server/resources
+
 ### STS ###
 .apt_generated
 .classpath
@@ -42,6 +46,10 @@ out/
 .vscode/
 /server/resources/
 
-*.9.png
-*.jpeg
+
 *.jpg
+
+*.jpeg
+
+*.png
+ .gitignore

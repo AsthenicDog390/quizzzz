@@ -83,6 +83,10 @@ public class Game {
                 });
                 break;
             case QUESTION_PERIOD:
+                /*
+                * waiting for the correct answer to be displayed
+                */
+                timerService.runAfter(3, ()->{
                 if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
                     this.persistScores();
@@ -91,6 +95,7 @@ public class Game {
                     return;
                 }
                 this.nextQuestion();
+                });
                 break;
         }
     }
@@ -116,9 +121,9 @@ public class Game {
      * nextQuestion sends a message to show the next question to all players
      */
     private void nextQuestion() {
-        this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
-        this.currentQuestion++;
-        this.answers.clear();
+            this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
+            this.currentQuestion++;
+            this.answers.clear();
     }
 
     private void setLeaderboard() {
