@@ -10,7 +10,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
-    private ImageRepository imageRepo;
+    private final ImageRepository imageRepo;
 
     public ImageController(ImageRepository imageRepo) {
         this.imageRepo = imageRepo;

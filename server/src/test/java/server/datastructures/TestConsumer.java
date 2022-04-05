@@ -2,7 +2,6 @@ package server.datastructures;
 
 import commons.messages.Message;
 
-
 import java.util.Optional;
 import java.util.function.Consumer;
 

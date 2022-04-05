@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 
 public class HowToPlayCtrl {
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     @Inject

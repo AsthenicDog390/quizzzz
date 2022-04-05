@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 class ActivityControllerTest {
 
     public List<Integer> nextInts;
+
     private MyRandom random;
+
     private TestActivityRepository repo;
 
     private ActivityController sut;
@@ -117,7 +119,6 @@ class ActivityControllerTest {
         assertEquals(one, result.get(2));
         assertEquals(two, result.get(3));
     }
-
 
     private Activity getActivity(String name) {
         return new Activity(name, name, name, 0L, name);

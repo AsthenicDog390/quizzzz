@@ -4,7 +4,9 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
 public class MainMenuCtrl {
+
     private final MainCtrl mainCtrl;
+
     private final ServerUtils server;
 
     @Inject
@@ -21,15 +23,13 @@ public class MainMenuCtrl {
         //mainCtrl.showLeaderboard();
     }
 
-    public void showWaitingRoom(){
+    public void showWaitingRoom() {
         mainCtrl.showWaitingRoom();
     }
 
-    public void showNameSelection(){
+    public void showNameSelection() {
         mainCtrl.showNameSelection();
     }
-
-
 
     public void showNameSelectionMulti() {
         mainCtrl.showNameSelectionMulti();

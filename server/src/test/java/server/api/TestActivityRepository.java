@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package server.api;
+
+import commons.Activity;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import server.database.ActivityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
-
-import commons.Activity;
-import server.database.ActivityRepository;
-
 public class TestActivityRepository implements ActivityRepository {
 
     public final List<Activity> activities = new ArrayList<>();
+
     public final List<String> calledMethods = new ArrayList<>();
 
     private void call(String name) {
@@ -59,7 +60,7 @@ public class TestActivityRepository implements ActivityRepository {
     @Override
     public <S extends Activity> List<S> saveAll(Iterable<S> entities) {
         // TODO Auto-generated method stub
-        for (S e: entities) {
+        for (S e : entities) {
             save(e);
         }
         return null;
