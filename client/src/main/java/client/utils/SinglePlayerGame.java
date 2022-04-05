@@ -12,12 +12,17 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class SinglePlayerGame {
     private static final String SERVER = "http://localhost:8080/";
+
     private final static String API_PATH = "/api/games/singleplayer";
+
     private final MainCtrl mainCtrl;
 
     private final String id;
+
     private String name;
+
     private Integer score;
+
     private final Player p;
 
     private boolean gameEnded;
@@ -34,6 +39,7 @@ public class SinglePlayerGame {
 
     /**
      * newGame registers the currthent game wi the server and sets the game id
+     *
      * @return the id which the server assigned to this game
      */
     private String newGame(String name) {
@@ -47,6 +53,7 @@ public class SinglePlayerGame {
 
     /**
      * giveAnswer submits an answer to the server
+     *
      * @param answer the numeric value of the answer, what it means depends on what type of question is being answered
      */
     public void giveAnswer(int answer) {
@@ -58,7 +65,7 @@ public class SinglePlayerGame {
                 .post(Entity.entity(a, APPLICATION_JSON));
     }
 
-    public void updScore(int score){
+    public void updScore(int score) {
         var a = new UpdateScoreMessage(score);
         ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(API_PATH).path(this.id) //
@@ -86,6 +93,7 @@ public class SinglePlayerGame {
 
     /**
      * handleMessage handles a message sent by the server to the client
+     *
      * @param m the message that was sent
      */
     private void handleMessage(Message m) {
@@ -100,24 +108,24 @@ public class SinglePlayerGame {
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;
             Platform.runLater(() -> {
-             //   mainCtrl.showMainMenu();
+                //   mainCtrl.showMainMenu();
             });
-        } else if (m instanceof SingleLeaderboardMessage){
+        } else if (m instanceof SingleLeaderboardMessage) {
             Platform.runLater(() -> {
                 mainCtrl.showLeaderboard(((SingleLeaderboardMessage) m).getLeaderBoard());
             });
         }
     }
 
-    public Integer getPlayerScore(){
+    public Integer getPlayerScore() {
         return p.getScore();
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this.p;
     }
 
-    public void setScore(Integer n){
-        p.setScore(p.getScore()+n);
+    public void setScore(Integer n) {
+        p.setScore(p.getScore() + n);
     }
 }
