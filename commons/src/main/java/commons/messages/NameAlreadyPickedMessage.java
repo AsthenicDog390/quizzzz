@@ -2,8 +2,9 @@ package commons.messages;
 
 import java.util.List;
 
-public class NameAlreadyPickedMessage extends Message{
+public class NameAlreadyPickedMessage extends Message {
     private List<String> pickedNames;
+
     private String name;
 
     @SuppressWarnings("unused")

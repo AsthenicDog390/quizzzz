@@ -17,9 +17,9 @@ public class MultiPlayerGame {
 
     private final MainCtrl mainCtrl;
 
-    private String playerId;
-    private String name;
-    private String id;
+    private final String playerId;
+
+    private final String name;
 
     private final String id;
 
@@ -42,10 +42,10 @@ public class MultiPlayerGame {
      */
     private NewGameMessage newGame() throws NameAlreadyPickedException {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH).path("new") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
+            .target(SERVER).path(API_PATH).path("new") //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
         if (m instanceof NewGameMessage) {
             return (NewGameMessage) m;
         } else if (m instanceof NameAlreadyPickedMessage) {
