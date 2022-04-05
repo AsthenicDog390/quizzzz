@@ -18,6 +18,7 @@ package client.scenes;
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import commons.exceptions.NameAlreadyPickedException;
+import commons.Player;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.io.File;
+import java.util.List;
 
 public class MainCtrl {
 
@@ -87,7 +89,7 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
-                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti, 
+                           Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti,
                            Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti,
                            Pair<AddActivitiesCtrl, Parent> addActivities) {
         chooser = new FileChooser();
@@ -190,7 +192,8 @@ public class MainCtrl {
         startingScreenCtrl.start();
     }
 
-    public void showLeaderboard(){
+    public void showLeaderboard(List<Player> scores){
+        leaderboardCtrl.setLeaderboard(scores);
         primaryStage.setTitle("LeaderBoard");
         primaryStage.setScene(leaderboard);
     }
@@ -201,6 +204,7 @@ public class MainCtrl {
     }
 
     private void showMultipleMultiSingle() {
+        multipleChoiceSingleCtrl.initializeScoreLabel();
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceMulti);
     }
@@ -232,7 +236,6 @@ public class MainCtrl {
 
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
 
-
     public void startSinglePlayerGame(String name) {
         this.singlePlayerGame = new SinglePlayerGame(this,name);
     }
@@ -249,7 +252,7 @@ public class MainCtrl {
     }
 
     public void gameEnded() {
-        this.showMainMenu();        
+        this.showMainMenu();
         this.singlePlayerGame = null;
         this.multiPlayerGame = null;
     }
@@ -268,6 +271,10 @@ public class MainCtrl {
             this.showMultipleMultiSingle();
             this.multipleChoiceMultiCtrl.setQuestion((MoreExpensive) question);
         }
+    }
+
+    public void startSinglePlayerTimer() {
+        multipleChoiceSingleCtrl.startTimer();
     }
 }
 

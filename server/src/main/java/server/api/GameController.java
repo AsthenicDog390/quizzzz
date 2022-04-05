@@ -28,7 +28,7 @@ public class GameController {
         Game newGame = gameService.newGame();
 
         try {
-            var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), "singleplayer");
+            var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), newGame.getId(), true);
             return new NewGameMessage(newGame.getId(), p.getId());
         } catch (NameAlreadyPickedException e) {
             throw new RuntimeException("code path should be unreachable in singleplayer game", e);
@@ -44,10 +44,10 @@ public class GameController {
             deferredResult.setResult(ResponseEntity.notFound().build());
         } else {
             var game = maybeGame.get();
-            game.addMessageConsumer("singleplayer", m -> {
+            game.addMessageConsumer(id, m -> {
                 deferredResult.setResult(ResponseEntity.ok(m));
             });
-            deferredResult.onTimeout(() -> game.resetConsumer("singleplayer"));
+            deferredResult.onTimeout(() -> game.resetConsumer(id));
         }
 
         return deferredResult;
@@ -61,7 +61,7 @@ public class GameController {
         }
 
         try {
-            var p = waitingRoom.addPlayer(nameRetrieve.getToBePassedName(), UUID.randomUUID().toString());
+            var p = waitingRoom.addPlayer(nameRetrieve.getToBePassedName(), UUID.randomUUID().toString(), false);
             return new NewGameMessage(waitingRoom.getId(), p.getId());
         } catch (NameAlreadyPickedException e) {
             return new NameAlreadyPickedMessage(e.getName(), e.getPickedNames());
@@ -93,7 +93,7 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
 
-        maybeGame.get().handleMessage("singleplayer", m);
+        maybeGame.get().handleMessage(id, m);
 
         return ResponseEntity.ok().build();
     }
@@ -110,4 +110,6 @@ public class GameController {
 
         return ResponseEntity.ok().build();
     }
+
+   // @GetMapping
 }

@@ -2,10 +2,7 @@ package server.game;
 
 import commons.Player;
 import commons.game.HighScore;
-import commons.messages.AnswerMessage;
-import commons.messages.GameEndedMessage;
-import commons.messages.Message;
-import commons.messages.NextQuestionMessage;
+import commons.messages.*;
 import commons.questions.Question;
 import commons.exceptions.NameAlreadyPickedException;
 import server.database.GameRepository;
@@ -14,9 +11,7 @@ import server.database.ScoreRepository;
 import server.datastructures.MultiMessageQueue;
 import server.services.TimerService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -41,6 +36,14 @@ public class Game {
     private GameRepository gameRepository;
 
     private TimerService timerService;
+    private Timer timer = new Timer();
+
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            advanceState();
+        }
+    };
 
     public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
         if (questions == null) {
@@ -89,13 +92,19 @@ public class Game {
                 });
                 break;
             case QUESTION_PERIOD:
+                /*
+                * waiting for the correct answer to be displayed
+                */
+                timerService.runAfter(3, ()->{
                 if (this.currentQuestion >= this.questions.size()) {
                     this.state = State.GAME_ENDED;
-                    this.messageQueue.addMessage(new GameEndedMessage());
                     this.persistScores();
+                    this.setLeaderboard();
+                    this.messageQueue.addMessage(new GameEndedMessage());
                     return;
                 }
                 this.nextQuestion();
+                });
                 break;
         }
     }
@@ -108,7 +117,7 @@ public class Game {
         }
 
         for (Player p: players.values()) {
-            var score = new HighScore(p.getScore(), p, maybeGame.get());
+            var score = new HighScore(p.getScore(), p.getId(), maybeGame.get().getId());
             scoreRepository.save(score);
         }
 
@@ -121,11 +130,31 @@ public class Game {
      * nextQuestion sends a message to show the next question to all players
      */
     private void nextQuestion() {
-        this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
-        this.currentQuestion++;
-        this.answers.clear();
+            this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
+            this.currentQuestion++;
+            this.answers.clear();
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    advanceState();
+                }
+            };
+            timer.schedule(timerTask, 10000);
     }
 
+    private void setLeaderboard() {
+        var players = this.scoreRepository.findAll()
+                .stream()
+                .map(score -> {
+                    System.out.println(score.getPlayerId());
+                    var player = this.playerRepository.findById(score.getPlayerId()).get();
+                    player.setScore(score.getScore());
+                    return player;
+                })
+                .collect(Collectors.toList());
+        this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
+    }
     /**
      * providedAnswer sets the answer given by a certain player
      * @param playerId the id of the player to set the answer of
@@ -134,10 +163,11 @@ public class Game {
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
         this.updateScore(playerId, 250);
+        timer.cancel();
         this.advanceState();
     }
 
-    private void updateScore(String playerId, int score) {
+    public void updateScore(String playerId, int score) {
         var p = this.players.get(playerId);
         p.setScore(p.getScore() + score);
         this.players.put(playerId, p);
@@ -150,6 +180,9 @@ public class Game {
         if (m instanceof AnswerMessage) {
             var answer = (AnswerMessage)m;
             this.providedAnswer(playerId, answer.getAnswer());
+        }else if (m instanceof UpdateScoreMessage){
+            var score = (UpdateScoreMessage)m;
+            this.updateScore(playerId, score.getScore());
         }
     }
 
@@ -163,8 +196,8 @@ public class Game {
      * @param id the id of the player
      * @return the newly created player
      */
-    public Player addPlayer(String name, String id) throws NameAlreadyPickedException {
-        var p = new Player(id, name);
+    public Player addPlayer(String name, String id, boolean singleplayer) throws NameAlreadyPickedException {
+        var p = new Player(id, name, singleplayer);
         p.setGameId(id.toString());
         synchronized (players) {
             for (Player player: players.values()) {

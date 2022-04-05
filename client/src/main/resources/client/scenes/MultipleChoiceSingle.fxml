@@ -18,7 +18,7 @@
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="332.0" layoutY="80.0" prefHeight="0.0" prefWidth="111.0" styleClass="text" text="n/m:" textFill="WHITE">
+      <Label fx:id="questionNumber" layoutX="332.0" layoutY="80.0" prefHeight="0.0" prefWidth="111.0" styleClass="text" text="n/m:" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
@@ -92,5 +92,10 @@
             </Pane>
          </content>
       </DialogPane>
+      <Label fx:id="score" layoutX="1119.0" layoutY="80.0" style="-fx-font-size: 24;" styleClass="text" text="Your Score:&#10;0" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="DotGothic16 Regular" size="24.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
