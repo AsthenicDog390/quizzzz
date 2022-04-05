@@ -42,8 +42,8 @@ out/
 .vscode/
 /server/resources/
 
-*.png
+*.jpg
 
 *.jpeg
 
-*.jpg
+*.png
