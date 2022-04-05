@@ -16,8 +16,10 @@
 
 package client.scenes;
 
+import client.utils.Config;
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
+import com.google.inject.Inject;
 import commons.Player;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -100,6 +102,13 @@ public class MainCtrl {
 
     FileChooser chooser;
 
+    private Config config;
+
+    @Inject
+    public MainCtrl(Config config) {
+        this.config = config;
+    }
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
@@ -154,8 +163,13 @@ public class MainCtrl {
         this.startingScreenCtrl = startingScreen.getKey();
         this.startingScreen = new Scene(startingScreen.getValue());
 
-        showMainMenu();
+        showServerLocation();
         primaryStage.show();
+    }
+
+    private void showServerLocation() {
+        primaryStage.setTitle("Pick server location");
+        primaryStage.setScene(serverLocation);
     }
 
     public void showOverview() {
@@ -253,11 +267,11 @@ public class MainCtrl {
     }
 
     public void startSinglePlayerGame(String name) {
-        this.singlePlayerGame = new SinglePlayerGame(this, name);
+        this.singlePlayerGame = new SinglePlayerGame(config, this, name);
     }
 
     public void startMultiPlayerGame() {
-        this.multiPlayerGame = new MultiPlayerGame(this);
+        this.multiPlayerGame = new MultiPlayerGame(this, config);
     }
 
     public void setQuestionSinglePlayer(Question question) {

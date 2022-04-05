@@ -10,8 +10,6 @@ import org.glassfish.jersey.client.ClientConfig;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class MultiPlayerGame {
-    private static final String SERVER = "http://localhost:8080/";
-
     private final static String API_PATH = "/api/games/multiplayer";
 
     private final MainCtrl mainCtrl;
@@ -20,9 +18,12 @@ public class MultiPlayerGame {
 
     private final String id;
 
+    private final Config config;
+
     private boolean gameEnded;
 
-    public MultiPlayerGame(MainCtrl mainCtrl) {
+    public MultiPlayerGame(MainCtrl mainCtrl, Config config) {
+        this.config = config;
         this.gameEnded = false;
         var m = newGame();
         this.id = m.getId();
@@ -38,7 +39,7 @@ public class MultiPlayerGame {
      */
     private NewGameMessage newGame() {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH).path("new") //
+            .target(config.getServerLocation()).path(API_PATH).path("new") //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
             .get(NewGameMessage.class);
@@ -53,7 +54,7 @@ public class MultiPlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH) //
+            .target(config.getServerLocation()).path(API_PATH) //
             .path(this.id).path(this.playerId) //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
@@ -68,7 +69,7 @@ public class MultiPlayerGame {
         new Thread(() -> {
             while (!gameEnded) {
                 var message = ClientBuilder.newClient(new ClientConfig())
-                    .target(SERVER).path(API_PATH)
+                    .target(config.getServerLocation()).path(API_PATH)
                     .path(this.id).path(this.playerId)
                     .request(APPLICATION_JSON)
                     .accept(APPLICATION_JSON)

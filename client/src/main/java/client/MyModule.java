@@ -17,6 +17,7 @@
 package client;
 
 import client.scenes.*;
+import client.utils.Config;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -39,6 +40,6 @@ public class MyModule implements Module {
         binder.bind(MultipleChoiceMultiCtrl.class).in(Scopes.SINGLETON);
         binder.bind(StartingScreenCtrl.class).in(Scopes.SINGLETON);
         binder.bind(NameSelectionMultiCtrl.class).in(Scopes.SINGLETON);
-
+        binder.bind(Config.class).in(Scopes.SINGLETON);
     }
 }
