@@ -2,6 +2,7 @@ package commons.messages;
 
 public class NewGameMessage extends Message {
     private String id;
+
     private String playerId;
 
     @SuppressWarnings("unused")
@@ -17,5 +18,8 @@ public class NewGameMessage extends Message {
     public String getId() {
         return id;
     }
-    public String getPlayerId() { return playerId; }
+
+    public String getPlayerId() {
+        return playerId;
+    }
 }

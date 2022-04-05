@@ -18,10 +18,9 @@ public class LessExpensive extends MoreExpensive {
     @Override
     public String toString() {
         return "LessExpensive{" +
-                "options=" + Arrays.toString(options) +
-                ", answer=" + answer +
-                '}';
+            "options=" + Arrays.toString(options) +
+            ", answer=" + answer +
+            '}';
     }
-
 
 }

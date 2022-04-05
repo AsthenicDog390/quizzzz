@@ -3,26 +3,31 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Player;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class LeaderboardCtrl implements Initializable {
+
     private final MainCtrl mainCtrl;
+
     private final ServerUtils server;
 
     @FXML
     private TableView<Player> table;
+
     @FXML
     private TableColumn<Player, String> name;
+
     @FXML
     private TableColumn<Player, Integer> score;
 
@@ -34,10 +39,10 @@ public class LeaderboardCtrl implements Initializable {
 
     public void setLeaderboard(List<Player> scores) {
         List<Player> players = new ArrayList<>();
-        for(Player h:scores){
-            if (h.getIsSingleplayer()){
+        for (Player h : scores) {
+            if (h.getIsSingleplayer()) {
                 players.add(h);
-                System.out.println(h.toString());
+                System.out.println(h);
             }
         }
         this.table.getItems().setAll(players);
@@ -45,10 +50,10 @@ public class LeaderboardCtrl implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-         name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
-       // name.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getName()));
+        name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+        // name.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getName()));
         score.setCellValueFactory(new PropertyValueFactory<Player, Integer>("score"));
-       // score.setCellValueFactory(p -> new SimpleIntegerProperty(p.getValue().getScore()));
+        // score.setCellValueFactory(p -> new SimpleIntegerProperty(p.getValue().getScore()));
     }
 
     public void showMainMenu() {

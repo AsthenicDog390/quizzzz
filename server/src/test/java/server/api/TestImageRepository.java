@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class TestImageRepository extends ImageRepository {
     public Map<String, Map<String, byte[]>> files;
+
     public boolean shouldThrow;
+
     public boolean shouldFail;
 
     public TestImageRepository() {

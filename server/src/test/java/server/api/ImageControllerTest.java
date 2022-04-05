@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ImageControllerTest {
     private TestImageRepository repo;
+
     private ImageController sut;
 
     @BeforeEach

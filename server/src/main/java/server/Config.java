@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package server;
 
-import java.util.Random;
+package server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.database.ImageRepository;
+
+import java.util.Random;
 
 @Configuration
 public class Config {
@@ -30,5 +31,7 @@ public class Config {
     }
 
     @Bean
-    public ImageRepository getImageRepository() { return new ImageRepository(); }
+    public ImageRepository getImageRepository() {
+        return new ImageRepository();
+    }
 }

@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class MidGameLeaderboardCtrl {
 
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     @Inject
@@ -30,24 +30,29 @@ public class MidGameLeaderboardCtrl {
 
     @FXML
     private ProgressBar progressBar;
+
     @FXML
     private DialogPane dialogPane;
+
     @FXML
     private Button YesExit;
+
     @FXML
     private Button NoExit;
+
     @FXML
     private ListView<String> player;
+
     @FXML
     private ListView<Integer> score;
 
-    public void setPlayerScores(List<Player> players, Player currentPlayer){
+    public void setPlayerScores(List<Player> players, Player currentPlayer) {
         players.sort(new ScoreComparator());
         List<String> names = new ArrayList<>();
         List<Integer> scores = new ArrayList<>();
-        for(int i = 1 ; i <= 3 ; i++){
-            names.add(i + ". " + players.get(i-1).getName());
-            scores.add(players.get(i-1).getScore());
+        for (int i = 1; i <= 3; i++) {
+            names.add(i + ". " + players.get(i - 1).getName());
+            scores.add(players.get(i - 1).getScore());
         }
         int poz = players.indexOf(currentPlayer) + 1;
         names.add(poz + ". " + currentPlayer.getName());
@@ -61,7 +66,7 @@ public class MidGameLeaderboardCtrl {
     }
 
     /**
-     * Starting 2 timers corresponding to the progress bar
+     * Starting 2 timers corresponding to the progress bar.
      */
     public void startTimer() {
         Timer gameTimer = new Timer();
@@ -83,12 +88,13 @@ public class MidGameLeaderboardCtrl {
             @Override
             public void run() {
                 double progress = progressBar.getProgress();
-                if(progress>0.004)
-                    progressBar.setProgress(progress-0.004);
+                if (progress > 0.004) {
+                    progressBar.setProgress(progress - 0.004);
+                }
             }
         };
-        gameTimer.schedule(timeOut,10000);
-        progressBarTimer.schedule(lowerBar,0,40);
+        gameTimer.schedule(timeOut, 10000);
+        progressBarTimer.schedule(lowerBar, 0, 40);
     }
 
     public void showDialogExit() {
