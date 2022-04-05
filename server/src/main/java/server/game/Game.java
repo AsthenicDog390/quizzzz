@@ -94,16 +94,16 @@ public class Game {
                 break;
             case QUESTION_PERIOD:
                 /*
-                 * waiting for the correct answer to be displayed
-                 */
+                * waiting for the correct answer to be displayed
+                */
                 timerService.runAfter(3, ()->{
-                    if (this.currentQuestion >= this.questions.size()) {
-                        this.state = State.GAME_ENDED;
-                        this.messageQueue.addMessage(new GameEndedMessage());
-                        this.persistScores();
-                        return;
-                    }
-                    this.nextQuestion();
+                if (this.currentQuestion >= this.questions.size()) {
+                    this.state = State.GAME_ENDED;
+                    this.messageQueue.addMessage(new GameEndedMessage());
+                    this.persistScores();
+                    return;
+                }
+                this.nextQuestion();
                 });
                 break;
         }
