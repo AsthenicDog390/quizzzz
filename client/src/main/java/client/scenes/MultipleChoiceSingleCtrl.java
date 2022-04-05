@@ -99,8 +99,11 @@ public class MultipleChoiceSingleCtrl {
         this.questionNumber.setText(n+"/"+"20");
         if (n<20) {
             n++;
-        }else{n=1;
-        this.score.setText("Your Score:"+"\n"+0);}
+        }else if(n==20){
+            n=1;
+        }
+        else{
+            this.score.setText("Your Score:"+"\n"+0);}
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
         } else {

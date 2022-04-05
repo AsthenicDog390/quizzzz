@@ -125,6 +125,7 @@ public class Game {
         var players = this.scoreRepository.findAll()
                 .stream()
                 .map(score -> {
+                    System.out.println(score.getPlayerId());
                     var player = this.playerRepository.findById(score.getPlayerId()).get();
                     player.setScore(score.getScore());
                     return player;
@@ -176,7 +177,7 @@ public class Game {
         p.setGameId(id.toString());
         players.put(p.getId(), p);
 
-        //playerRepository.save(p);
+        playerRepository.save(p);
 
         return p;
     }
