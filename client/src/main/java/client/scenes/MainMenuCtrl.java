@@ -18,7 +18,7 @@ public class MainMenuCtrl {
     }
 
     public void showLead() {
-        mainCtrl.showLeaderboard();
+        //mainCtrl.showLeaderboard();
     }
 
     public void showWaitingRoom(){
@@ -29,9 +29,7 @@ public class MainMenuCtrl {
         mainCtrl.showNameSelection();
     }
 
-    public void startSinglePlayerGame(){
-        mainCtrl.startSinglePlayerGame();
-    }
+
 
     public void showNameSelectionMulti() {
         mainCtrl.showNameSelectionMulti();
@@ -41,5 +39,8 @@ public class MainMenuCtrl {
         System.exit(0);
     }
 
+    public void showAddAtivities() {
+        mainCtrl.showAddActivities();
+    }
 }
 

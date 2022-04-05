@@ -6,28 +6,49 @@ import commons.questions.LessExpensive;
 import commons.questions.MoreExpensive;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestionBuilder {
 
     ActivityRepository repo;
-    String gameID;
-    Set<Long> ids = new HashSet<>();
+    Set<Integer> ids = new HashSet<>();
+    List<Activity> recivedActivities; //for storing a list at least 60 different activities. This speeds up the generator process.
+    //HashMap<Integer, Integer> temp = new HashMap<>();
+    boolean firstRun = true;
 
-    public QuestionBuilder(ActivityRepository repo, String gameID) {
+    public QuestionBuilder(ActivityRepository repo) {
         this.repo = repo;
-        this.gameID = gameID;
+        this.recivedActivities = new ArrayList<>();
+    }
+
+    private void generateActivities(){ //gets a set of activities to be used in a single game
+        //getting at least 60 different activities with similar consumptions.
+        long len = repo.count();
+        long center = 0;
+        while (center == 0) {
+            long index = ThreadLocalRandom.current().nextLong(0, len);
+            var maybeActivity = repo.findById(index);
+            if (maybeActivity.isPresent()) {
+                center = maybeActivity.get().getConsumptionInWh();
+            }
+        }
+        long tenPercent = center/10;
+        long minn = center - 3 * tenPercent;
+        long maxx = center + 3 * tenPercent;
+        List<Activity> activities = new ArrayList<>();
+        while(activities.size() < 60){
+            activities = repo.findActivitiesInRange(minn, maxx);
+            minn/=2;
+            maxx*=2;
+        }
+        this.recivedActivities = activities;
     }
     /*
     private List<Activity> generate3Activities(ActivityRepository repo){
-        long len = repo.count();
-        var id = (long) ThreadLocalRandom.current().nextInt(0, (int)len);
+
         List<Activity> activities = new ArrayList<>();
-        activities.add(repo.getById(id));
+        activities.add(repo.findById(id).get());
         Long minn = activities.get(0).getConsumptionInWh();
         minn = minn - minn/5;
         Long maxx = activities.get(0).getConsumptionInWh();
@@ -52,50 +73,85 @@ public class QuestionBuilder {
     }
      */
 
-    private List<Activity> generate3Activities(ActivityRepository repo){
-        long len = repo.count();
+//    private List<Activity> generate3Activities(ActivityRepository repo){
+//        long len = repo.count();
+//        List<Activity> options = new ArrayList<>();
+//        var id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
+//        while(ids.contains(id)) {
+//            id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
+//        }
+//        //got a random activity, whose consumption will be used as the center of the interval of consumptions
+//        //from which the activities will be chosen
+//        int center = (int)repo.findById(id).get().getConsumptionInWh();
+//        //center
+//        long minn = center - center/5;
+//        //lower bound
+//        long maxx = center + center/5;
+//        //upper bound
+//        List<Activity> activities = new ArrayList<>();
+//        int count = 0;
+//        while(count <= 3){
+//            if (ids.size() == (len - (3-count) +1)) {
+//                ids.clear();
+//                //if there are less than the 3 activities available, they will be reset
+//                //the formula above was made in order to not reset the activities if there are less than 3 available and
+//                //the rest were already chosen
+//            }
+//            activities = repo.findActivitiesInRange(minn, maxx);
+//            for(int i = 0; i < activities.size() ; i++){
+//                Activity current = activities.get(i);
+//                if(!ids.contains(current.getActivity_ID())){
+//                   options.add(current);
+//                   ids.add(current.getActivity_ID());
+//                   count++;
+//                }
+//                //going through the interval to get the activities.
+//            }
+//            minn/=2;
+//            maxx*=2;
+//            //if not enough activities were found, the interval will get bigger
+//        }
+//        return options;
+
+//        long len = repo.count();
+//        List<Activity> options = new ArrayList<>();
+//        while (options.size() < 3) {
+//            long index = ThreadLocalRandom.current().nextLong(0, len);
+//            var maybeActivity = repo.findById(index);
+//            if (maybeActivity.isPresent()) {
+//                options.add(maybeActivity.get());
+//            }
+//        }
+//
+//        return options;
+//    }
+
+    private List<Activity> generate3Activities() {//takes 3 activities from the list that were not previously used in the same game and returns them
+        Set<Integer> consumptions = new HashSet<>();
         List<Activity> options = new ArrayList<>();
-        var id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
-        while(ids.contains(id)) {
-            id = (long) ThreadLocalRandom.current().nextInt(0, (int) len);
-        }
-        //got a random activity, whose consumption will be used as the center of the interval of consumptions
-        //from which the activities will be chosen
-        int center = (int)repo.getById(id).getConsumptionInWh();
-        //center
-        long minn = center - center/5;
-        //lower bound
-        long maxx = center + center/5;
-        //upper bound
-        List<Activity> activities = new ArrayList<>();
-        int count = 0;
-        while(count <= 3){
-            if (ids.size() == (len - (3-count) +1)) {
-                ids.clear();
-                //if there are less than the 3 activities available, they will be reset
-                //the formula above was made in order to not reset the activities if there are less than 3 available and
-                //the rest were already chosen
+        int length = recivedActivities.size();
+        while(options.size() < 3){
+            int random = ThreadLocalRandom.current().nextInt(0, length);
+            while(ids.contains(random) || consumptions.contains(recivedActivities.get(random).getConsumptionInWh())){
+                random = ThreadLocalRandom.current().nextInt(0, length);
             }
-            activities = repo.findActivitiesInRange(minn, maxx);
-            for(int i = 0; i <= activities.size() ; i++){
-                Activity current = activities.get(i);
-                if(!ids.contains(current.getActivity_ID())){
-                   options.add(current);
-                   ids.add(current.getActivity_ID());
-                   count++;
-                }
-                //going through the interval to get the activities.
-            }
-            minn/=2;
-            maxx*=2;
-            //if not enough activities were found, the interval will get bigger
+            options.add(recivedActivities.get(random));
+            ids.add(random);
+            consumptions.add((int) recivedActivities.get(random).getConsumptionInWh());
+            //temp.put(random,(temp.get(random) == null ? 0:1) + 1);
         }
+        //System.out.println("Ids used " + temp);
         return options;
     }
 
     public MoreExpensive generateMoreExpensiveQuestion()
     {
-        List<Activity> activities = generate3Activities(repo);
+        //runs the generateActivities functions if this is the first question generated by this instance of the builder
+        if(firstRun){
+            firstRun = false;
+            generateActivities();
+        }
+        List<Activity> activities = generate3Activities();
         Activity[] options = new Activity[3];
         Activity answer = activities.get(0);
         for(int i = 0 ; i <= 2; i++){
@@ -110,7 +166,12 @@ public class QuestionBuilder {
 
     public LessExpensive generateLessExpensiveQuestion()
     {
-        List<Activity> activities = generate3Activities(repo);
+        //runs the generateActivities functions if this is the first question generated by this instance of the builder
+        if(firstRun){
+            firstRun = false;
+            generateActivities();
+        }
+        List<Activity> activities = generate3Activities();
         Activity[] options = new Activity[3];
         Activity answer = activities.get(0);
         for(int i = 0 ; i <= 2; i++){
@@ -124,13 +185,12 @@ public class QuestionBuilder {
     }
 
     public Estimate genereateEstimateQuestion(){
-        long len = repo.count();
-        var id = (long) ThreadLocalRandom.current().nextInt(0, (int)len);
-        while (ids.contains(id)) {
-            id = ThreadLocalRandom.current().nextInt(1, (int) len);
+        int random = ThreadLocalRandom.current().nextInt(0, recivedActivities.size());
+        while (ids.contains(random)) {
+            random = ThreadLocalRandom.current().nextInt(0, recivedActivities.size());
         }
-        ids.add(id);
-        Activity activity = repo.getById(id);
+        ids.add(random);
+        Activity activity = recivedActivities.get(random);
         Estimate ans = new Estimate(activity);
         return ans;
     }

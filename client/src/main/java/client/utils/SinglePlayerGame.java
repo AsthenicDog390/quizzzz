@@ -1,6 +1,7 @@
 package client.utils;
 
 import client.scenes.MainCtrl;
+import commons.Player;
 import commons.messages.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -15,26 +16,32 @@ public class SinglePlayerGame {
     private final MainCtrl mainCtrl;
 
     private String id;
+    private String name;
+    private Integer score;
+    private Player p;
 
     private boolean gameEnded;
 
-    public SinglePlayerGame(MainCtrl mainCtrl) {
+    public SinglePlayerGame(MainCtrl mainCtrl, String name) {
         this.gameEnded = false;
-        this.id = newGame();
+        this.id = newGame(name);
+        this.p = new Player(id, name, true);
         this.mainCtrl = mainCtrl;
+        p.setScore(0);
         this.subscribeToMessages();
+        mainCtrl.showStartingScreen();
     }
 
     /**
-     * newGame registers the current game with the server and sets the game id
+     * newGame registers the currthent game wi the server and sets the game id
      * @return the id which the server assigned to this game
      */
-    private String newGame() {
+    private String newGame(String name) {
         var m = ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(API_PATH).path("new") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(NewGameMessage.class);
+                .post(Entity.entity(new SendNameMessage(name), APPLICATION_JSON), NewGameMessage.class);
         return m.getId();
     }
 
@@ -44,6 +51,15 @@ public class SinglePlayerGame {
      */
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
+        ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(API_PATH).path(this.id) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .post(Entity.entity(a, APPLICATION_JSON));
+    }
+
+    public void updScore(int score){
+        var a = new UpdateScoreMessage(score);
         ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(API_PATH).path(this.id) //
                 .request(APPLICATION_JSON) //
@@ -79,12 +95,29 @@ public class SinglePlayerGame {
             //TODO(Friso): provide the question to the question controller
             Platform.runLater(() -> {
                 mainCtrl.setQuestionSinglePlayer(((NextQuestionMessage) m).getQuestion());
+                mainCtrl.startSinglePlayerTimer();
             });
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;
             Platform.runLater(() -> {
-                mainCtrl.gameEnded();
+             //   mainCtrl.showMainMenu();
+            });
+        } else if (m instanceof SingleLeaderboardMessage){
+            Platform.runLater(() -> {
+                mainCtrl.showLeaderboard(((SingleLeaderboardMessage) m).getLeaderBoard());
             });
         }
+    }
+
+    public Integer getPlayerScore(){
+        return p.getScore();
+    }
+
+    public Player getPlayer(){
+        return this.p;
+    }
+
+    public void setScore(Integer n){
+        p.setScore(p.getScore()+n);
     }
 }
