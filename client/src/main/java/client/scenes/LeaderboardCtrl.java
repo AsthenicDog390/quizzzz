@@ -37,7 +37,7 @@ public class LeaderboardCtrl implements Initializable {
         for(Player h:scores){
             if (h.getIsSingleplayer()){
                 players.add(h);
-                System.out.println(h.toString());
+                System.out.println(h);
             }
         }
         this.table.getItems().setAll(players);

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package client.scenes;
 
 import com.google.inject.Inject;
@@ -30,6 +31,7 @@ import javafx.stage.Modality;
 public class AddQuoteCtrl {
 
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     @FXML

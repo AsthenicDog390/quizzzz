@@ -14,8 +14,8 @@ public class MultiPlayerGame {
     private final static String API_PATH = "/api/games/multiplayer";
     private final MainCtrl mainCtrl;
 
-    private String playerId;
-    private String id;
+    private final String playerId;
+    private final String id;
 
     private boolean gameEnded;
 

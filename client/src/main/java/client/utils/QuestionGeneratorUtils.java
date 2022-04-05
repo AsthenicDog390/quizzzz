@@ -16,10 +16,10 @@ public class QuestionGeneratorUtils {
         Long maxx = activities.get(0).getConsumptionInWh();
         maxx = maxx + maxx/5;
         while(activities.get(0).equals(activities.get(1)) || activities.get(1).getConsumptionInWh() > maxx || activities.get(1).getConsumptionInWh() < minn){
-            activities.set(1, (Activity) server.getRandomActivity());
+            activities.set(1, server.getRandomActivity());
         }
         while(activities.get(0).equals(activities.get(2)) || activities.get(1).equals(activities.get(2)) || activities.get(2).getConsumptionInWh() > maxx || activities.get(2).getConsumptionInWh() < minn){
-            activities.set(2, (Activity) server.getRandomActivity());
+            activities.set(2, server.getRandomActivity());
         }
         return activities;
     }

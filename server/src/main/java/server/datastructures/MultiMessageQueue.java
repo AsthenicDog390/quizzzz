@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class MultiMessageQueue {
-    private ArrayList<Message> messages;
+    private final ArrayList<Message> messages;
 
-    private HashMap<String, Optional<Consumer<Message>>> consumers;
-    private HashMap<String, Integer> indices;
+    private final HashMap<String, Optional<Consumer<Message>>> consumers;
+    private final HashMap<String, Integer> indices;
 
     public MultiMessageQueue() {
         this.messages = new ArrayList<>();

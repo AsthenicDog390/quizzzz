@@ -5,7 +5,7 @@ import server.game.Game;
 import java.util.Optional;
 
 public interface GameService {
-    public Game newGame();
-    public Optional<Game> getGame(String id);
-    public void gameFinished(String id);
+    Game newGame();
+    Optional<Game> getGame(String id);
+    void gameFinished(String id);
 }

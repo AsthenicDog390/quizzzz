@@ -14,7 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/games")
 public class GameController {
-    private GameService gameService;
+    private final GameService gameService;
     private Game waitingRoom;
 
     public GameController(GameService gameService) {

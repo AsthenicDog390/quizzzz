@@ -19,8 +19,8 @@ public class MemoryGameService implements GameService {
     private final ScoreRepository scoreRepository;
     private final PlayerRepository playerRepository;
     private final Random random;
-    private Map<String, Game> singlePlayerGames;
-    private QuestionBuilder questionBuilder;
+    private final Map<String, Game> singlePlayerGames;
+    private final QuestionBuilder questionBuilder;
 
     public MemoryGameService(
             GameRepository gameRepository,

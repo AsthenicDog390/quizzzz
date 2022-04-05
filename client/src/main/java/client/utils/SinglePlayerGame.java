@@ -15,10 +15,10 @@ public class SinglePlayerGame {
     private final static String API_PATH = "/api/games/singleplayer";
     private final MainCtrl mainCtrl;
 
-    private String id;
+    private final String id;
     private String name;
     private Integer score;
-    private Player p;
+    private final Player p;
 
     private boolean gameEnded;
 

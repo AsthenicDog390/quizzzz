@@ -22,13 +22,13 @@ public class Game {
     }
 
     private List<Question> questions;
-    private UUID id;
+    private final UUID id;
     private State state;
     private int currentQuestion;
 
-    private HashMap<String, Player> players;
-    private MultiMessageQueue messageQueue;
-    private HashMap<String, Integer> answers;
+    private final HashMap<String, Player> players;
+    private final MultiMessageQueue messageQueue;
+    private final HashMap<String, Integer> answers;
 
     private ScoreRepository scoreRepository;
     private PlayerRepository playerRepository;
@@ -197,7 +197,7 @@ public class Game {
      */
     public Player addPlayer(String name, String id, boolean singleplayer) {
         var p = new Player(id, name, singleplayer);
-        p.setGameId(id.toString());
+        p.setGameId(id);
         players.put(p.getId(), p);
 
         playerRepository.save(p);

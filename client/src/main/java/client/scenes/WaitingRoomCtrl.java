@@ -22,7 +22,7 @@ public class WaitingRoomCtrl {
         @FXML
         private ListView<String> listView;
 
-        private ObservableList<String> observableList = FXCollections.observableArrayList();
+        private final ObservableList<String> observableList = FXCollections.observableArrayList();
 
         public void initialize(){
 
