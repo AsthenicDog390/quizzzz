@@ -1,6 +1,5 @@
 package server.api;
 
-import commons.messages.SendNameMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import server.datastructures.TestMessage;
