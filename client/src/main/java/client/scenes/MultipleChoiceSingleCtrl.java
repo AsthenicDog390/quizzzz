@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import commons.Activity;
 import commons.questions.LessExpensive;
 import com.google.inject.Inject;
 import commons.questions.MoreExpensive;
@@ -18,6 +19,10 @@ public class MultipleChoiceSingleCtrl {
 
     private MoreExpensive question;
 
+    @FXML
+    private Label score;
+    @FXML
+    private Label questionNumber;
     @FXML
     private Button buttonA;
     @FXML
@@ -41,6 +46,10 @@ public class MultipleChoiceSingleCtrl {
     @FXML
     private ImageView imageC;
 
+    private Integer n;
+
+    private Activity correctAnswer;
+
     private static final String SERVER = "http://localhost:8080/";
     private static final String API_PATH = "images/";
 
@@ -48,29 +57,85 @@ public class MultipleChoiceSingleCtrl {
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.n =1;
     }
 
+
     public void answerA() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(0);
+        colorAnswers(0);
     }
 
     public void answerB() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(1);
+        colorAnswers(1);
     }
 
     public void answerC() {
-//        disableAllButtons();
+        disableAllButtons();
         giveAnswer(2);
+        colorAnswers(2);
+    }
+
+    public void colorAnswers( int option ) {
+        if(buttonA.getText().equals(question.getAnswer().getTitle())) {
+            buttonA.setStyle("-fx-background-color: #00FF00;");
+        } else if(buttonB.getText().equals(question.getAnswer().getTitle())) {
+            buttonB.setStyle("-fx-background-color: #00FF00;");
+        } else {
+            buttonC.setStyle("-fx-background-color: #00FF00;");
+        }
+        switch (option) {
+            case 0:
+                if(!buttonA.getText().equals(question.getAnswer().getTitle())) {
+                    buttonA.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+            case 1:
+                if(!buttonB.getText().equals(question.getAnswer().getTitle())) {
+                    buttonB.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+            case 2:
+                if(!buttonC.getText().equals(question.getAnswer().getTitle())) {
+                    buttonC.setStyle("-fx-background-color: #FF0000;");
+                }
+                break;
+        }
     }
 
     public void giveAnswer(int answer) {
         mainCtrl.getSinglePlayerGame().giveAnswer(answer);
+        if(correctAnswer.getActivity_ID() == question.getOptions()[answer].getActivity_ID()) {
+            mainCtrl.getSinglePlayerGame().updScore(1);
+            setScore(1);
+        }
+    }
+
+
+    public void setScore(int tscore){
+        mainCtrl.getSinglePlayerGame().setScore(tscore);
+        this.score.setText("Your Score:"+"\n"+ mainCtrl.getSinglePlayerGame().getPlayer().getScore());
+    }
+
+    public void initializeScoreLabel(){
+        this.score.setText("Your Score:"+"\n"+ 1);
     }
 
     public void setQuestion(MoreExpensive question) {
+        removeStyle();
+        enableAllButtons();
         this.question = question;
+        this.questionNumber.setText(n+"/"+"20");
+        if (n<20) {
+            n++;
+        }else if(n==20){
+            n=1;
+        }
+        else{
+            this.score.setText("Your Score:"+"\n"+0);}
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
         } else {
@@ -85,10 +150,21 @@ public class MultipleChoiceSingleCtrl {
         this.imageA.setImage(new Image(url));
         this.imageB.setImage(new Image(SERVER + API_PATH + question.getOptions()[1].getImagePath()));
         this.imageC.setImage(new Image(SERVER + API_PATH + question.getOptions()[2].getImagePath()));
+
+        this.correctAnswer = question.getAnswer();
     }
 
     public void goBackMainMenu() {
-        mainCtrl.showMainMenu();
+        mainCtrl.gameEnded();
+    }
+
+    /**
+     * Removes the background colors from the buttons
+     */
+    public void removeStyle(){
+        buttonA.setStyle(null);
+        buttonB.setStyle(null);
+        buttonC.setStyle(null);
     }
 
     /**
