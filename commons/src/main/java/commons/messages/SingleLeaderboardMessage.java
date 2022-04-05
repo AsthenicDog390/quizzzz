@@ -1,21 +1,22 @@
 package commons.messages;
 
-import commons.game.HighScore;
+import commons.Player;
+
 import java.util.List;
 
 public class SingleLeaderboardMessage extends Message {
-        private List<HighScore> scores;
+    private List<Player> leaderBoard;
 
-        @SuppressWarnings("unused")
-        private SingleLeaderboardMessage() {
-            // for object mapper
-        }
+    @SuppressWarnings("unused")
+    private SingleLeaderboardMessage() {
+        // for object mapper
+    }
 
-        public SingleLeaderboardMessage(List<HighScore> list) {
-            this.scores = list;
-        }
+    public SingleLeaderboardMessage(List<Player> leaderboard) {
+        this.leaderBoard = leaderboard;
+    }
 
-        public List<HighScore> getList() {
-            return scores;
-        }
+    public List<Player> getLeaderBoard() {
+        return leaderBoard;
+    }
 }

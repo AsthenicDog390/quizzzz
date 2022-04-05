@@ -12,6 +12,7 @@ import server.services.TimerService;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Game {
     private enum State {
@@ -102,7 +103,7 @@ public class Game {
         }
 
         for (Player p: players.values()) {
-            var score = new HighScore(p.getScore(), p, maybeGame.get());
+            var score = new HighScore(p.getScore(), p.getId(), maybeGame.get().getId());
             scoreRepository.save(score);
         }
 
@@ -121,7 +122,15 @@ public class Game {
     }
 
     private void setLeaderboard() {
-        this.messageQueue.addMessage(new SingleLeaderboardMessage(this.scoreRepository.findAll()));
+        var players = this.scoreRepository.findAll()
+                .stream()
+                .map(score -> {
+                    var player = this.playerRepository.findById(score.getPlayerId()).get();
+                    player.setScore(score.getScore());
+                    return player;
+                })
+                .collect(Collectors.toList());
+        this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
     }
     /**
      * providedAnswer sets the answer given by a certain player
@@ -130,7 +139,6 @@ public class Game {
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
-        this.updateScore(playerId, 250);
         this.advanceState();
     }
 
@@ -163,12 +171,12 @@ public class Game {
      * @param id the id of the player
      * @return the newly created player
      */
-    public Player addPlayer(String name, String id) {
-        var p = new Player(id, name);
+    public Player addPlayer(String name, String id, boolean singleplayer) {
+        var p = new Player(id, name, singleplayer);
         p.setGameId(id.toString());
         players.put(p.getId(), p);
 
-        playerRepository.save(p);
+        //playerRepository.save(p);
 
         return p;
     }

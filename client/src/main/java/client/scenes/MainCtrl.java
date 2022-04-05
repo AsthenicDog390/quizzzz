@@ -17,7 +17,7 @@ package client.scenes;
 
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
-import commons.game.HighScore;
+import commons.Player;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
@@ -191,7 +191,7 @@ public class MainCtrl {
         startingScreenCtrl.start();
     }
 
-    public void showLeaderboard(List<HighScore> scores){
+    public void showLeaderboard(List<Player> scores){
         leaderboardCtrl.setLeaderboard(scores);
         primaryStage.setTitle("LeaderBoard");
         primaryStage.setScene(leaderboard);
@@ -203,6 +203,7 @@ public class MainCtrl {
     }
 
     private void showMultipleMultiSingle() {
+        multipleChoiceSingleCtrl.initializeScoreLabel();
         primaryStage.setTitle("Question");
         primaryStage.setScene(multipleChoiceMulti);
     }
@@ -233,7 +234,6 @@ public class MainCtrl {
     }
 
     public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
-
 
     public void startSinglePlayerGame(String name) {
         this.singlePlayerGame = new SinglePlayerGame(this,name);

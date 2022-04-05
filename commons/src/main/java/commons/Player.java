@@ -10,6 +10,7 @@ public class Player {
     private String id;
     private String name;
     private String gameId;
+    private boolean isSingleplayer;
 
     @Transient
     private int score;
@@ -19,12 +20,14 @@ public class Player {
         // for object mapper
     }
 
-    public Player(String id, String name) {
+    public Player(String id, String name, boolean singleplayer) {
         this.id = id;
         this.name = name;
         this.gameId = "unknown";
         this.score = 0;
+        this.isSingleplayer = singleplayer;
     }
+
     public String getId() {
         return id;
     }
@@ -49,9 +52,17 @@ public class Player {
         this.gameId = gameId;
     }
 
-    public void setScore(int score) { this.score = score; }
+    public void setScore(int score) {
+        this.score = score;
+    }
 
-    public int getScore() { return this.score; }
+    public int getScore() {
+        return this.score;
+    }
+
+    public boolean getIsSingleplayer() {
+        return this.isSingleplayer;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,5 +75,15 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, gameId);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", gameId='" + gameId + '\'' +
+                ", score=" + score +
+                '}';
     }
 }

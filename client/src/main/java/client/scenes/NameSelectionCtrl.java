@@ -31,7 +31,6 @@ public class NameSelectionCtrl implements Initializable {
     @FXML
     private void submitName(ActionEvent e) {
         String name = nameField.getText();
-
         mainCtrl.startSinglePlayerGame(name);
     }
 

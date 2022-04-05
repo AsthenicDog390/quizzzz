@@ -90,10 +90,17 @@ public class MultipleChoiceSingleCtrl {
         this.score.setText("Your Score:"+"\n"+ mainCtrl.getSinglePlayerGame().getPlayer().getScore());
     }
 
+    public void initializeScoreLabel(){
+        this.score.setText("Your Score:"+"\n"+ 1);
+    }
+
     public void setQuestion(MoreExpensive question) {
         this.question = question;
         this.questionNumber.setText(n+"/"+"20");
-        n++;
+        if (n<20) {
+            n++;
+        }else{n=1;
+        this.score.setText("Your Score:"+"\n"+0);}
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
         } else {

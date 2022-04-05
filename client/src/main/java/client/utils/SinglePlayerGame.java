@@ -24,8 +24,8 @@ public class SinglePlayerGame {
 
     public SinglePlayerGame(MainCtrl mainCtrl, String name) {
         this.gameEnded = false;
-        this.id = newGame();
-        this.p = new Player("singleplayer", name);
+        this.id = newGame(name);
+        this.p = new Player(id, name, true);
         this.mainCtrl = mainCtrl;
         p.setScore(0);
         this.subscribeToMessages();
@@ -36,12 +36,12 @@ public class SinglePlayerGame {
      * newGame registers the currthent game wi the server and sets the game id
      * @return the id which the server assigned to this game
      */
-    private String newGame() {
+    private String newGame(String name) {
         var m = ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(API_PATH).path("new") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), NewGameMessage.class);
+                .post(Entity.entity(new SendNameMessage(name), APPLICATION_JSON), NewGameMessage.class);
         return m.getId();
     }
 
@@ -99,11 +99,11 @@ public class SinglePlayerGame {
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;
             Platform.runLater(() -> {
-                mainCtrl.showMainMenu();
+             //   mainCtrl.showMainMenu();
             });
         } else if (m instanceof SingleLeaderboardMessage){
             Platform.runLater(() -> {
-                mainCtrl.showLeaderboard(((SingleLeaderboardMessage) m).getList());
+                mainCtrl.showLeaderboard(((SingleLeaderboardMessage) m).getLeaderBoard());
             });
         }
     }

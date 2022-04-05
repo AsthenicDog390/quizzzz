@@ -1,7 +1,5 @@
 package commons.game;
 
-import commons.Player;
-
 import javax.persistence.*;
 
 @Entity(name = "HighScore")
@@ -13,20 +11,20 @@ public class HighScore {
 
     private int score;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Player player;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Game game;
+
+    private String playerId;
+
+    private String gameId;
 
     @SuppressWarnings("unused")
     private HighScore() {
         // for object mapper
     }
 
-    public HighScore(int score, Player player, Game game) {
+    public HighScore(int score, String playerId, String game) {
         this.score = score;
-        this.player = player;
-        this.game = game;
+        this.playerId = playerId;
+        this.gameId = gameId;
     }
 
     public long getId() {
@@ -37,11 +35,9 @@ public class HighScore {
         return score;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
+    public String getPlayerId(){return playerId;}
 
-    public Game getGame() {
-        return game;
+    public String getGameId() {
+        return gameId;
     }
 }
