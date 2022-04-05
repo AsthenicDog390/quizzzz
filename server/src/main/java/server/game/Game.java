@@ -4,6 +4,7 @@ import commons.Player;
 import commons.game.HighScore;
 import commons.messages.*;
 import commons.questions.Question;
+import commons.exceptions.NameAlreadyPickedException;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
 import server.database.ScoreRepository;
@@ -206,11 +207,23 @@ public class Game {
      * @param id   the id of the player.
      * @return the newly created player.
      */
-    public Player addPlayer(String name, String id, boolean singleplayer) {
+    public Player addPlayer(String name, String id, boolean singleplayer) throws NameAlreadyPickedException {
         var p = new Player(id, name, singleplayer);
-        p.setGameId(id);
-        players.put(p.getId(), p);
-
+        p.setGameId(id.toString());
+        synchronized (players) {
+            for (Player player: players.values()) {
+                if (player.getName().equals(name)) {
+                    throw new NameAlreadyPickedException(
+                            name,
+                            players
+                                    .values()
+                                    .stream()
+                                    .map(x -> x.getName())
+                                    .collect(Collectors.toList()));
+                }
+            }
+            players.put(p.getId(), p);
+        }
         playerRepository.save(p);
 
         return p;
