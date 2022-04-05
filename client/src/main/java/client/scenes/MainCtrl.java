@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package client.scenes;
 
 import client.utils.MultiPlayerGame;
@@ -34,53 +35,67 @@ public class MainCtrl {
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
+
     private Scene overview;
 
     private AddQuoteCtrl addCtrl;
+
     private Scene add;
 
     private ServerLocationCtrl serverLocationCtrl;
+
     private Scene serverLocation;
 
     private MainMenuCtrl menuCtrl;
+
     private Scene menu;
 
     private HowToPlayCtrl howToPlayCtrl;
+
     private Scene howToPlay;
 
     private WaitingRoomCtrl waitingRoomCtrl;
+
     private Scene waitingRoom;
 
     private NameSelectionCtrl nameSelectionCtrl;
+
     private Scene nameSelection;
 
     private NameSelectionMultiCtrl nameSelectionMultiCtrl;
+
     private Scene nameSelectionMulti;
 
     private StartingScreenCtrl startingScreenCtrl;
+
     private Scene startingScreen;
 
     private MultipleChoiceSingleCtrl multipleChoiceSingleCtrl;
+
     private Scene multipleChoiceSingle;
 
     private EstimateSingleCtrl estimateSingleCtrl;
+
     private Scene estimateSingle;
 
     private EstimateMultiCtrl estimateMultiCtrl;
+
     private Scene estimateMulti;
 
     private MultipleChoiceMultiCtrl multipleChoiceMultiCtrl;
+
     private Scene multipleChoiceMulti;
 
     private LeaderboardCtrl leaderboardCtrl;
+
     private Scene leaderboard;
 
     private SinglePlayerGame singlePlayerGame;
+
     private MultiPlayerGame multiPlayerGame;
 
-
-
     private AddActivitiesCtrl addActivitiesCtrl;
+
     private Scene addActivities;
 
     FileChooser chooser;

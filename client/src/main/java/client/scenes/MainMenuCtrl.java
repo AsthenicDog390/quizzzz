@@ -4,7 +4,9 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 
 public class MainMenuCtrl {
+    
     private final MainCtrl mainCtrl;
+
     private final ServerUtils server;
 
     @Inject

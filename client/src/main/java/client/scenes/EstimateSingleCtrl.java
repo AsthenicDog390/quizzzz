@@ -11,24 +11,32 @@ import java.util.TimerTask;
 
 public class EstimateSingleCtrl {
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     private Estimate question;
 
     @FXML
     private TextField answer;
+
     @FXML
     private Button confirm;
+
     @FXML
     private Label questionText;
+
     @FXML
     private ProgressBar progressBar;
+
     @FXML
     private DialogPane dialogPane;
+
     @FXML
     private Button YesExit;
+
     @FXML
     private Button NoExit;
+
     @FXML
     private Label warning;
 

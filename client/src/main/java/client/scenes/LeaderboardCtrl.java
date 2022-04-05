@@ -16,13 +16,17 @@ import java.util.*;
 
 
 public class LeaderboardCtrl implements Initializable {
+
     private final MainCtrl mainCtrl;
+
     private final ServerUtils server;
 
     @FXML
     private TableView<Player> table;
+
     @FXML
     private TableColumn<Player, String> name;
+
     @FXML
     private TableColumn<Player, Integer> score;
 

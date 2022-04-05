@@ -18,18 +18,25 @@ public class EstimateMultiCtrl {
 
     @FXML
     private TextField answer;
+
     @FXML
     private Button confirm;
+
     @FXML
     private Label questionText;
+
     @FXML
     private ProgressBar progressBar;
+
     @FXML
     private DialogPane dialogPane;
+
     @FXML
     private Button YesExit;
+
     @FXML
     private Button NoExit;
+
     @FXML
     private Label warning;
 
