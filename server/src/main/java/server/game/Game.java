@@ -35,6 +35,14 @@ public class Game {
     private GameRepository gameRepository;
 
     private TimerService timerService;
+    private Timer timer = new Timer();
+
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            advanceState();
+        }
+    };
 
     public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
         if (questions == null) {
@@ -124,6 +132,14 @@ public class Game {
             this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
             this.currentQuestion++;
             this.answers.clear();
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    advanceState();
+                }
+            };
+            timer.schedule(timerTask, 10000);
     }
 
     private void setLeaderboard() {
@@ -145,6 +161,8 @@ public class Game {
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
+        this.updateScore(playerId, 250);
+        timer.cancel();
         this.advanceState();
     }
 

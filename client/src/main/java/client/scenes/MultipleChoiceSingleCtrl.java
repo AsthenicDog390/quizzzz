@@ -13,11 +13,17 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MultipleChoiceSingleCtrl {
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
 
     private MoreExpensive question;
+
+    private Timer gameTimer = new Timer();
+    private Timer progressBarTimer = new Timer();
 
     @FXML
     private Label score;
@@ -65,18 +71,26 @@ public class MultipleChoiceSingleCtrl {
         disableAllButtons();
         giveAnswer(0);
         colorAnswers(0);
+        cancelTimer();
     }
 
     public void answerB() {
         disableAllButtons();
         giveAnswer(1);
         colorAnswers(1);
+        cancelTimer();
     }
 
     public void answerC() {
         disableAllButtons();
         giveAnswer(2);
         colorAnswers(2);
+        cancelTimer();
+    }
+
+    public void cancelTimer(){
+        gameTimer.cancel();
+        progressBarTimer.cancel();
     }
 
     public void colorAnswers( int option ) {
@@ -90,7 +104,7 @@ public class MultipleChoiceSingleCtrl {
         switch (option) {
             case 0:
                 if(!buttonA.getText().equals(question.getAnswer().getTitle())) {
-                    buttonA.setStyle("-fx-background-color: #FF0000;");
+                buttonA.setStyle("-fx-background-color: #FF0000;");
                 }
                 break;
             case 1:
@@ -104,8 +118,9 @@ public class MultipleChoiceSingleCtrl {
                 }
                 break;
         }
-    }
 
+    }
+    
     public void giveAnswer(int answer) {
         mainCtrl.getSinglePlayerGame().giveAnswer(answer);
         if(correctAnswer.getActivity_ID() == question.getOptions()[answer].getActivity_ID()) {
@@ -195,4 +210,34 @@ public class MultipleChoiceSingleCtrl {
         dialogPane.setVisible(false);
     }
 
+    public void startTimer() {
+        gameTimer = new Timer();
+        progressBarTimer = new Timer();
+        progressBar.setProgress(1);
+        /**
+         * Task for disabling the buttons and not letting the progress bar go under 0
+         */
+        TimerTask timeOut = new TimerTask() {
+            @Override
+            public void run() {
+                disableAllButtons();
+                progressBarTimer.cancel();
+            }
+        };
+
+        /**
+         * Task for decreasing the progress bar with a specific amount every 40ms
+         */
+        TimerTask lowerBar = new TimerTask() {
+            @Override
+            public void run() {
+                double progress = progressBar.getProgress();
+                if(progress>0.004)
+                    progressBar.setProgress(progress-0.004);
+            }
+        };
+        gameTimer.schedule(timeOut,10000);
+        progressBarTimer.schedule(lowerBar,0,40);
+        //timer is set on the server, this is only visual
+    }
 }
