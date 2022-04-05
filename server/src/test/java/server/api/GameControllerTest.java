@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
 
-    @Test
-    void newSinglePlayerGame() {
-        var serv = new TestGameService();
-        var sut = new GameController(serv);
-
-        var msg = sut.newSinglePlayerGame(new SendNameMessage("someName"));
-        assertTrue(serv.getGame(msg.getId()).isPresent());
-    }
+//    @Test
+//    void newSinglePlayerGame() {
+//        var serv = new TestGameService();
+//        var sut = new GameController(serv);
+//
+//        var msg = sut.newSinglePlayerGame(new SendNameMessage("someName"));
+//        assertTrue(serv.getGame(msg.getId()).isPresent());
+//    }
 
 //    @Test
 //    void getSinglePlayerGameEvents() {
@@ -30,16 +30,16 @@ class GameControllerTest {
 //        assertEquals(new TestMessage(0), res.getBody());
 //    }
 
-    @Test
-    void sendMessage() {
-        var serv = new TestGameService();
-        var sut = new GameController(serv);
-
-        var id = sut.newSinglePlayerGame(new SendNameMessage("someName")).getId();
-        var res = sut.sendMessageSinglePlayer(id, new TestMessage(0));
-        assertEquals(ResponseEntity.ok().build(), res);
-        assertEquals(new TestMessage(0), ((TestGame)serv.getGame(id).get()).getHandlesMessages().get(0));
-    }
+//    @Test
+//    void sendMessage() {
+//        var serv = new TestGameService();
+//        var sut = new GameController(serv);
+//
+//        var id = sut.newSinglePlayerGame(new SendNameMessage("someName")).getId();
+//        var res = sut.sendMessageSinglePlayer(id, new TestMessage(0));
+//        assertEquals(ResponseEntity.ok().build(), res);
+//        assertEquals(new TestMessage(0), ((TestGame)serv.getGame(id).get()).getHandlesMessages().get(0));
+//    }
 
     @Test
     void getSinglePlayerGameEventsNotFound() {
