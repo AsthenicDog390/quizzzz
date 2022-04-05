@@ -13,7 +13,6 @@ class LessExpensiveTest {
         return a;
     }
 
-
     @Test
     void constructorThrows() {
         assertThrows(IllegalArgumentException.class, () -> {

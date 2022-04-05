@@ -21,15 +21,19 @@ public class Activity {
     @JsonProperty("id")
     @Column(name = "id")
     private String id;
+
     @JsonProperty("title")
     @Column(name = "title")
     private String title;
+
     @JsonProperty("consumption_in_wh")
     @Column(name = "consumption_in_wh")
     private long consumptionInWh;
+
     @JsonProperty("image_path")
     @Column(name = "imagePath")
     private String imagePath;
+
     @Column(name = "source", length = 450)
     private String source;
 

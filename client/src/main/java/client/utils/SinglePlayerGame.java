@@ -52,7 +52,7 @@ public class SinglePlayerGame {
     }
 
     /**
-     * giveAnswer submits an answer to the server
+     * giveAnswer submits an answer to the server.
      *
      * @param answer the numeric value of the answer, what it means depends on what type of question is being answered
      */

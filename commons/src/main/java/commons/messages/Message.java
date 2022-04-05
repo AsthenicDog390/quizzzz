@@ -3,18 +3,17 @@ package commons.messages;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = NewGameMessage.class, name = "newGame"),
-        @JsonSubTypes.Type(value = GameEndedMessage.class, name = "gameEnded"),
-        @JsonSubTypes.Type(value = NextQuestionMessage.class, name = "nextQuestion"),
-        @JsonSubTypes.Type(value = AnswerMessage.class, name = "answer"),
-        @JsonSubTypes.Type(value = UpdateScoreMessage.class, name = "updateScore"),
-        @JsonSubTypes.Type(value = SingleLeaderboardMessage.class, name = "singleLeaderboard")
+    @JsonSubTypes.Type(value = NewGameMessage.class, name = "newGame"),
+    @JsonSubTypes.Type(value = GameEndedMessage.class, name = "gameEnded"),
+    @JsonSubTypes.Type(value = NextQuestionMessage.class, name = "nextQuestion"),
+    @JsonSubTypes.Type(value = AnswerMessage.class, name = "answer"),
+    @JsonSubTypes.Type(value = UpdateScoreMessage.class, name = "updateScore"),
+    @JsonSubTypes.Type(value = SingleLeaderboardMessage.class, name = "singleLeaderboard")
 })
 public abstract class Message {
 }

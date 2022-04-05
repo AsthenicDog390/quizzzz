@@ -2,9 +2,9 @@ package commons.questions;
 
 import commons.Activity;
 
-
-public class Estimate extends Question{
+public class Estimate extends Question {
     protected Activity activity;
+
     protected long answer;
 
     @SuppressWarnings("unused")
@@ -31,8 +31,8 @@ public class Estimate extends Question{
     @Override
     public String toString() {
         return "Estimate{" +
-                "activity=" + activity.toString() +
-                ", answer=" + answer +
-                '}';
+            "activity=" + activity.toString() +
+            ", answer=" + answer +
+            '}';
     }
 }

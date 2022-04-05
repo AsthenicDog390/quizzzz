@@ -4,9 +4,9 @@ import commons.Activity;
 
 import java.util.Arrays;
 
-
 public class MoreExpensive extends Question {
     protected Activity[] options;
+
     protected Activity answer;
 
     @SuppressWarnings("unused")
@@ -22,7 +22,7 @@ public class MoreExpensive extends Question {
         }
 
         boolean found = false;
-        for (Activity a: options) {
+        for (Activity a : options) {
             if (a == null) {
                 throw new IllegalArgumentException("all options must not be null");
             }
@@ -52,8 +52,8 @@ public class MoreExpensive extends Question {
     @Override
     public String toString() {
         return "MoreExpensive{" +
-                "options=" + Arrays.toString(options) +
-                ", answer=" + answer +
-                '}';
+            "options=" + Arrays.toString(options) +
+            ", answer=" + answer +
+            '}';
     }
 }

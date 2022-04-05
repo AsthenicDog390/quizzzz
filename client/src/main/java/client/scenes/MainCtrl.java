@@ -104,7 +104,7 @@ public class MainCtrl {
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
                            Pair<StartingScreenCtrl, Parent> startingScreen, Pair<WaitingRoomCtrl, Parent> waitingRoom, Pair<NameSelectionCtrl, Parent> nameSelection, Pair<NameSelectionMultiCtrl, Parent> nameSelectionMulti,
-                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard,  Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti,
+                           Pair<MultipleChoiceMultiCtrl, Parent> multipleChoiceMulti, Pair<LeaderboardCtrl, Parent> leaderboard, Pair<EstimateSingleCtrl, Parent> estimateSingle, Pair<EstimateMultiCtrl, Parent> estimateMulti,
                            Pair<AddActivitiesCtrl, Parent> addActivities) {
         chooser = new FileChooser();
 
@@ -149,7 +149,7 @@ public class MainCtrl {
         this.nameSelectionMulti = new Scene(nameSelectionMulti.getValue());
 
         this.leaderboardCtrl = leaderboard.getKey();
-        this.leaderboard = new Scene (leaderboard.getValue());
+        this.leaderboard = new Scene(leaderboard.getValue());
 
         this.startingScreenCtrl = startingScreen.getKey();
         this.startingScreen = new Scene(startingScreen.getValue());
@@ -195,24 +195,24 @@ public class MainCtrl {
         primaryStage.setScene(multipleChoiceSingle);
     }
 
-    public void showNameSelect(){
+    public void showNameSelect() {
         primaryStage.setTitle("Name Selection");
         primaryStage.setScene(nameSelection);
     }
 
-    public void showStartingScreen(){
+    public void showStartingScreen() {
         primaryStage.setTitle("Starting Screen");
         primaryStage.setScene(startingScreen);
         startingScreenCtrl.start();
     }
 
-    public void showLeaderboard(List<Player> scores){
+    public void showLeaderboard(List<Player> scores) {
         leaderboardCtrl.setLeaderboard(scores);
         primaryStage.setTitle("LeaderBoard");
         primaryStage.setScene(leaderboard);
     }
 
-    public void showNameSelectionMulti(){
+    public void showNameSelectionMulti() {
         primaryStage.setTitle("Multiplayer Name Selection");
         primaryStage.setScene(nameSelectionMulti);
     }
@@ -248,10 +248,12 @@ public class MainCtrl {
         return this.singlePlayerGame;
     }
 
-    public MultiPlayerGame getMultiPlayerGame() { return this.multiPlayerGame; }
+    public MultiPlayerGame getMultiPlayerGame() {
+        return this.multiPlayerGame;
+    }
 
     public void startSinglePlayerGame(String name) {
-        this.singlePlayerGame = new SinglePlayerGame(this,name);
+        this.singlePlayerGame = new SinglePlayerGame(this, name);
     }
 
     public void startMultiPlayerGame() {

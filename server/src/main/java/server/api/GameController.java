@@ -15,6 +15,7 @@ import java.util.UUID;
 @RequestMapping("/api/games")
 public class GameController {
     private final GameService gameService;
+
     private Game waitingRoom;
 
     public GameController(GameService gameService) {
@@ -29,7 +30,6 @@ public class GameController {
 
         return new NewGameMessage(newGame.getId(), p.getId());
     }
-
 
     @GetMapping("/singleplayer/{id}")
     public DeferredResult<ResponseEntity<Message>> getSinglePlayerGameEvents(@PathVariable("id") String id) {
@@ -103,5 +103,5 @@ public class GameController {
         return ResponseEntity.ok().build();
     }
 
-   // @GetMapping
+    // @GetMapping
 }

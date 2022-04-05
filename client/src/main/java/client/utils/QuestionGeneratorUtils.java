@@ -24,8 +24,7 @@ public class QuestionGeneratorUtils {
         return activities;
     }
 
-    public static MoreExpensive generateMoreExpensiveQuestion(ServerUtils server)
-    {
+    public static MoreExpensive generateMoreExpensiveQuestion(ServerUtils server) {
         List<Activity> activities = generate3Activities(server);
         Activity[] options = new Activity[3];
         Activity answer = activities.get(0);
@@ -40,8 +39,7 @@ public class QuestionGeneratorUtils {
         return ans;
     }
 
-    public static LessExpensive generateLessExpensiveQuestion(ServerUtils server)
-    {
+    public static LessExpensive generateLessExpensiveQuestion(ServerUtils server) {
         List<Activity> activities = generate3Activities(server);
         Activity[] options = new Activity[3];
         Activity answer = activities.get(0);

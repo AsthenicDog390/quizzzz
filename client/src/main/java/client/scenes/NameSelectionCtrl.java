@@ -13,12 +13,15 @@ import java.util.ResourceBundle;
 
 public class NameSelectionCtrl implements Initializable {
     private final MainCtrl mainCtrl;
+
     private final ServerUtils server;
 
     @FXML
     private TextField nameField;
+
     @FXML
     private AnchorPane errorPopup;
+
     @FXML
     private AnchorPane background;
 
@@ -53,6 +56,7 @@ public class NameSelectionCtrl implements Initializable {
     public void showStartingScreen() {
         mainCtrl.showStartingScreen();
     }
+
     public void showMainMenu() {
         mainCtrl.showMainMenu();
     }

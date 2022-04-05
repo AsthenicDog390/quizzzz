@@ -22,19 +22,27 @@ public class Game {
     }
 
     private List<Question> questions;
+
     private final UUID id;
+
     private State state;
+
     private int currentQuestion;
 
     private final HashMap<String, Player> players;
+
     private final MultiMessageQueue messageQueue;
+
     private final HashMap<String, Integer> answers;
 
     private ScoreRepository scoreRepository;
+
     private PlayerRepository playerRepository;
+
     private GameRepository gameRepository;
 
     private TimerService timerService;
+
     private Timer timer = new Timer();
 
     private TimerTask timerTask = new TimerTask() {
@@ -92,17 +100,17 @@ public class Game {
                 break;
             case QUESTION_PERIOD:
                 /*
-                * waiting for the correct answer to be displayed
-                */
-                timerService.runAfter(3, ()->{
-                if (this.currentQuestion >= this.questions.size()) {
-                    this.state = State.GAME_ENDED;
-                    this.persistScores();
-                    this.setLeaderboard();
-                    this.messageQueue.addMessage(new GameEndedMessage());
-                    return;
-                }
-                this.nextQuestion();
+                 * waiting for the correct answer to be displayed
+                 */
+                timerService.runAfter(3, () -> {
+                    if (this.currentQuestion >= this.questions.size()) {
+                        this.state = State.GAME_ENDED;
+                        this.persistScores();
+                        this.setLeaderboard();
+                        this.messageQueue.addMessage(new GameEndedMessage());
+                        return;
+                    }
+                    this.nextQuestion();
                 });
                 break;
         }
@@ -115,7 +123,7 @@ public class Game {
             throw new IllegalStateException("game not present in repository");
         }
 
-        for (Player p: players.values()) {
+        for (Player p : players.values()) {
             var score = new HighScore(p.getScore(), p.getId(), maybeGame.get().getId());
             scoreRepository.save(score);
         }
@@ -129,35 +137,37 @@ public class Game {
      * nextQuestion sends a message to show the next question to all players
      */
     private void nextQuestion() {
-            this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
-            this.currentQuestion++;
-            this.answers.clear();
-            timer = new Timer();
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    advanceState();
-                }
-            };
-            timer.schedule(timerTask, 10000);
+        this.messageQueue.addMessage(new NextQuestionMessage(this.questions.get(this.currentQuestion)));
+        this.currentQuestion++;
+        this.answers.clear();
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                advanceState();
+            }
+        };
+        timer.schedule(timerTask, 10000);
     }
 
     private void setLeaderboard() {
         var players = this.scoreRepository.findAll()
-                .stream()
-                .map(score -> {
-                    System.out.println(score.getPlayerId());
-                    var player = this.playerRepository.findById(score.getPlayerId()).get();
-                    player.setScore(score.getScore());
-                    return player;
-                })
-                .collect(Collectors.toList());
+            .stream()
+            .map(score -> {
+                System.out.println(score.getPlayerId());
+                var player = this.playerRepository.findById(score.getPlayerId()).get();
+                player.setScore(score.getScore());
+                return player;
+            })
+            .collect(Collectors.toList());
         this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
     }
+
     /**
      * providedAnswer sets the answer given by a certain player
+     *
      * @param playerId the id of the player to set the answer of
-     * @param answer what the answer was
+     * @param answer   what the answer was
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
@@ -174,13 +184,13 @@ public class Game {
 
     /**
      * handleMessage handles messages sent from the client to the server.
-     * */
+     */
     public void handleMessage(String playerId, Message m) {
         if (m instanceof AnswerMessage) {
-            var answer = (AnswerMessage)m;
+            var answer = (AnswerMessage) m;
             this.providedAnswer(playerId, answer.getAnswer());
-        }else if (m instanceof UpdateScoreMessage){
-            var score = (UpdateScoreMessage)m;
+        } else if (m instanceof UpdateScoreMessage) {
+            var score = (UpdateScoreMessage) m;
             this.updateScore(playerId, score.getScore());
         }
     }
@@ -190,10 +200,11 @@ public class Game {
     }
 
     /**
-     * addPlayer adds a player with a certain name to the game
-     * @param name the name of the player to add
-     * @param id the id of the player
-     * @return the newly created player
+     * addPlayer adds a player with a certain name to the game.
+     *
+     * @param name the name of the player to add.
+     * @param id   the id of the player.
+     * @return the newly created player.
      */
     public Player addPlayer(String name, String id, boolean singleplayer) {
         var p = new Player(id, name, singleplayer);
@@ -206,17 +217,19 @@ public class Game {
     }
 
     /**
-     * addMessageConsumer adds a message consumer for a player
-     * @param id the id of the player
-     * @param c the consumer of the message
+     * addMessageConsumer adds a message consumer for a player.
+     *
+     * @param id the id of the player.
+     * @param c  the consumer of the message.
      */
     public void addMessageConsumer(String id, Consumer<Message> c) {
         messageQueue.setConsumer(id, c);
     }
 
     /**
-     * resetConsumer resets the message consumer for a certain player
-     * @param id the id of the player
+     * resetConsumer resets the message consumer for a certain player.
+     *
+     * @param id the id of the player.
      */
     public void resetConsumer(String id) {
         messageQueue.resetConsumer(id);

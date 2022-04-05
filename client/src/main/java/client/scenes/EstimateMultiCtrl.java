@@ -73,13 +73,13 @@ public class EstimateMultiCtrl {
     }
 
     /**
-     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time
+     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time.
      */
     public void startTimer() {
         Timer gameTimer = new Timer();
         Timer progressBarTimer = new Timer();
         /**
-         * Task for disabling the buttons and not letting the progress bar go under 0
+         * Task for disabling the buttons and not letting the progress bar go under 0.
          */
         TimerTask timeOut = new TimerTask() {
             @Override
@@ -96,12 +96,13 @@ public class EstimateMultiCtrl {
             @Override
             public void run() {
                 double progress = progressBar.getProgress();
-                if(progress>0.004)
-                    progressBar.setProgress(progress-0.004);
+                if (progress > 0.004) {
+                    progressBar.setProgress(progress - 0.004);
+                }
             }
         };
-        gameTimer.schedule(timeOut,10000);
-        progressBarTimer.schedule(lowerBar,0,40);
+        gameTimer.schedule(timeOut, 10000);
+        progressBarTimer.schedule(lowerBar, 0, 40);
     }
 
     private void disableAll() {

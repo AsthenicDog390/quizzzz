@@ -16,18 +16,23 @@ import java.util.*;
 @Service
 public class MemoryGameService implements GameService {
     private final GameRepository gameRepository;
+
     private final ScoreRepository scoreRepository;
+
     private final PlayerRepository playerRepository;
+
     private final Random random;
+
     private final Map<String, Game> singlePlayerGames;
+
     private final QuestionBuilder questionBuilder;
 
     public MemoryGameService(
-            GameRepository gameRepository,
-            PlayerRepository playerRepository,
-            ScoreRepository scoreRepository,
-            ActivityRepository activityRepository,
-            Random random
+        GameRepository gameRepository,
+        PlayerRepository playerRepository,
+        ScoreRepository scoreRepository,
+        ActivityRepository activityRepository,
+        Random random
     ) {
         this.singlePlayerGames = new HashMap<>();
         this.gameRepository = gameRepository;
@@ -89,6 +94,5 @@ public class MemoryGameService implements GameService {
 
         return new MoreExpensive(options, answer);
     }
-
 
 }

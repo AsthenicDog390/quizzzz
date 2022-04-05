@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class MidGameLeaderboardCtrl {
 
     private final ServerUtils server;
@@ -67,7 +66,7 @@ public class MidGameLeaderboardCtrl {
     }
 
     /**
-     * Starting 2 timers corresponding to the progress bar
+     * Starting 2 timers corresponding to the progress bar.
      */
     public void startTimer() {
         Timer gameTimer = new Timer();
@@ -89,8 +88,9 @@ public class MidGameLeaderboardCtrl {
             @Override
             public void run() {
                 double progress = progressBar.getProgress();
-                if (progress > 0.004)
+                if (progress > 0.004) {
                     progressBar.setProgress(progress - 0.004);
+                }
             }
         };
         gameTimer.schedule(timeOut, 10000);

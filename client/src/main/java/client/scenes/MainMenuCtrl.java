@@ -23,15 +23,13 @@ public class MainMenuCtrl {
         //mainCtrl.showLeaderboard();
     }
 
-    public void showWaitingRoom(){
+    public void showWaitingRoom() {
         mainCtrl.showWaitingRoom();
     }
 
-    public void showNameSelection(){
+    public void showNameSelection() {
         mainCtrl.showNameSelection();
     }
-
-
 
     public void showNameSelectionMulti() {
         mainCtrl.showNameSelectionMulti();

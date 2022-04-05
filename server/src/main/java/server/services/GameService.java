@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface GameService {
     Game newGame();
+
     Optional<Game> getGame(String id);
+
     void gameFinished(String id);
 }
