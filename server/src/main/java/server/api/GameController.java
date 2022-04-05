@@ -1,9 +1,6 @@
 package server.api;
 
-import commons.messages.Message;
-import commons.messages.NameAlreadyPickedMessage;
-import commons.messages.NewGameMessage;
-import commons.messages.SendNameMessage;
+import commons.messages.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -18,6 +15,8 @@ import java.util.UUID;
 public class GameController {
     private final GameService gameService;
 
+    private Object waitingRoomMutex = new Object();
+
     private Game waitingRoom;
 
     public GameController(GameService gameService) {
@@ -27,6 +26,8 @@ public class GameController {
     @PostMapping("/singleplayer/new")
     public NewGameMessage newSinglePlayerGame(@RequestBody SendNameMessage nameRetrieve) {
         Game newGame = gameService.newGame();
+
+        newGame.start();
 
         try {
             var p = newGame.addPlayer(nameRetrieve.getToBePassedName(), newGame.getId(), true);
@@ -38,7 +39,7 @@ public class GameController {
 
     @GetMapping("/singleplayer/{id}")
     public DeferredResult<ResponseEntity<Message>> getSinglePlayerGameEvents(@PathVariable("id") String id) {
-        DeferredResult<ResponseEntity<Message>> deferredResult = new DeferredResult<>();
+        DeferredResult<ResponseEntity<Message>> deferredResult = new DeferredResult<>(12000l);
         var maybeGame = gameService.getGame(id);
         if (maybeGame.isEmpty()) {
             deferredResult.setResult(ResponseEntity.notFound().build());
@@ -47,7 +48,10 @@ public class GameController {
             game.addMessageConsumer(id, m -> {
                 deferredResult.setResult(ResponseEntity.ok(m));
             });
-            deferredResult.onTimeout(() -> game.resetConsumer(id));
+            deferredResult.onTimeout(() -> {
+                game.resetConsumer(id);
+                deferredResult.setResult(ResponseEntity.ok(new NoUpdateMessage()));
+            });
         }
 
         return deferredResult;
@@ -55,22 +59,23 @@ public class GameController {
 
     @PostMapping("/multiplayer/new")
     public Message newMultiPlayerGame(@RequestBody SendNameMessage nameRetrieve) {
-        if (waitingRoom == null) {
-            waitingRoom = gameService.newGame();
-            waitingRoom.start();
-        }
+        synchronized (waitingRoomMutex) {
+            if (waitingRoom == null) {
+                waitingRoom = gameService.newGame();
+            }
 
-        try {
-            var p = waitingRoom.addPlayer(nameRetrieve.getToBePassedName(), UUID.randomUUID().toString(), false);
-            return new NewGameMessage(waitingRoom.getId(), p.getId());
-        } catch (NameAlreadyPickedException e) {
-            return new NameAlreadyPickedMessage(e.getName(), e.getPickedNames());
+            try {
+                var p = waitingRoom.addPlayer(nameRetrieve.getToBePassedName(), UUID.randomUUID().toString(), false);
+                return new NewGameMessage(waitingRoom.getId(), p.getId());
+            } catch (NameAlreadyPickedException e) {
+                return new NameAlreadyPickedMessage(e.getName(), e.getPickedNames());
+            }
         }
     }
 
     @GetMapping("/multiplayer/{gameId}/{playerId}")
     public DeferredResult<ResponseEntity<Message>> getMultiPlayerGameEvents(@PathVariable("gameId") String gameId, @PathVariable("playerId") String playerId) {
-        DeferredResult<ResponseEntity<Message>> deferredResult = new DeferredResult<>();
+        DeferredResult<ResponseEntity<Message>> deferredResult = new DeferredResult<>(12000l);
         var maybeGame = gameService.getGame(gameId);
         if (maybeGame.isEmpty()) {
             deferredResult.setResult(ResponseEntity.notFound().build());
@@ -79,7 +84,10 @@ public class GameController {
             game.addMessageConsumer(playerId, m -> {
                 deferredResult.setResult(ResponseEntity.ok(m));
             });
-            deferredResult.onTimeout(() -> game.resetConsumer(playerId));
+            deferredResult.onTimeout(() -> {
+                game.resetConsumer(playerId);
+                deferredResult.setResult(ResponseEntity.ok(new NoUpdateMessage()));
+            });
         }
 
         return deferredResult;
@@ -96,6 +104,21 @@ public class GameController {
         maybeGame.get().handleMessage(id, m);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/multiplayer/{gameId}/start")
+    public ResponseEntity startGame(@PathVariable("gameId") String gameId) {
+        synchronized (waitingRoomMutex) {
+            if (waitingRoom == null) {
+                return ResponseEntity.notFound().build();
+            } else if (!waitingRoom.getId().equals(gameId)) {
+                return ResponseEntity.notFound().build();
+            }
+            waitingRoom.start();
+            waitingRoom = gameService.newGame();
+
+            return ResponseEntity.ok().build();
+        }
     }
 
     @PostMapping("/multiplayer/{gameId}/{playerId}")

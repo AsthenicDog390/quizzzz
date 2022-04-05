@@ -75,13 +75,13 @@ public class Game {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.timerService = timerService;
-        advanceState();
     }
 
     public void start() {
         this.currentQuestion = 0;
         this.state = State.STARTING;
         this.advanceState();
+        this.messageQueue.addMessage(new GameStartingMessage());
     }
 
     protected Game(UUID id) {

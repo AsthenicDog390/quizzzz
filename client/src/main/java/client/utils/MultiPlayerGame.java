@@ -3,10 +3,14 @@ package client.utils;
 import client.scenes.MainCtrl;
 import commons.exceptions.NameAlreadyPickedException;
 import commons.messages.*;
+import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import javafx.application.Platform;
 import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -78,13 +82,24 @@ public class MultiPlayerGame {
     private void subscribeToMessages() {
         new Thread(() -> {
             while (!gameEnded) {
-                var message = ClientBuilder.newClient(new ClientConfig())
-                    .target(SERVER).path(API_PATH)
-                    .path(this.id).path(this.playerId)
-                    .request(APPLICATION_JSON)
-                    .accept(APPLICATION_JSON)
-                    .get(Message.class);
-                this.handleMessage(message);
+                try {
+                    var message = ClientBuilder.newBuilder()
+                        .readTimeout(15, TimeUnit.SECONDS)
+                        .newClient(new ClientConfig())
+                        .target(SERVER).path(API_PATH)
+                        .path(this.id).path(this.playerId)
+                        .request(APPLICATION_JSON)
+                        .accept(APPLICATION_JSON)
+                        .get(Message.class);
+                    this.handleMessage(message);
+                } catch (ProcessingException e) {
+                    if (e.getCause() instanceof TimeoutException) {
+                        System.out.println("timed out waiting for next message");
+                        continue;
+                    } else {
+                        throw e;
+                    }
+                }
             }
         }).start();
     }
@@ -107,6 +122,22 @@ public class MultiPlayerGame {
             Platform.runLater(() -> {
                 mainCtrl.gameEnded();
             });
+        } else if (m instanceof GameStartingMessage) {
+            Platform.runLater(() -> {
+                mainCtrl.showStartingScreen();
+            });
         }
+    }
+
+    /**
+     * startGame attempts to start the multiplayer game.
+     */
+    public void startGame() {
+        ClientBuilder.newClient(new ClientConfig()) //
+            .target(SERVER).path(API_PATH) //
+            .path(this.id).path("start") //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .get();
     }
 }

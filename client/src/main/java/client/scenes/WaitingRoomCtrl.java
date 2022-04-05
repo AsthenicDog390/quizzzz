@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -41,7 +42,8 @@ public class WaitingRoomCtrl {
         mainCtrl.showMainMenu();
     }
 
-    public void showStartingScreen() {
-        mainCtrl.showStartingScreen();
+    @FXML
+    public void startGame(ActionEvent e) {
+        mainCtrl.startMultiplayerGame();
     }
 }

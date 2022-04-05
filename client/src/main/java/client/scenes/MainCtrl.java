@@ -293,5 +293,11 @@ public class MainCtrl {
     public void startSinglePlayerTimer() {
         multipleChoiceSingleCtrl.startTimer();
     }
+
+    public void startMultiplayerGame() {
+        if (multiPlayerGame != null) {
+            multiPlayerGame.startGame();
+        }
+    }
 }
 
