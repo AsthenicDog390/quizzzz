@@ -2,12 +2,18 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
+import commons.Player;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.List;
 
 public class WaitingRoomCtrl {
 
@@ -19,17 +25,31 @@ public class WaitingRoomCtrl {
     private Label test;
 
     @FXML
-    private ListView<String> listView;
+    private ListView<Player> listView;
 
-    private final ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ObservableList<Player> observableList = FXCollections.observableArrayList();
 
     public void initialize() {
-
-        observableList.addAll("George", "Gerrit", "Friso", "Radu", "Alex");
         listView.setItems(observableList);
-        test.setText("Players: " + observableList.size());
+        listView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Player item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getName() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+                test.setText("Players: " + observableList.size());
+            }
+        });
 
         // Change it to the input player name after Player class is done and merged
+    }
+
+    public void setPlayerList(List<Player> players) {
+        observableList.setAll(players);
     }
 
     @Inject

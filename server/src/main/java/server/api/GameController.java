@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.Player;
 import commons.messages.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import commons.exceptions.NameAlreadyPickedException;
 import server.game.Game;
 import server.services.GameService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController

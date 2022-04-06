@@ -299,5 +299,9 @@ public class MainCtrl {
             multiPlayerGame.startGame();
         }
     }
+
+    public void setPlayerList(List<Player> players) {
+        this.waitingRoomCtrl.setPlayerList(players);
+    }
 }
 

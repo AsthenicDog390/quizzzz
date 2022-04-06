@@ -1,10 +1,10 @@
 package server.game;
 
 import commons.Player;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.game.HighScore;
 import commons.messages.*;
 import commons.questions.Question;
-import commons.exceptions.NameAlreadyPickedException;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
 import server.database.ScoreRepository;
@@ -35,6 +35,8 @@ public class Game {
     private final MultiMessageQueue messageQueue;
 
     private final HashMap<String, Integer> answers;
+
+    private final HashSet<String> hasCurrentPlayers;
 
     private ScoreRepository scoreRepository;
 
@@ -75,6 +77,7 @@ public class Game {
         this.playerRepository = playerRepository;
         this.scoreRepository = scoreRepository;
         this.timerService = timerService;
+        this.hasCurrentPlayers = new HashSet<>();
     }
 
     public void start() {
@@ -89,6 +92,7 @@ public class Game {
         this.players = new HashMap<>();
         this.messageQueue = new MultiMessageQueue();
         this.answers = new HashMap<>();
+        this.hasCurrentPlayers = new HashSet<>();
     }
 
     private void advanceState() {
@@ -209,22 +213,24 @@ public class Game {
      */
     public Player addPlayer(String name, String id, boolean singleplayer) throws NameAlreadyPickedException {
         var p = new Player(id, name, singleplayer);
-        p.setGameId(id.toString());
+        p.setGameId(id);
         synchronized (players) {
-            for (Player player: players.values()) {
+            for (Player player : players.values()) {
                 if (player.getName().equals(name)) {
                     throw new NameAlreadyPickedException(
-                            name,
-                            players
-                                    .values()
-                                    .stream()
-                                    .map(x -> x.getName())
-                                    .collect(Collectors.toList()));
+                        name,
+                        players
+                            .values()
+                            .stream()
+                            .map(x -> x.getName())
+                            .collect(Collectors.toList()));
                 }
             }
             players.put(p.getId(), p);
         }
         playerRepository.save(p);
+
+        messageQueue.addMessage(new UpdatePlayersMessage(this.getPlayerList()));
 
         return p;
     }
@@ -246,5 +252,9 @@ public class Game {
      */
     public void resetConsumer(String id) {
         messageQueue.resetConsumer(id);
+    }
+
+    private ArrayList<Player> getPlayerList() {
+        return new ArrayList<>(this.players.values());
     }
 }

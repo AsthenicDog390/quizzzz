@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = SingleLeaderboardMessage.class, name = "singleLeaderboard"),
     @JsonSubTypes.Type(value = GameStartingMessage.class, name = "gameStarting"),
     @JsonSubTypes.Type(value = NoUpdateMessage.class, name = "noUpdate"),
+    @JsonSubTypes.Type(value = UpdatePlayersMessage.class, name = "updatePlayers"),
 })
 public abstract class Message {
 }
