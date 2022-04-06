@@ -1,15 +1,13 @@
 package server.api;
 
-import commons.Player;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.messages.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import commons.exceptions.NameAlreadyPickedException;
 import server.game.Game;
 import server.services.GameService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,7 +15,7 @@ import java.util.UUID;
 public class GameController {
     private final GameService gameService;
 
-    private Object waitingRoomMutex = new Object();
+    private final Object waitingRoomMutex = new Object();
 
     private Game waitingRoom;
 

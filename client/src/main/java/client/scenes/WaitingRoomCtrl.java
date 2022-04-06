@@ -3,7 +3,6 @@ package client.scenes;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Player;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class WaitingRoomCtrl {
     @FXML
     private ListView<Player> listView;
 
-    private ObservableList<Player> observableList = FXCollections.observableArrayList();
+    private final ObservableList<Player> observableList = FXCollections.observableArrayList();
 
     public void initialize() {
         listView.setItems(observableList);

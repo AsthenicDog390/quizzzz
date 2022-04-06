@@ -1,15 +1,12 @@
 package client.utils;
 
 import client.scenes.MainCtrl;
-import commons.Player;
 import commons.exceptions.NameAlreadyPickedException;
 import commons.messages.*;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.glassfish.jersey.client.ClientConfig;
 
 import java.util.concurrent.TimeUnit;
