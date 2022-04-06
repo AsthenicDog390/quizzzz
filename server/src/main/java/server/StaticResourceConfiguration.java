@@ -12,12 +12,12 @@ import java.nio.file.Paths;
 public class StaticResourceConfiguration implements WebMvcConfigurer {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-            "file:" + Paths.get("resources","images"),
+        "file:" + Paths.get("resources", "images"),
     };
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+            .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 }

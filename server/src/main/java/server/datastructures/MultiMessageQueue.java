@@ -2,14 +2,18 @@ package server.datastructures;
 
 import commons.messages.Message;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MultiMessageQueue {
-    private ArrayList<Message> messages;
+    private final ArrayList<Message> messages;
 
-    private HashMap<String, Optional<Consumer<Message>>> consumers;
-    private HashMap<String, Integer> indices;
+    private final HashMap<String, Optional<Consumer<Message>>> consumers;
+
+    private final HashMap<String, Integer> indices;
 
     public MultiMessageQueue() {
         this.messages = new ArrayList<>();
@@ -19,6 +23,7 @@ public class MultiMessageQueue {
 
     /**
      * setConsumer sets the message consumer of the queue.
+     *
      * @param consumer The consumer that will be set.
      */
     public void setConsumer(String playerId, Consumer<Message> consumer) {
@@ -44,6 +49,7 @@ public class MultiMessageQueue {
     /**
      * addMessage adds a message to the queue.
      * If there is a consumer present it will send the message to the consumer.
+     *
      * @param m The message to send to the consumer.
      */
     public void addMessage(Message m) {
@@ -59,7 +65,7 @@ public class MultiMessageQueue {
      * After the message is sent the consumer is reset.
      */
     private void maybeSendMessage() {
-        for (String id: this.consumers.keySet()) {
+        for (String id : this.consumers.keySet()) {
             var consumer = this.consumers.get(id);
             int index = this.indices.get(id);
             if (consumer.isPresent() && this.messages.size() > index) {
@@ -76,6 +82,7 @@ public class MultiMessageQueue {
 
     /**
      * getMessages returns all messages currently in the queue.
+     *
      * @return A view of all messages in the queue.
      */
     public List<Message> getMessages() {

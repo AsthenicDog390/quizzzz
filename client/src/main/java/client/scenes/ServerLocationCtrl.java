@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 public class ServerLocationCtrl {
 
-    private MainCtrl mainCtrl;
+    private final MainCtrl mainCtrl;
 
     @FXML
     private TextField URL;

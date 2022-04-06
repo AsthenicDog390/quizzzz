@@ -14,12 +14,15 @@ import java.util.ResourceBundle;
 public class NameSelectionMultiCtrl implements Initializable {
 
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     @FXML
     private TextField nameField;
+
     @FXML
     private AnchorPane errorPopup;
+
     @FXML
     private AnchorPane background;
 
@@ -55,9 +58,11 @@ public class NameSelectionMultiCtrl implements Initializable {
         errorPopup.setVisible(false);
     }
 
-    public void showWaitingRoom(){
+    public void showWaitingRoom() {
         mainCtrl.showWaitingRoom();
     }
 
-    public void showMainMenu(){mainCtrl.showMainMenu();}
+    public void showMainMenu() {
+        mainCtrl.showMainMenu();
+    }
 }

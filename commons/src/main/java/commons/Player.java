@@ -1,6 +1,9 @@
 package commons;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 @Entity(name = "Player")
@@ -8,8 +11,11 @@ import java.util.Objects;
 public class Player {
     @Id
     private String id;
+
     private String name;
+
     private String gameId;
+
     private boolean isSingleplayer;
 
     @Transient
@@ -66,8 +72,12 @@ public class Player {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Player player = (Player) o;
         return Objects.equals(id, player.id) && Objects.equals(name, player.name) && Objects.equals(gameId, player.gameId);
     }
@@ -80,10 +90,10 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", gameId='" + gameId + '\'' +
-                ", score=" + score +
-                '}';
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", gameId='" + gameId + '\'' +
+            ", score=" + score +
+            '}';
     }
 }

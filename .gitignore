@@ -49,7 +49,6 @@ out/
 
 *.jpg
 
-*.jpeg
-
 *.png
- .gitignore
+
+*.jpeg

@@ -13,9 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import commons.Activity;
+import commons.Quote;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,13 +29,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
-import commons.Activity;
-import org.glassfish.jersey.client.ClientConfig;
-
-import commons.Quote;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
@@ -50,7 +50,8 @@ public class ServerUtils {
                 .target(SERVER).path("api/quotes") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Quote>>() {});
+                .get(new GenericType<List<Quote>>() {
+                });
     }
 
     public List<Activity> getActivities() {
@@ -58,16 +59,18 @@ public class ServerUtils {
                 .target(SERVER).path("api/activities") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Activity>>() {});
+                .get(new GenericType<List<Activity>>() {
+                });
     }
 
     public List<Activity> getNRandomActivities(int no) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("api/activities/randomN") //
-                .queryParam("num",no)
+                .queryParam("num", no)
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Activity>>() {});
+                .get(new GenericType<List<Activity>>() {
+                });
     }
 
     public Activity getRandomActivity() {
@@ -75,7 +78,8 @@ public class ServerUtils {
                 .target(SERVER).path("api/activities/random") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<Activity>() {});
+                .get(new GenericType<Activity>() {
+                });
     }
 
     public Quote addQuote(Quote quote) {

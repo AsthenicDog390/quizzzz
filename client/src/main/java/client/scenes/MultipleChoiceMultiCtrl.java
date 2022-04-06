@@ -10,16 +10,20 @@ import javafx.scene.control.Label;
 
 public class MultipleChoiceMultiCtrl {
     private final ServerUtils server;
+
     private final MainCtrl mainCtrl;
 
     private MoreExpensive question;
 
     @FXML
     private Button buttonA;
+
     @FXML
     private Button buttonB;
+
     @FXML
     private Button buttonC;
+
     @FXML
     private Label questionText;
 
@@ -68,7 +72,7 @@ public class MultipleChoiceMultiCtrl {
     }
 
     /**
-     * Disable all the buttons so the user won't have the option to press multiple answers
+     * Disable all the buttons so the user won't have the option to press multiple answers.
      */
     public void disableAllButtons() {
         buttonA.setDisable(true);
