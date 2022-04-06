@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -45,7 +46,9 @@ public class LeaderboardCtrl implements Initializable {
                 System.out.println(h);
             }
         }
+        Collections.sort(players, (Player p1, Player p2) -> p2.getScore()-p1.getScore());
         this.table.getItems().setAll(players);
+
     }
 
     @Override
