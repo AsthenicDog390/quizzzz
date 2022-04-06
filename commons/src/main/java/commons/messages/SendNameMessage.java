@@ -4,7 +4,6 @@ public class SendNameMessage {
 
     private String toBePassedName;
 
-
     /**
      * For object mapper
      */

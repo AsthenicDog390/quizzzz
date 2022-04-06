@@ -15,6 +15,7 @@ public class Player {
     private String name;
 
     private String gameId;
+
     private boolean isSingleplayer;
 
     @Transient
