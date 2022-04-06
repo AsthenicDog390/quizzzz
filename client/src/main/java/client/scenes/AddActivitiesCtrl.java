@@ -16,7 +16,7 @@ public class AddActivitiesCtrl {
     private TextField fileLocationField;
 
     @FXML
-    private Text finishedPopup;
+    private Text Popup;
 
     @Inject
     public AddActivitiesCtrl(MainCtrl mainCtrl, ActivityUtils activityUtils) {
@@ -39,7 +39,8 @@ public class AddActivitiesCtrl {
             return;
         }
 
-        finishedPopup.setVisible(false);
+        Popup.setText("loading...");
+        Popup.setVisible(true);
 
         new Thread(() -> {
             activityUtils.addActivitiesFromZipFile(loc);
@@ -48,6 +49,12 @@ public class AddActivitiesCtrl {
     }
 
     void showFinishedPopup() {
-        finishedPopup.setVisible(true);
+        Popup.setText("Done");
+    }
+
+    @FXML
+    void showMainMenu(){
+        Popup.setVisible(false);
+        mainCtrl.showMainMenu();
     }
 }
