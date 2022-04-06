@@ -61,8 +61,8 @@ public class ActivityUtils {
     }
 
     /**
-     * Adding activities using an API endpoint to the list by returning a new list of activities
-     * @param activities - the list to activities to add the activity
+     * Adding activities using an API endpoint to the list by returning a new list of activities.
+     * @param activities - the list to activities to add the activity.
      * @return - the new activities list with added activities.
      */
     public List<Activity> addActivities(List<Activity> activities) {
