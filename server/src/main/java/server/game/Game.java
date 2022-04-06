@@ -105,13 +105,18 @@ public class Game {
                 timerService.runAfter(3, () -> {
                     if (this.currentQuestion >= this.questions.size()) {
                         this.state = State.GAME_ENDED;
-                        this.persistScores();
-                        this.setLeaderboard();
-                        this.messageQueue.addMessage(new GameEndedMessage());
+                        advanceState();
                         return;
                     }
                     this.nextQuestion();
                 });
+                break;
+            case GAME_ENDED:
+                if (this.currentQuestion >= this.questions.size()) {
+                    this.persistScores();
+                    this.setLeaderboard();
+                }
+                this.messageQueue.addMessage(new GameEndedMessage());
                 break;
         }
     }
@@ -192,6 +197,10 @@ public class Game {
         } else if (m instanceof UpdateScoreMessage) {
             var score = (UpdateScoreMessage) m;
             this.updateScore(playerId, score.getScore());
+        }
+        else if (m instanceof  GameEndedMessage) {
+            this.state=State.GAME_ENDED;
+            advanceState();
         }
     }
 

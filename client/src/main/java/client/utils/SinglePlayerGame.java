@@ -128,4 +128,14 @@ public class SinglePlayerGame {
     public void setScore(Integer n) {
         p.setScore(p.getScore() + n);
     }
+
+    public void endGame() {
+        gameEnded=true;
+        var a = new GameEndedMessage();
+        ClientBuilder.newClient(new ClientConfig()) //
+            .target(SERVER).path(API_PATH).path(this.id) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(a, APPLICATION_JSON));
+    }
 }

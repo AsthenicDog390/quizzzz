@@ -183,6 +183,8 @@ public class MultipleChoiceSingleCtrl {
     }
 
     public void goBackMainMenu() {
+        dialogPane.setVisible(false);
+        cancelTimer();
         mainCtrl.gameEnded();
     }
 
