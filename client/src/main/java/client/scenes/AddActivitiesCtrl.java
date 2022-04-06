@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 
 public class AddActivitiesCtrl {
     private MainCtrl mainCtrl;
+
     private ActivityUtils activityUtils;
 
     @FXML
