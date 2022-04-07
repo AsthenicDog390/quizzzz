@@ -41,7 +41,7 @@ public class EstimateMultiCtrl {
     private Label warning;
 
     /**
-     * Generator for the "estimate" type of question controller for a multiplayer game.
+     * Constructor for the "estimate" type of question controller for a multiplayer game.
      * @param server - the server where the multiplayer game is running on.
      * @param mainCtrl - the main controller where the game runs on.
      */

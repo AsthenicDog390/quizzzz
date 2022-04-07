@@ -41,7 +41,7 @@ public class EstimateSingleCtrl {
     private Label warning;
 
     /**
-     * Generator for the "estimate" type of question controller for a singleplayer game.
+     * Constructor for the "estimate" type of question controller for a singleplayer game.
      * @param server - the server where the singleplayer game is running on.
      * @param mainCtrl - the main controller where the game runs on.
      */

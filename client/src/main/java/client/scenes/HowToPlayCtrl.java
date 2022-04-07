@@ -9,7 +9,7 @@ public class HowToPlayCtrl {
     private final MainCtrl mainCtrl;
 
     /**
-     * Generator for the "How to play" screen controller where instructions for the game are given.
+     * Constructor for the "How to play" screen controller where instructions for the game are given.
      * @param server - the server where the singleplayer game is running on.
      * @param mainCtrl - the main controller where the game runs on.
      */
