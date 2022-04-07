@@ -25,6 +25,11 @@ public class MultiPlayerGame {
 
     private boolean gameEnded;
 
+    /**
+     * Constructor for MultiPlayerGame, creating a new multi-player game.
+     * @param mainCtrl - The main controller used for accessing the scenes.
+     * @param name - The name of the new player.
+     */
     public MultiPlayerGame(MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
         this.gameEnded = false;
         this.name = name;
@@ -98,7 +103,6 @@ public class MultiPlayerGame {
         System.out.println(m.getClass().toString());
 
         if (m instanceof NextQuestionMessage) {
-            //TODO(Friso): provide the question to the question controller
             Platform.runLater(() -> {
                 mainCtrl.setQuestionMultiPlayer(((NextQuestionMessage) m).getQuestion());
             });

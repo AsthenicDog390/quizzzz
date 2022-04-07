@@ -74,6 +74,11 @@ public class MultipleChoiceSingleCtrl {
 
     private static final String API_PATH = "images/";
 
+    /**
+     * Constructor for the multiple choice type of question screen controller.
+     * @param server - the server where the singleplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
@@ -81,6 +86,9 @@ public class MultipleChoiceSingleCtrl {
         this.n = 1;
     }
 
+    /**
+     * Function used for selecting the most left answer.
+     */
     public void answerA() {
         disableAllButtons();
         giveAnswer(0);
@@ -88,6 +96,9 @@ public class MultipleChoiceSingleCtrl {
         cancelTimer();
     }
 
+    /**
+     * Function used for selecting the middle answer.
+     */
     public void answerB() {
         disableAllButtons();
         giveAnswer(1);
@@ -95,6 +106,9 @@ public class MultipleChoiceSingleCtrl {
         cancelTimer();
     }
 
+    /**
+     * Function used for selecting the most right answer.
+     */
     public void answerC() {
         disableAllButtons();
         giveAnswer(2);
@@ -102,11 +116,18 @@ public class MultipleChoiceSingleCtrl {
         cancelTimer();
     }
 
+    /**
+     * Function that cancels the front-end timer on the question.
+     */
     public void cancelTimer() {
         gameTimer.cancel();
         progressBarTimer.cancel();
     }
 
+    /**
+     * Function that colours the answers depending on the right/wrong answer given.
+     * @param option - option that was chosen, for aplying the right colours.
+     */
     public void colorAnswers(int option) {
         if (buttonA.getText().equals(question.getAnswer().getTitle())) {
             buttonA.setStyle("-fx-background-color: #00FF00;");
@@ -135,6 +156,10 @@ public class MultipleChoiceSingleCtrl {
 
     }
 
+    /**
+     * Function that sends the given answer to the SinglePlayerGame instance, so that it can be submitted.
+     * @param answer - the answer that was chosen.
+     */
     public void giveAnswer(int answer) {
         mainCtrl.getSinglePlayerGame().giveAnswer(answer);
         if (correctAnswer.getActivity_ID() == question.getOptions()[answer].getActivity_ID()) {
@@ -143,15 +168,26 @@ public class MultipleChoiceSingleCtrl {
         }
     }
 
+    /**
+     * FUnction that sets the current score of the user.
+     * @param tscore - the value of the score that the player currently has.
+     */
     public void setScore(int tscore) {
         mainCtrl.getSinglePlayerGame().setScore(tscore);
         this.score.setText("Your Score:" + "\n" + mainCtrl.getSinglePlayerGame().getPlayer().getScore());
     }
 
+    /**
+     * Function that initializes the label where the current score is displayed.
+     */
     public void initializeScoreLabel() {
         this.score.setText("Your Score:" + "\n" + 1);
     }
 
+    /**
+     * Setter for the incoming next question, so that the scene will display it and the number of it.
+     * @param question - the question that will be showed.
+     */
     public void setQuestion(MoreExpensive question) {
         removeStyle();
         enableAllButtons();
@@ -182,6 +218,9 @@ public class MultipleChoiceSingleCtrl {
         this.correctAnswer = question.getAnswer();
     }
 
+    /**
+     * Function that ends the game at any time, not submitting the score and redirects the player to the main menu.
+     */
     public void goBackMainMenu() {
         mainCtrl.gameEnded();
     }
@@ -204,6 +243,9 @@ public class MultipleChoiceSingleCtrl {
         buttonC.setDisable(true);
     }
 
+    /**
+     * Disable all the buttons so the user will be able to answer.
+     */
     public void enableAllButtons() {
         buttonA.setDisable(false);
         buttonB.setDisable(false);
@@ -212,17 +254,22 @@ public class MultipleChoiceSingleCtrl {
     }
 
     /**
-     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time.
+     * Function that shows up the dialog that asks the user for quitting the game.
      */
-
     public void showDialogExit() {
         dialogPane.setVisible(true);
     }
 
+    /**
+     * Function that hides up the dialog that asks the user for quitting the game.
+     */
     public void hideDialogExit() {
         dialogPane.setVisible(false);
     }
 
+    /**
+     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time.
+     */
     public void startTimer() {
         gameTimer = new Timer();
         progressBarTimer = new Timer();
@@ -239,7 +286,7 @@ public class MultipleChoiceSingleCtrl {
         };
 
         /**
-         * Task for decreasing the progress bar with a specific amount every 40ms
+         * Task for decreasing the progress bar with a specific amount every 40ms.
          */
         TimerTask lowerBar = new TimerTask() {
             @Override

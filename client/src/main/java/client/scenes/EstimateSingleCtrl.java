@@ -40,12 +40,20 @@ public class EstimateSingleCtrl {
     @FXML
     private Label warning;
 
+    /**
+     * Constructor for the "estimate" type of question controller for a singleplayer game.
+     * @param server - the server where the singleplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public EstimateSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Field where the estimate answer for the question is inputted.
+     */
     public void answerField() {
         boolean checkFailed = false;
         try {
@@ -63,6 +71,10 @@ public class EstimateSingleCtrl {
         }
     }
 
+    /**
+     * Function that sets the question text in the scene.
+     * @param question - the question that is shown.
+     */
     public void setQuestion(Estimate question) {
         this.question = question;
         this.questionText.setText("How much energy does: " + question.getActivity().getTitle() + " consume?");
@@ -70,6 +82,9 @@ public class EstimateSingleCtrl {
         //TODO: Set images
     }
 
+    /**
+     * Function returning the user to the main menu.
+     */
     public void goBackMainMenu() {
         mainCtrl.showMainMenu();
     }
@@ -107,15 +122,24 @@ public class EstimateSingleCtrl {
         progressBarTimer.schedule(lowerBar, 0, 40);
     }
 
+    /**
+     * Function that disables the possibility to answer anymore.
+     */
     private void disableAll() {
         answer.setDisable(true);
         confirm.setDisable(true);
     }
 
+    /**
+     * Function that shows the dialog used for asking the user if he wants to quit the game.
+     */
     public void showDialogExit() {
         dialogPane.setVisible(true);
     }
 
+    /**
+     * Function that hides the dialog used for asking the user if he wants to quit the game.
+     */
     public void hideDialogExit() {
         dialogPane.setVisible(false);
     }

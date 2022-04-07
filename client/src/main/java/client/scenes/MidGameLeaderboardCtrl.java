@@ -22,6 +22,11 @@ public class MidGameLeaderboardCtrl {
 
     private final MainCtrl mainCtrl;
 
+    /**
+     * Constructor for the mid-game leaderboard (showed in the multi-player game in-between rounds) screen controller.
+     * @param server - the server where the singleplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public MidGameLeaderboardCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;

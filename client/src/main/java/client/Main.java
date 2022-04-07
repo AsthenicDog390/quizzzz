@@ -34,13 +34,23 @@ public class Main extends Application {
 
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
+    /**
+     * Main function that launches the app.
+     * @param args - Usual string arguments passed to main.
+     * @throws URISyntaxException - If a wrong URI is tried to be accessed.
+     * @throws IOException - If a wrong in/out argument is used.
+     */
     public static void main(String[] args) throws URISyntaxException, IOException {
         launch();
     }
 
+    /**
+     * Preparing the fxml files for further injection.
+     * @param primaryStage - the stage that will be implemented first.
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
         var menu = FXML.load(MainMenuCtrl.class, "client", "scenes", "MainMenu.fxml");
@@ -59,6 +69,10 @@ public class Main extends Application {
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
+
+        /**
+         * Initialisation of the main controller for starting the main scene
+         */
         mainCtrl.initialize(primaryStage, overview, add, menu, howToPlay, multipleChoiceSingle, serverLocation, startingScreen, waitingRoom, nameSelection, nameSelectionMulti, multipleChoiceMulti, leaderboard, estimateSingle, estimateMulti, addActivities);
     }
 }

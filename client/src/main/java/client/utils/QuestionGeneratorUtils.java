@@ -24,6 +24,11 @@ public class QuestionGeneratorUtils {
         return activities;
     }
 
+    /**
+     * Helper method for generation a "What is more expensive" type of question.
+     * @param server - the server from where it is generated.
+     * @return - the freshly new generated question.
+     */
     public static MoreExpensive generateMoreExpensiveQuestion(ServerUtils server) {
         List<Activity> activities = generate3Activities(server);
         Activity[] options = new Activity[3];
@@ -39,6 +44,11 @@ public class QuestionGeneratorUtils {
         return ans;
     }
 
+    /**
+     * Helper method for generation a "What is less expensive" type of question.
+     * @param server - the server from where it is generated.
+     * @return - the freshly new generated question.
+     */
     public static LessExpensive generateLessExpensiveQuestion(ServerUtils server) {
         List<Activity> activities = generate3Activities(server);
         Activity[] options = new Activity[3];

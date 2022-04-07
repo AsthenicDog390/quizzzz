@@ -27,6 +27,11 @@ public class SinglePlayerGame {
 
     private boolean gameEnded;
 
+    /**
+     * Constructor for SinglePlayerGame, creating a new single player game.
+     * @param mainCtrl - The main controller used for accessing the scenes.
+     * @param name - The name of the player that will play the game.
+     */
     public SinglePlayerGame(MainCtrl mainCtrl, String name) {
         this.gameEnded = false;
         this.id = newGame(name);
