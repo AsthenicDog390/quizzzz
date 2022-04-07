@@ -144,7 +144,7 @@ public class MultiPlayerGame {
      */
     public void startGame() {
         ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH) //
+            .target(config.getServerLocation()).path(API_PATH) //
             .path(this.id).path("start") //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
