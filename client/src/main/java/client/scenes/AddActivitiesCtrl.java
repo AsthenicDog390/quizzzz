@@ -16,7 +16,7 @@ public class AddActivitiesCtrl {
     private TextField fileLocationField;
 
     @FXML
-    private Text finishedPopup;
+    private Text Popup;
 
     /**
      * Constructor for the controller where we import all the activities we are going to use in the game.
@@ -44,7 +44,8 @@ public class AddActivitiesCtrl {
             return;
         }
 
-        finishedPopup.setVisible(false);
+        Popup.setText("loading...");
+        Popup.setVisible(true);
 
         new Thread(() -> {
             activityUtils.addActivitiesFromZipFile(loc);
@@ -53,6 +54,12 @@ public class AddActivitiesCtrl {
     }
 
     void showFinishedPopup() {
-        finishedPopup.setVisible(true);
+        Popup.setText("Done");
+    }
+
+    @FXML
+    void showMainMenu(){
+        Popup.setVisible(false);
+        mainCtrl.showMainMenu();
     }
 }
