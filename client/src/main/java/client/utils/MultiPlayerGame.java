@@ -1,6 +1,7 @@
 package client.utils;
 
 import client.scenes.MainCtrl;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.messages.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -18,16 +19,20 @@ public class MultiPlayerGame {
 
     private final String playerId;
 
+    private final String name;
+
     private final String id;
 
     private boolean gameEnded;
 
     /**
      * Constructor for MultiPlayerGame, creating a new multi-player game.
-     @param mainCtrl - The main controller used for accessing the scenes.
+     * @param mainCtrl - The main controller used for accessing the scenes.
+     * @param name - The name of the new player.
      */
-    public MultiPlayerGame(MainCtrl mainCtrl) {
+    public MultiPlayerGame(MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
         this.gameEnded = false;
+        this.name = name;
         var m = newGame();
         this.id = m.getId();
         this.playerId = m.getPlayerId();
@@ -40,13 +45,20 @@ public class MultiPlayerGame {
      *
      * @return the id which the server assigned to this game
      */
-    private NewGameMessage newGame() {
+    private NewGameMessage newGame() throws NameAlreadyPickedException {
         var m = ClientBuilder.newClient(new ClientConfig()) //
             .target(SERVER).path(API_PATH).path("new") //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
-            .get(NewGameMessage.class);
-        return m;
+            .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
+        if (m instanceof NewGameMessage) {
+            return (NewGameMessage) m;
+        } else if (m instanceof NameAlreadyPickedMessage) {
+            var msg = (NameAlreadyPickedMessage) m;
+            throw new NameAlreadyPickedException(msg.getName(), msg.getPickedNames());
+        } else {
+            throw new RuntimeException("illegal message type in new game: " + m.getClass());
+        }
     }
 
     /**

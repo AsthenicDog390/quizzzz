@@ -18,6 +18,7 @@ package client.scenes;
 
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.Player;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -274,8 +275,8 @@ public class MainCtrl {
     /**
      * Starter for a multi-player game.
      */
-    public void startMultiPlayerGame() {
-        this.multiPlayerGame = new MultiPlayerGame(this);
+    public void startMultiPlayerGame(String name) throws NameAlreadyPickedException {
+        this.multiPlayerGame = new MultiPlayerGame(this, name);
     }
 
     /**
