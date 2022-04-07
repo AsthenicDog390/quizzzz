@@ -16,8 +16,10 @@
 
 package client.scenes;
 
+import client.utils.Config;
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
+import com.google.inject.Inject;
 import commons.exceptions.NameAlreadyPickedException;
 import commons.Player;
 import commons.questions.MoreExpensive;
@@ -101,6 +103,18 @@ public class MainCtrl {
 
     FileChooser chooser;
 
+    private final Config config;
+
+    @Inject
+    public MainCtrl(Config config) {
+        this.config = config;
+    }
+
+    /**
+     * Initializer for all the Controllers and Instances that are going to be used.
+     *
+     * @params - all the parameters being the Controllers for creating the scenes and using them.
+     */
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<MainMenuCtrl, Parent> menu, Pair<HowToPlayCtrl, Parent> howToPlay,
                            Pair<MultipleChoiceSingleCtrl, Parent> multipleChoiceSingle, Pair<ServerLocationCtrl, Parent> serverLocation,
@@ -155,10 +169,18 @@ public class MainCtrl {
         this.startingScreenCtrl = startingScreen.getKey();
         this.startingScreen = new Scene(startingScreen.getValue());
 
-        showMainMenu();
+        showServerLocation();
         primaryStage.show();
     }
 
+    private void showServerLocation() {
+        primaryStage.setTitle("Pick server location");
+        primaryStage.setScene(serverLocation);
+    }
+
+    /**
+     * Multiple show"XYZ" type of functions, setting the scene to the desired one, implementing different functionality depending on what is needed.
+     */
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
@@ -236,31 +258,51 @@ public class MainCtrl {
         estimateMultiCtrl.startTimer();
     }
 
-    public SinglePlayerGame getSinglePlayerGame() {
-        return this.singlePlayerGame;
-    }
-
     public void showAddActivities() {
         primaryStage.setTitle("Add Activities");
         primaryStage.setScene(addActivities);
     }
 
-    public SinglePlayerGame geSinglePlayerGame() {
+    /**
+     * Getter for the current SinglePlayerGame instance used.
+     *
+     * @return - the single player game in use.
+     */
+    public SinglePlayerGame getSinglePlayerGame() {
         return this.singlePlayerGame;
     }
 
+    /**
+     * Getter for the current MultiPlayerGame instance used.
+     *
+     * @return - the multi-player game in use.
+     */
     public MultiPlayerGame getMultiPlayerGame() {
         return this.multiPlayerGame;
     }
 
+    /**
+     * Starter for a single player game, using a given name for the player.
+     *
+     * @param name - a string representing the name of the player.
+     */
     public void startSinglePlayerGame(String name) {
-        this.singlePlayerGame = new SinglePlayerGame(this, name);
+        this.singlePlayerGame = new SinglePlayerGame(config, this, name);
     }
 
+    /**
+     * Starter for a multi-player game.
+     * @param name - The name of the new player
+     */
     public void startMultiPlayerGame(String name) throws NameAlreadyPickedException {
-        this.multiPlayerGame = new MultiPlayerGame(this, name);
+        this.multiPlayerGame = new MultiPlayerGame(config, this, name);
     }
 
+    /**
+     * Setter for a question in a single player game, with the given question.
+     *
+     * @param question - the question that is wanted to be set in the active single player game.
+     */
     public void setQuestionSinglePlayer(Question question) {
         if (question instanceof MoreExpensive) {
             this.showMultipleChoiceSingle();
@@ -268,6 +310,9 @@ public class MainCtrl {
         }
     }
 
+    /**
+     * Function that ends the game.
+     */
     public void gameEnded() {
         this.showMainMenu();
         this.singlePlayerGame = null;
@@ -283,6 +328,11 @@ public class MainCtrl {
         return file.getAbsolutePath();
     }
 
+    /**
+     * Setter for a question in a multi-player game, with the given question.
+     *
+     * @param question - the question that is wanted to be set in the active multi-player game.
+     */
     public void setQuestionMultiPlayer(Question question) {
         if (question instanceof MoreExpensive) {
             this.showMultipleMultiSingle();
@@ -290,6 +340,9 @@ public class MainCtrl {
         }
     }
 
+    /**
+     * Starter for the Timer on the single player game.
+     */
     public void startSinglePlayerTimer() {
         multipleChoiceSingleCtrl.startTimer();
     }

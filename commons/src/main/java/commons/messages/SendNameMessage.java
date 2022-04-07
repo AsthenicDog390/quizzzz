@@ -11,7 +11,7 @@ public class SendNameMessage {
     }
 
     public SendNameMessage(String givenName) {
-        this.toBePassedName = givenName;
+        this.toBePassedName=givenName;
     }
 
     public String getToBePassedName() {

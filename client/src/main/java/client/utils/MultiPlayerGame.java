@@ -15,8 +15,6 @@ import java.util.concurrent.TimeoutException;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class MultiPlayerGame {
-    private static final String SERVER = "http://localhost:8080/";
-
     private final static String API_PATH = "/api/games/multiplayer";
 
     private final MainCtrl mainCtrl;
@@ -27,9 +25,18 @@ public class MultiPlayerGame {
 
     private final String id;
 
+    private final Config config;
+
     private boolean gameEnded;
 
-    public MultiPlayerGame(MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
+    /**
+     * Constructor for MultiPlayerGame, creating a new multi-player game.
+     * @param config - The config of the server location.
+     * @param mainCtrl - The main controller used for accessing the scenes.
+     * @param name - The name of the new player.
+     */
+    public MultiPlayerGame(Config config, MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
+        this.config = config;
         this.gameEnded = false;
         this.name = name;
         var m = newGame();
@@ -46,7 +53,7 @@ public class MultiPlayerGame {
      */
     private NewGameMessage newGame() throws NameAlreadyPickedException {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH).path("new") //
+            .target(config.getServerLocation()).path(API_PATH).path("new") //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
             .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
@@ -68,7 +75,7 @@ public class MultiPlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH) //
+            .target(config.getServerLocation()).path(API_PATH) //
             .path(this.id).path(this.playerId) //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
@@ -86,7 +93,7 @@ public class MultiPlayerGame {
                     var message = ClientBuilder.newBuilder()
                         .readTimeout(15, TimeUnit.SECONDS)
                         .newClient(new ClientConfig())
-                        .target(SERVER).path(API_PATH)
+                        .target(config.getServerLocation()).path(API_PATH)
                         .path(this.id).path(this.playerId)
                         .request(APPLICATION_JSON)
                         .accept(APPLICATION_JSON)
@@ -113,7 +120,6 @@ public class MultiPlayerGame {
         System.out.println(m.getClass().toString());
 
         if (m instanceof NextQuestionMessage) {
-            //TODO(Friso): provide the question to the question controller
             Platform.runLater(() -> {
                 mainCtrl.setQuestionMultiPlayer(((NextQuestionMessage) m).getQuestion());
             });

@@ -16,6 +16,7 @@
 
 package client.scenes;
 
+import client.utils.Config;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,8 @@ public class MainCtrlTest {
 
     @BeforeEach
     public void setup() {
-        sut = new MainCtrl();
+        var conf = new Config();
+        sut = new MainCtrl(conf);
     }
 
     @Test

@@ -176,7 +176,6 @@ public class Game {
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
-        this.updateScore(playerId, 250);
         timer.cancel();
         this.advanceState();
     }

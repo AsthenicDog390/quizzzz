@@ -11,13 +11,13 @@ import org.glassfish.jersey.client.ClientConfig;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class SinglePlayerGame {
-    private static final String SERVER = "http://localhost:8080/";
-
     private final static String API_PATH = "/api/games/singleplayer";
 
     private final MainCtrl mainCtrl;
 
     private final String id;
+
+    private final Config config;
 
     private String name;
 
@@ -27,7 +27,14 @@ public class SinglePlayerGame {
 
     private boolean gameEnded;
 
-    public SinglePlayerGame(MainCtrl mainCtrl, String name) {
+    /**
+     * Constructor for SinglePlayerGame, creating a new single player game.
+     * @param config - The config to use for the game.
+     * @param mainCtrl - The main controller used for accessing the scenes.
+     * @param name - The name of the player that will play the game.
+     */
+    public SinglePlayerGame(Config config, MainCtrl mainCtrl, String name) {
+        this.config = config;
         this.gameEnded = false;
         this.id = newGame(name);
         this.p = new Player(id, name, true);
@@ -44,7 +51,7 @@ public class SinglePlayerGame {
      */
     private String newGame(String name) {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH).path("new") //
+                .target(config.getServerLocation()).path(API_PATH).path("new") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(new SendNameMessage(name), APPLICATION_JSON), NewGameMessage.class);
@@ -59,7 +66,7 @@ public class SinglePlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH).path(this.id) //
+                .target(config.getServerLocation()).path(API_PATH).path(this.id) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(a, APPLICATION_JSON));
@@ -68,7 +75,7 @@ public class SinglePlayerGame {
     public void updScore(int score) {
         var a = new UpdateScoreMessage(score);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path(API_PATH).path(this.id) //
+                .target(config.getServerLocation()).path(API_PATH).path(this.id) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .post(Entity.entity(a, APPLICATION_JSON));
@@ -82,7 +89,7 @@ public class SinglePlayerGame {
         new Thread(() -> {
             while (!gameEnded) {
                 var message = ClientBuilder.newClient(new ClientConfig())
-                        .target(SERVER).path(API_PATH).path(this.id)
+                        .target(config.getServerLocation()).path(API_PATH).path(this.id)
                         .request(APPLICATION_JSON)
                         .accept(APPLICATION_JSON)
                         .get(Message.class);
