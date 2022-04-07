@@ -8,9 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class AddActivitiesCtrl {
-    private final MainCtrl mainCtrl;
+    private MainCtrl mainCtrl;
 
-    private final ActivityUtils activityUtils;
+    private ActivityUtils activityUtils;
 
     @FXML
     private TextField fileLocationField;
