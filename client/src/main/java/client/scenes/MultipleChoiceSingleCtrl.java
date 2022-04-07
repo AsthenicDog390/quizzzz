@@ -222,6 +222,8 @@ public class MultipleChoiceSingleCtrl {
      * Function that ends the game at any time, not submitting the score and redirects the player to the main menu.
      */
     public void goBackMainMenu() {
+        dialogPane.setVisible(false);
+        cancelTimer();
         mainCtrl.gameEnded();
     }
 

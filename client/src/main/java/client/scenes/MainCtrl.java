@@ -315,6 +315,7 @@ public class MainCtrl {
      */
     public void gameEnded() {
         this.showMainMenu();
+        this.singlePlayerGame.endGame();
         this.singlePlayerGame = null;
         this.multiPlayerGame = null;
     }
