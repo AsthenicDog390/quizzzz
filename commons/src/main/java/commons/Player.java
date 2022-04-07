@@ -1,9 +1,6 @@
 package commons;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "Player")
@@ -16,6 +13,7 @@ public class Player {
 
     private String gameId;
 
+    @Column(columnDefinition = "boolean default false")
     private boolean isSingleplayer;
 
     @Transient

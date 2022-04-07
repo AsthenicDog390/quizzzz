@@ -30,6 +30,11 @@ public class ActivityUtils {
         this.config = config;
     }
 
+    /**
+     * Reader made for parsing the activities from the JSON file given.
+     * @param input - reader that parses through the file.
+     * @return - a list containing all the activities.
+     */
     public List<Activity> readActivities(Reader input) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -44,6 +49,11 @@ public class ActivityUtils {
         }
     }
 
+    /**
+     * Validation for activities from a zip file.
+     * @param activities the list of activities given.
+     * @param file the ZipFile given.
+     */
     private void validateActivities(List<Activity> activities, ZipFile file) {
         for (Activity a: activities) {
             if (a.getSource().length() > 450) {
@@ -56,6 +66,11 @@ public class ActivityUtils {
         }
     }
 
+    /**
+     * Adding activities using an API endpoint to the list by returning a new list of activities.
+     * @param activities - the list to activities to add the activity.
+     * @return - the new activities list with added activities.
+     */
     public List<Activity> addActivities(List<Activity> activities) {
         var res = ClientBuilder.newClient(new ClientConfig()) //
                 .target(config.getServerLocation()).path("api/activities") //
@@ -69,6 +84,11 @@ public class ActivityUtils {
         return res.readEntity(new GenericType<List<Activity>>() {});
     }
 
+    /**
+     * Adding activities images to an activities array from a specific ZipFil given.
+     * @param activities - the activities array where we'll add the images.
+     * @param file - the file from where we'll get the activites.
+     */
     public void addActivityImages(List<Activity> activities, ZipFile file) {
         for (Activity a: activities) {
             try {
@@ -94,6 +114,11 @@ public class ActivityUtils {
         }
     }
 
+    /**
+     * Adding activities from a zip filed into the repository, binding all methods described upwards
+     * ("validateActivities", "addActivities", "addActivityImages").
+     * @param path - the path of the ZipFile.
+     */
     public void addActivitiesFromZipFile(String path) {
         try (ZipFile file = new ZipFile(path)) {
             var activitiesEntry = file.getEntry("activities.json");
