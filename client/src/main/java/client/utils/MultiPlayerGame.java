@@ -32,6 +32,7 @@ public class MultiPlayerGame {
      * @param name - The name of the new player.
      */
     public MultiPlayerGame(Config config, MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
+        this.config = config;
         this.gameEnded = false;
         this.name = name;
         var m = newGame();
