@@ -20,6 +20,7 @@ import client.utils.Config;
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import com.google.inject.Inject;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.Player;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
@@ -291,9 +292,10 @@ public class MainCtrl {
 
     /**
      * Starter for a multi-player game.
+     * @param name - The name of the new player
      */
-    public void startMultiPlayerGame() {
-        this.multiPlayerGame = new MultiPlayerGame(this, config);
+    public void startMultiPlayerGame(String name) throws NameAlreadyPickedException {
+        this.multiPlayerGame = new MultiPlayerGame(config, this, name);
     }
 
     /**
