@@ -140,7 +140,7 @@ public class SinglePlayerGame {
         gameEnded=true;
         var a = new GameEndedMessage();
         ClientBuilder.newClient(new ClientConfig()) //
-            .target(SERVER).path(API_PATH).path(this.id) //
+            .target(config.getServerLocation()).path(API_PATH).path(this.id) //
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
             .post(Entity.entity(a, APPLICATION_JSON));
