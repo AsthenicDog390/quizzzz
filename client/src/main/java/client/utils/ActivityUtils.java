@@ -3,6 +3,7 @@ package client.utils;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import commons.Activity;
 import commons.ImageUpload;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -22,7 +23,12 @@ import java.util.zip.ZipFile;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ActivityUtils {
-    private static final String SERVER = "http://localhost:8080/";
+    private final Config config;
+
+    @Inject
+    public ActivityUtils(Config config) {
+        this.config = config;
+    }
 
     /**
      * Reader made for parsing the activities from the JSON file given.
@@ -67,7 +73,7 @@ public class ActivityUtils {
      */
     public List<Activity> addActivities(List<Activity> activities) {
         var res = ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/activities") //
+                .target(config.getServerLocation()).path("api/activities") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .buildPost(Entity.entity(activities, APPLICATION_JSON))
@@ -92,7 +98,7 @@ public class ActivityUtils {
                 var img = new ImageUpload(stream.readAllBytes());
 
                 var res = ClientBuilder.newClient(new ClientConfig()) //
-                        .target(SERVER).path("api/images")
+                        .target(config.getServerLocation()).path("api/images")
                         .path(a.getImagePath())
                         .request(APPLICATION_JSON) //
                         .accept(APPLICATION_JSON) //
