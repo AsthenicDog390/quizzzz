@@ -18,6 +18,11 @@ public class AddActivitiesCtrl {
     @FXML
     private Text finishedPopup;
 
+    /**
+     * Constructor for the controller where we import all the activities we are going to use in the game.
+     * @param mainCtrl - the main controller where the game runs on.
+     * @param activityUtils - helper used for adding the activities into a local repository.
+     */
     @Inject
     public AddActivitiesCtrl(MainCtrl mainCtrl, ActivityUtils activityUtils) {
         this.mainCtrl = mainCtrl;
