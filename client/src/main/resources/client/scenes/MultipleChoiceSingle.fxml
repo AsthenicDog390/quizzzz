@@ -69,15 +69,16 @@
          </children>
       </HBox>
       <Button fx:id="backToMenu" layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" onAction="#showDialogExit" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
-      <DialogPane fx:id="dialogPane" layoutX="880.0" layoutY="19.0" prefHeight="53.0" prefWidth="214.0" visible="false">
+      <DialogPane fx:id="dialogPane" layoutX="880.0" layoutY="19.0" prefHeight="82.0" prefWidth="214.0" visible="false">
          <header>
-            <Label text="ARE YOU SURE YOU WANT TO QUIT?">
+            <Label prefHeight="38.0" prefWidth="214.0" text="ARE YOU SURE YOU WANT TO QUIT? (ALL PROGRESS WILL BE LOST)" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets left="10.0" />
-               </padding></Label>
+               </padding>
+            </Label>
          </header>
          <content>
-            <Pane prefHeight="47.0" prefWidth="351.0">
+            <Pane prefHeight="0.0" prefWidth="214.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="90.0">
                      <children>
