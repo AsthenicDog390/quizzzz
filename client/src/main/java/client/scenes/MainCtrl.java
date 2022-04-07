@@ -347,5 +347,15 @@ public class MainCtrl {
     public void startSinglePlayerTimer() {
         multipleChoiceSingleCtrl.startTimer();
     }
+
+    public void startMultiplayerGame() {
+        if (multiPlayerGame != null) {
+            multiPlayerGame.startGame();
+        }
+    }
+
+    public void setPlayerList(List<Player> players) {
+        this.waitingRoomCtrl.setPlayerList(players);
+    }
 }
 

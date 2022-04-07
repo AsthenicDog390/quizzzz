@@ -14,7 +14,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = AnswerMessage.class, name = "answer"),
     @JsonSubTypes.Type(value = NameAlreadyPickedMessage.class, name = "nameAlreadyPicked"),
     @JsonSubTypes.Type(value = UpdateScoreMessage.class, name = "updateScore"),
-    @JsonSubTypes.Type(value = SingleLeaderboardMessage.class, name = "singleLeaderboard")
+    @JsonSubTypes.Type(value = SingleLeaderboardMessage.class, name = "singleLeaderboard"),
+    @JsonSubTypes.Type(value = GameStartingMessage.class, name = "gameStarting"),
+    @JsonSubTypes.Type(value = NoUpdateMessage.class, name = "noUpdate"),
+    @JsonSubTypes.Type(value = UpdatePlayersMessage.class, name = "updatePlayers"),
 })
 public abstract class Message {
 }
