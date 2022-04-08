@@ -68,24 +68,24 @@
       <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" onAction="#goBackMainMenu" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
       <HBox layoutX="700.0" layoutY="575.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 1">
+            <Button fx:id="power1" mnemonicParsing="false" onAction="#disablePower1" prefHeight="40.0" prefWidth="100.0" text="Power-up 1">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 2">
+            <Button fx:id="power2" mnemonicParsing="false" onAction="#disablePower2" prefHeight="40.0" prefWidth="100.0" text="Power-up 2">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Power-up 3">
+            <Button fx:id="power3" mnemonicParsing="false" onAction="#disablePower3" prefHeight="40.0" prefWidth="100.0" text="Power-up 3">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
          </children>
       </HBox>
-      <Pane disable="true" layoutX="171.0" layoutY="487.0" prefHeight="200.0" prefWidth="349.0" rotate="180.0" style="-fx-background-color: #ffffff;">
+      <Pane fx:id="chatPane" layoutX="171.0" layoutY="487.0" prefHeight="200.0" prefWidth="349.0" rotate="180.0" style="-fx-background-color: #ffffff;" visible="false">
          <children>
             <ButtonBar buttonMinWidth="5.0" layoutX="-3.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="248.0">
                <buttons>
@@ -106,6 +106,6 @@
             <ScrollBar layoutX="2.0" layoutY="40.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="16.0" />
          </children>
       </Pane>
-      <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" text="CHAT" />
+      <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" onAction="#showUnshowChat" text="CHAT" />
    </children>
 </Pane>

@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Pane;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +24,8 @@ public class MultipleChoiceMultiCtrl {
 
     private Timer progressBarTimer = new Timer();
 
+    private boolean isChatVisible=false;
+
     @FXML
     private Button buttonA;
 
@@ -37,6 +40,18 @@ public class MultipleChoiceMultiCtrl {
 
     @FXML
     private ProgressBar progressBar;
+
+    @FXML
+    private Pane chatPane;
+
+    @FXML
+    private Button power1;
+
+    @FXML
+    private Button power2;
+
+    @FXML
+    private Button power3;
 
     @Inject
     public MultipleChoiceMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -139,5 +154,40 @@ public class MultipleChoiceMultiCtrl {
         gameTimer.schedule(timeOut, 10000);
         progressBarTimer.schedule(lowerBar, 0, 40);
         //timer is set on the server, this is only visual
+    }
+
+    /**
+     * Function for showing or hiding the reaction chat.
+     */
+    public void showUnshowChat() {
+        if(isChatVisible) {
+            chatPane.setVisible(false);
+            isChatVisible=false;
+        }
+        else {
+            chatPane.setVisible(true);
+            isChatVisible=true;
+        }
+    }
+
+    /**
+     * function for disabling and using the first power-up.
+     */
+    public void disablePower1(){
+        power1.setDisable(true);
+    }
+
+    /**
+     * function for disabling and using the second power-up.
+     */
+    public void disablePower2(){
+        power2.setDisable(true);
+    }
+
+    /**
+     * function for disabling and using the third power-up.
+     */
+    public void disablePower3(){
+        power3.setDisable(true);
     }
 }
