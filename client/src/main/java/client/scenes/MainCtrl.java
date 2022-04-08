@@ -20,15 +20,14 @@ import client.utils.Config;
 import client.utils.MultiPlayerGame;
 import client.utils.SinglePlayerGame;
 import com.google.inject.Inject;
-import commons.exceptions.NameAlreadyPickedException;
 import commons.Player;
+import commons.exceptions.NameAlreadyPickedException;
 import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Pair;
 
 import java.io.File;
@@ -125,7 +124,6 @@ public class MainCtrl {
         chooser = new FileChooser();
 
         this.primaryStage = primaryStage;
-        this.primaryStage.initStyle(StageStyle.UTILITY);
         this.primaryStage.setResizable(false);
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -295,6 +293,7 @@ public class MainCtrl {
 
     /**
      * Starter for a multi-player game.
+     *
      * @param name - The name of the new player
      */
     public void startMultiPlayerGame(String name) throws NameAlreadyPickedException {
@@ -317,10 +316,14 @@ public class MainCtrl {
      * Function that ends the game.
      */
     public void gameEnded() {
-        this.showMainMenu();
-        this.singlePlayerGame.endGame();
-        this.singlePlayerGame = null;
-        this.multiPlayerGame = null;
+        if (this.singlePlayerGame != null) {
+            this.singlePlayerGame.endGame();
+            this.singlePlayerGame = null;
+        }
+        if (this.multiPlayerGame != null) {
+            this.multiPlayerGame.endGame();
+            this.multiPlayerGame = null;
+        }
     }
 
     public String pickFileLocation() {

@@ -226,6 +226,7 @@ public class MultipleChoiceSingleCtrl {
         dialogPane.setVisible(false);
         cancelTimer();
         mainCtrl.gameEnded();
+        mainCtrl.showMainMenu();
     }
 
     /**

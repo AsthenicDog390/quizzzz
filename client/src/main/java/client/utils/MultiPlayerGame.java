@@ -169,4 +169,8 @@ public class MultiPlayerGame {
             .accept(APPLICATION_JSON) //
             .get();
     }
+
+    public void endGame() {
+        gameEnded=true;
+    }
 }
