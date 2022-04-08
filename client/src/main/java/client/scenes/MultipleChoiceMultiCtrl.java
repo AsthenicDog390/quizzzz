@@ -136,6 +136,7 @@ public class MultipleChoiceMultiCtrl {
             public void run() {
                 disableAllButtons();
                 progressBarTimer.cancel();
+                gameTimer.cancel();
             }
         };
 
