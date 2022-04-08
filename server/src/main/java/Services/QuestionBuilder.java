@@ -37,7 +37,7 @@ public class QuestionBuilder {
             var maybeActivity = repo.findById(index);
             if (maybeActivity.isPresent()) {
                 center = maybeActivity.get().getConsumptionInWh();
-                if(center > 10000){
+                if(center > 10000 || center <10){
                     center = 0;
                 }
             }
