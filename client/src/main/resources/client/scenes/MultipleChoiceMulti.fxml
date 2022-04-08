@@ -107,5 +107,10 @@
          </children>
       </Pane>
       <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" text="CHAT" />
+      <Label fx:id="score" layoutX="1115.0" layoutY="80.0" style="-fx-font-size: 24;" styleClass="text" text="Your Score:&#10;0" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="DotGothic16 Regular" size="24.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
