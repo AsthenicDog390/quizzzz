@@ -122,6 +122,7 @@ public class MultiPlayerGame {
         if (m instanceof NextQuestionMessage) {
             Platform.runLater(() -> {
                 mainCtrl.setQuestionMultiPlayer(((NextQuestionMessage) m).getQuestion());
+                mainCtrl.startMultiPlayerTimer();
             });
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;

@@ -4,6 +4,7 @@ import commons.Player;
 import commons.exceptions.NameAlreadyPickedException;
 import commons.game.HighScore;
 import commons.messages.*;
+import commons.questions.MoreExpensive;
 import commons.questions.Question;
 import server.database.GameRepository;
 import server.database.PlayerRepository;
@@ -104,6 +105,10 @@ public class Game {
                 });
                 break;
             case QUESTION_PERIOD:
+                for (Map.Entry<String, Integer> pair: this.answers.entrySet()) {
+                    this.checkPlayerAnswer(pair.getKey(), pair.getValue());
+                }
+
                 /*
                  * waiting for the correct answer to be displayed
                  */
@@ -124,6 +129,24 @@ public class Game {
                 this.messageQueue.addMessage(new GameEndedMessage());
                 break;
         }
+    }
+
+    private void checkPlayerAnswer(String playerId, int value) {
+        if (checkAnswer(value)) {
+            updateScore(playerId, 1);
+        }
+    }
+
+    private boolean checkAnswer(int value) {
+        var q = this.questions.get(this.currentQuestion - 1);
+
+        if (q instanceof MoreExpensive) {
+            if (((MoreExpensive) q).getAnswer().getActivity_ID() == ((MoreExpensive) q).getOptions()[value].getActivity_ID()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void persistScores() {
@@ -164,7 +187,6 @@ public class Game {
         var players = this.scoreRepository.findAll()
             .stream()
             .map(score -> {
-                System.out.println(score.getPlayerId());
                 var player = this.playerRepository.findById(score.getPlayerId()).get();
                 player.setScore(score.getScore());
                 return player;
@@ -181,8 +203,11 @@ public class Game {
      */
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
-        timer.cancel();
-        this.advanceState();
+
+        if (this.answers.size() == this.players.size()) {
+            timer.cancel();
+            this.advanceState();
+        }
     }
 
     public void updateScore(String playerId, int score) {
@@ -198,11 +223,7 @@ public class Game {
         if (m instanceof AnswerMessage) {
             var answer = (AnswerMessage) m;
             this.providedAnswer(playerId, answer.getAnswer());
-        } else if (m instanceof UpdateScoreMessage) {
-            var score = (UpdateScoreMessage) m;
-            this.updateScore(playerId, score.getScore());
-        }
-        else if (m instanceof  GameEndedMessage) {
+        } else if (m instanceof  GameEndedMessage) {
             this.state=State.GAME_ENDED;
             advanceState();
         }
