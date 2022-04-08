@@ -125,7 +125,6 @@ public class MainCtrl {
         chooser = new FileChooser();
 
         this.primaryStage = primaryStage;
-        this.primaryStage.initStyle(StageStyle.UTILITY);
         this.primaryStage.setResizable(false);
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
