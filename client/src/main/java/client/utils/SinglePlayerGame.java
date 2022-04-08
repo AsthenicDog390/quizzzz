@@ -29,9 +29,10 @@ public class SinglePlayerGame {
 
     /**
      * Constructor for SinglePlayerGame, creating a new single player game.
-     * @param config - The config to use for the game.
+     *
+     * @param config   - The config to use for the game.
      * @param mainCtrl - The main controller used for accessing the scenes.
-     * @param name - The name of the player that will play the game.
+     * @param name     - The name of the player that will play the game.
      */
     public SinglePlayerGame(Config config, MainCtrl mainCtrl, String name) {
         this.config = config;
@@ -51,10 +52,10 @@ public class SinglePlayerGame {
      */
     private String newGame(String name) {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-                .target(config.getServerLocation()).path(API_PATH).path("new") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(new SendNameMessage(name), APPLICATION_JSON), NewGameMessage.class);
+            .target(config.getServerLocation()).path(API_PATH).path("new") //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(new SendNameMessage(name), APPLICATION_JSON), NewGameMessage.class);
         return m.getId();
     }
 
@@ -66,19 +67,19 @@ public class SinglePlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(config.getServerLocation()).path(API_PATH).path(this.id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(a, APPLICATION_JSON));
+            .target(config.getServerLocation()).path(API_PATH).path(this.id) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(a, APPLICATION_JSON));
     }
 
     public void updScore(int score) {
         var a = new UpdateScoreMessage(score);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(config.getServerLocation()).path(API_PATH).path(this.id) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(a, APPLICATION_JSON));
+            .target(config.getServerLocation()).path(API_PATH).path(this.id) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(a, APPLICATION_JSON));
     }
 
     /**
@@ -89,10 +90,10 @@ public class SinglePlayerGame {
         new Thread(() -> {
             while (!gameEnded) {
                 var message = ClientBuilder.newClient(new ClientConfig())
-                        .target(config.getServerLocation()).path(API_PATH).path(this.id)
-                        .request(APPLICATION_JSON)
-                        .accept(APPLICATION_JSON)
-                        .get(Message.class);
+                    .target(config.getServerLocation()).path(API_PATH).path(this.id)
+                    .request(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON)
+                    .get(Message.class);
                 this.handleMessage(message);
             }
         }).start();
@@ -113,9 +114,8 @@ public class SinglePlayerGame {
                 mainCtrl.startSinglePlayerTimer();
             });
         } else if (m instanceof GameEndedMessage) {
-            gameEnded = true;
             Platform.runLater(() -> {
-                //   mainCtrl.showMainMenu();
+                mainCtrl.gameEnded();
             });
         } else if (m instanceof SingleLeaderboardMessage) {
             Platform.runLater(() -> {
@@ -137,7 +137,7 @@ public class SinglePlayerGame {
     }
 
     public void endGame() {
-        gameEnded=true;
+        gameEnded = true;
         var a = new GameEndedMessage();
         ClientBuilder.newClient(new ClientConfig()) //
             .target(config.getServerLocation()).path(API_PATH).path(this.id) //

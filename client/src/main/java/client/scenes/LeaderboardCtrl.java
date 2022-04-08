@@ -69,6 +69,7 @@ public class LeaderboardCtrl implements Initializable {
     public void showMainMenu() {
         mainCtrl.gameEnded();
         // Change it to the input player name after Player class is done and merged
+        mainCtrl.showMainMenu();
     }
 
     /**
@@ -94,5 +95,6 @@ public class LeaderboardCtrl implements Initializable {
      */
     public void gameEnded() {
         mainCtrl.gameEnded();
+        mainCtrl.showMainMenu();
     }
 }

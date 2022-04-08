@@ -214,7 +214,7 @@ public class Game {
     private void providedAnswer(String playerId, int answer) {
         this.answers.put(playerId, answer);
 
-        if (this.answers.size() == this.players.size()) {
+        if (isSinglePlayerGame) {
             timer.cancel();
             this.advanceState();
         }
