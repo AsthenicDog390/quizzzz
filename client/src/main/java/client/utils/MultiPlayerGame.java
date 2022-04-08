@@ -27,8 +27,6 @@ public class MultiPlayerGame {
 
     private final Config config;
 
-    private int selectedAnswer = -1;
-
     private boolean gameEnded;
 
     /**
@@ -139,10 +137,6 @@ public class MultiPlayerGame {
             Platform.runLater(() -> {
                 mainCtrl.setPlayerList(((UpdatePlayersMessage) m).getPlayers());
             });
-        } else if (m instanceof AnswerMessage) {
-            Platform.runLater(() -> {
-                mainCtrl.getMultiPlayerGame().giveAnswer(selectedAnswer);
-            });
         }
     }
 
@@ -156,9 +150,5 @@ public class MultiPlayerGame {
             .request(APPLICATION_JSON) //
             .accept(APPLICATION_JSON) //
             .get();
-    }
-
-    public void setSelectedAnswer(int selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
     }
 }

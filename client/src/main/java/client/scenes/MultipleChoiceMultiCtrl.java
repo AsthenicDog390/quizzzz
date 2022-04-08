@@ -64,7 +64,7 @@ public class MultipleChoiceMultiCtrl {
      */
     public void answerA() {
         disableAllButtons();
-        mainCtrl.getMultiPlayerGame().setSelectedAnswer(0);
+        mainCtrl.getMultiPlayerGame().giveAnswer(0);
     }
 
     /**
@@ -72,7 +72,7 @@ public class MultipleChoiceMultiCtrl {
      */
     public void answerB() {
         disableAllButtons();
-        mainCtrl.getMultiPlayerGame().setSelectedAnswer(1);
+        mainCtrl.getMultiPlayerGame().giveAnswer(1);
     }
 
     /**
@@ -80,7 +80,7 @@ public class MultipleChoiceMultiCtrl {
      */
     public void answerC() {
         disableAllButtons();
-        mainCtrl.getMultiPlayerGame().setSelectedAnswer(2);
+        mainCtrl.getMultiPlayerGame().giveAnswer(2);
     }
 
     public void goBackMainMenu() {
