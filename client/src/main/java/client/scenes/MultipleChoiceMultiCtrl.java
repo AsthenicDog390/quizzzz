@@ -44,23 +44,28 @@ public class MultipleChoiceMultiCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Function used for selecting the most left answer.
+     */
     public void answerA() {
         disableAllButtons();
-        giveAnswer(0);
+        mainCtrl.getMultiPlayerGame().setSelectedAnswer(0);
     }
 
+    /**
+     * Function used for selecting the middle answer.
+     */
     public void answerB() {
         disableAllButtons();
-        giveAnswer(1);
+        mainCtrl.getMultiPlayerGame().setSelectedAnswer(1);
     }
 
+    /**
+     * Function used for selecting the most right answer.
+     */
     public void answerC() {
         disableAllButtons();
-        giveAnswer(2);
-    }
-
-    public void giveAnswer(int answer) {
-        mainCtrl.getMultiPlayerGame().giveAnswer(answer);
+        mainCtrl.getMultiPlayerGame().setSelectedAnswer(2);
     }
 
     public void goBackMainMenu() {
@@ -69,6 +74,7 @@ public class MultipleChoiceMultiCtrl {
 
     public void setQuestion(MoreExpensive question) {
         this.question = question;
+        enableAllButtons();
         if (question instanceof LessExpensive) {
             this.questionText.setText("What activity takes less energy?");
         } else {
@@ -89,6 +95,15 @@ public class MultipleChoiceMultiCtrl {
         buttonA.setDisable(true);
         buttonB.setDisable(true);
         buttonC.setDisable(true);
+    }
+
+    /**
+     * Disable all the buttons so the user will be able to answer.
+     */
+    public void enableAllButtons() {
+        buttonA.setDisable(false);
+        buttonB.setDisable(false);
+        buttonC.setDisable(false);
     }
 
     /**
