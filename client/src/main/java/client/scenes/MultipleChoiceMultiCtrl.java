@@ -266,6 +266,7 @@ public class MultipleChoiceMultiCtrl {
      * Function that colours the answers depending on the right/wrong answer given.
      * @param option - option that was chosen, for aplying the right colours.
      */
+    
     public void colorAnswers(int option) {
         if (buttonA.getText().equals(question.getAnswer().getTitle())) {
             buttonA.setStyle("-fx-background-color: #00FF00;");
