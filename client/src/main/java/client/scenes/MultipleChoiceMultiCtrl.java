@@ -7,6 +7,10 @@ import commons.questions.MoreExpensive;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MultipleChoiceMultiCtrl {
     private final ServerUtils server;
@@ -14,6 +18,10 @@ public class MultipleChoiceMultiCtrl {
     private final MainCtrl mainCtrl;
 
     private MoreExpensive question;
+
+    private Timer gameTimer = new Timer();
+
+    private Timer progressBarTimer = new Timer();
 
     @FXML
     private Button buttonA;
@@ -26,6 +34,9 @@ public class MultipleChoiceMultiCtrl {
 
     @FXML
     private Label questionText;
+
+    @FXML
+    private ProgressBar progressBar;
 
     @Inject
     public MultipleChoiceMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -80,4 +91,38 @@ public class MultipleChoiceMultiCtrl {
         buttonC.setDisable(true);
     }
 
+    /**
+     * Starting 2 timers corresponding to the progress bar and disabling the buttons after a specific period of time.
+     */
+    public void startTimer() {
+        gameTimer = new Timer();
+        progressBarTimer = new Timer();
+        progressBar.setProgress(1);
+        /**
+         * Task for disabling the buttons and not letting the progress bar go under 0
+         */
+        TimerTask timeOut = new TimerTask() {
+            @Override
+            public void run() {
+                disableAllButtons();
+                progressBarTimer.cancel();
+            }
+        };
+
+        /**
+         * Task for decreasing the progress bar with a specific amount every 40ms.
+         */
+        TimerTask lowerBar = new TimerTask() {
+            @Override
+            public void run() {
+                double progress = progressBar.getProgress();
+                if (progress > 0.004) {
+                    progressBar.setProgress(progress - 0.004);
+                }
+            }
+        };
+        gameTimer.schedule(timeOut, 10000);
+        progressBarTimer.schedule(lowerBar, 0, 40);
+        //timer is set on the server, this is only visual
+    }
 }
