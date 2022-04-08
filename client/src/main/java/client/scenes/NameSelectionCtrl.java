@@ -57,7 +57,6 @@ public class NameSelectionCtrl implements Initializable {
         nameField.setStyle("-fx-background-color: white");
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         errorPopup.setVisible(false);

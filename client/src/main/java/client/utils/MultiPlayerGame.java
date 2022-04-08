@@ -54,10 +54,10 @@ public class MultiPlayerGame {
      */
     private NewGameMessage newGame() throws NameAlreadyPickedException {
         var m = ClientBuilder.newClient(new ClientConfig()) //
-                .target(config.getServerLocation()).path(API_PATH).path("new") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
+            .target(config.getServerLocation()).path(API_PATH).path("new") //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(new SendNameMessage(this.name), APPLICATION_JSON), Message.class);
         if (m instanceof NewGameMessage) {
             return (NewGameMessage) m;
         } else if (m instanceof NameAlreadyPickedMessage) {
@@ -76,11 +76,11 @@ public class MultiPlayerGame {
     public void giveAnswer(int answer) {
         var a = new AnswerMessage(answer);
         ClientBuilder.newClient(new ClientConfig()) //
-                .target(config.getServerLocation()).path(API_PATH) //
-                .path(this.id).path(this.playerId) //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(a, APPLICATION_JSON));
+            .target(config.getServerLocation()).path(API_PATH) //
+            .path(this.id).path(this.playerId) //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .post(Entity.entity(a, APPLICATION_JSON));
     }
 
     /**
@@ -92,13 +92,13 @@ public class MultiPlayerGame {
             while (!gameEnded) {
                 try {
                     var message = ClientBuilder.newBuilder()
-                            .readTimeout(15, TimeUnit.SECONDS)
-                            .newClient(new ClientConfig())
-                            .target(config.getServerLocation()).path(API_PATH)
-                            .path(this.id).path(this.playerId)
-                            .request(APPLICATION_JSON)
-                            .accept(APPLICATION_JSON)
-                            .get(Message.class);
+                        .readTimeout(15, TimeUnit.SECONDS)
+                        .newClient(new ClientConfig())
+                        .target(config.getServerLocation()).path(API_PATH)
+                        .path(this.id).path(this.playerId)
+                        .request(APPLICATION_JSON)
+                        .accept(APPLICATION_JSON)
+                        .get(Message.class);
                     this.handleMessage(message);
                 } catch (ProcessingException e) {
                     if (e.getCause() instanceof TimeoutException) {
@@ -144,15 +144,15 @@ public class MultiPlayerGame {
         }
     }
 
-        /**
-         * startGame attempts to start the multiplayer game.
-         */
-        public void startGame() {
-            ClientBuilder.newClient(new ClientConfig()) //
-                    .target(config.getServerLocation()).path(API_PATH) //
-                    .path(this.id).path("start") //
-                    .request(APPLICATION_JSON) //
-                    .accept(APPLICATION_JSON) //
-                    .get();
-        }
+    /**
+     * startGame attempts to start the multiplayer game.
+     */
+    public void startGame() {
+        ClientBuilder.newClient(new ClientConfig()) //
+            .target(config.getServerLocation()).path(API_PATH) //
+            .path(this.id).path("start") //
+            .request(APPLICATION_JSON) //
+            .accept(APPLICATION_JSON) //
+            .get();
     }
+}

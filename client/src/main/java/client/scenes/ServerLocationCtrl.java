@@ -27,8 +27,8 @@ public class ServerLocationCtrl {
     }
 
     /**
-     * Function for entering the input server
-     * @param e - the button being pressed
+     * Function for entering the input server.
+     * @param e - the button being pressed.
      */
     @FXML
     public void enterGame(ActionEvent e) {
