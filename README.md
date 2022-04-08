@@ -24,6 +24,12 @@ Add your own name (do not add the names for others!) to the section below.
 
 ## How to run it
 
+1. Download the activity bank zip file from the activity bank repository, inside you should find folders containing the images of all groups, and a file called activities.json containing all activity serialised to JSON.
+2. Run the gradle task bootRun.
+3. Run the gradle task run.
+4. Enter the server URL in the window that opens.
+5. If this is your first time running the server click on the ADD ACTIVITIES button, select the zip file from the activity bank and click submit.
+
 ## How to contribute to it
 
 ## Copyright / License (opt.)

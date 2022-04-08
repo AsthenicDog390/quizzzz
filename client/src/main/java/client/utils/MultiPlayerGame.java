@@ -1,6 +1,7 @@
 package client.utils;
 
 import client.scenes.MainCtrl;
+import commons.Player;
 import commons.exceptions.NameAlreadyPickedException;
 import commons.messages.*;
 import jakarta.ws.rs.ProcessingException;
@@ -29,6 +30,8 @@ public class MultiPlayerGame {
 
     private boolean gameEnded;
 
+    private final Player p;
+
     /**
      * Constructor for MultiPlayerGame, creating a new multi-player game.
      *
@@ -44,14 +47,24 @@ public class MultiPlayerGame {
         this.id = m.getId();
         this.playerId = m.getPlayerId();
         this.mainCtrl = mainCtrl;
+        this.p = new Player(id, name, true);
+        p.setScore(0);
         this.subscribeToMessages();
     }
 
+    public void setScore(Integer n) {
+        p.setScore(p.getScore() + n);
+    }
+
+    public Player getPlayer() {
+        return this.p;
+    }
     /**
      * newGame registers the current game with the server and sets the game id
      *
      * @return the id which the server assigned to this game
      */
+
     private NewGameMessage newGame() throws NameAlreadyPickedException {
         var m = ClientBuilder.newClient(new ClientConfig()) //
             .target(config.getServerLocation()).path(API_PATH).path("new") //
@@ -123,6 +136,7 @@ public class MultiPlayerGame {
         if (m instanceof NextQuestionMessage) {
             Platform.runLater(() -> {
                 mainCtrl.setQuestionMultiPlayer(((NextQuestionMessage) m).getQuestion());
+                mainCtrl.startMultiPlayerTimer();
             });
         } else if (m instanceof GameEndedMessage) {
             gameEnded = true;
