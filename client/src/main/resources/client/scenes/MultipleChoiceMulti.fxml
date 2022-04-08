@@ -19,7 +19,7 @@
             <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="332.0" layoutY="80.0" prefHeight="0.0" prefWidth="111.0" styleClass="text" text="n/m:" textFill="WHITE">
+      <Label fx:id="questionNumber" layoutX="332.0" layoutY="80.0" prefHeight="0.0" prefWidth="111.0" styleClass="text" text="n/m:" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
@@ -35,36 +35,6 @@
          </font>
       </Label>
       <ProgressBar fx:id="progressBar" layoutX="-312.0" layoutY="354.0" prefHeight="15.0" prefWidth="720.0" progress="1.0" rotate="270.0" />
-      <VBox layoutX="260.0" layoutY="190.0" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
-               <children>
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="800.0" spacing="100.0">
-               <children>
-                  <Button fx:id="buttonA" mnemonicParsing="false" onAction="#answerA" prefHeight="70.0" prefWidth="200.0" text="Answer A">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="buttonB" mnemonicParsing="false" onAction="#answerB" prefHeight="70.0" prefWidth="200.0" text="Answer B">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="buttonC" mnemonicParsing="false" onAction="#answerC" prefHeight="70.0" prefWidth="200.0" text="Answer C">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
       <Button layoutX="1110.0" layoutY="19.0" mnemonicParsing="false" onAction="#goBackMainMenu" prefHeight="38.0" prefWidth="141.0" text="Back To Menu" />
       <HBox layoutX="700.0" layoutY="575.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
          <children>
@@ -106,6 +76,46 @@
             <ScrollBar layoutX="2.0" layoutY="40.0" orientation="VERTICAL" prefHeight="151.0" prefWidth="16.0" />
          </children>
       </Pane>
+      <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" text="CHAT" />
+      <HBox alignment="CENTER" layoutX="350.0" layoutY="162.0" prefHeight="300.0" prefWidth="700.0" spacing="50.0">
+         <children>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" spacing="25.0">
+               <children>
+                  <ImageView fx:id="imageA" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="buttonA" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#answerA" prefHeight="75.0" prefWidth="200.0" style="-fx-font-size: 12;" text="Answer A" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" spacing="25.0">
+               <children>
+                  <ImageView fx:id="imageB" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="buttonB" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#answerB" prefHeight="75.0" prefWidth="201.0" style="-fx-font-size: 12;" text="Answer B" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" spacing="25.0">
+               <children>
+                  <ImageView fx:id="imageC" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="buttonC" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#answerC" prefHeight="75.0" prefWidth="200.0" style="-fx-font-size: 12;" text="Answer C" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label fx:id="score" layoutX="1129.0" layoutY="90.0" style="-fx-font-size: 24;" styleClass="text" text="Your Score:&#10;0" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="DotGothic16 Regular" size="24.0" />
+         </font>
+      </Label>
       <Button layoutX="175.0" layoutY="660.0" mnemonicParsing="false" onAction="#showUnshowChat" text="CHAT" />
    </children>
 </Pane>
