@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Config;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Activity;
@@ -20,6 +21,8 @@ public class MultipleChoiceSingleCtrl {
     private final ServerUtils server;
 
     private final MainCtrl mainCtrl;
+
+    private final Config config;
 
     private MoreExpensive question;
 
@@ -70,9 +73,7 @@ public class MultipleChoiceSingleCtrl {
 
     private Activity correctAnswer;
 
-    private static final String SERVER = "http://localhost:8080/";
-
-    private static final String API_PATH = "images/";
+    private static final String API_PATH = "/images/";
 
     /**
      * Constructor for the multiple choice type of question screen controller.
@@ -80,9 +81,10 @@ public class MultipleChoiceSingleCtrl {
      * @param mainCtrl - the main controller where the game runs on.
      */
     @Inject
-    public MultipleChoiceSingleCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public MultipleChoiceSingleCtrl( Config config, ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
+        this.config = config;
         this.n = 1;
     }
 
@@ -209,11 +211,10 @@ public class MultipleChoiceSingleCtrl {
         this.buttonA.setText(question.getOptions()[0].getTitle());
         this.buttonB.setText(question.getOptions()[1].getTitle());
         this.buttonC.setText(question.getOptions()[2].getTitle());
-
-        var url = SERVER + API_PATH + question.getOptions()[0].getImagePath();
-        this.imageA.setImage(new Image(url));
-        this.imageB.setImage(new Image(SERVER + API_PATH + question.getOptions()[1].getImagePath()));
-        this.imageC.setImage(new Image(SERVER + API_PATH + question.getOptions()[2].getImagePath()));
+        
+        this.imageA.setImage(new Image(config.getServerLocation() + API_PATH + question.getOptions()[0].getImagePath()));
+        this.imageB.setImage(new Image(config.getServerLocation() + API_PATH + question.getOptions()[1].getImagePath()));
+        this.imageC.setImage(new Image(config.getServerLocation() + API_PATH + question.getOptions()[2].getImagePath()));
 
         this.correctAnswer = question.getAnswer();
     }
