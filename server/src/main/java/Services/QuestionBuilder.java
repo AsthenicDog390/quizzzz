@@ -37,7 +37,11 @@ public class QuestionBuilder {
             var maybeActivity = repo.findById(index);
             if (maybeActivity.isPresent()) {
                 center = maybeActivity.get().getConsumptionInWh();
+                if(center > 10000){
+                    center = 0;
+                }
             }
+
         }
         long tenPercent = center / 10;
         long minn = center - 3 * tenPercent;
