@@ -246,7 +246,7 @@ public class MultipleChoiceSingleCtrl {
     }
 
     /**
-     * Disable all the buttons so the user will be able to answer.
+     * Enable all the buttons so the user will be able to answer.
      */
     public void enableAllButtons() {
         buttonA.setDisable(false);
