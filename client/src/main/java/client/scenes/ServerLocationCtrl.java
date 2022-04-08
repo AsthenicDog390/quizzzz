@@ -15,12 +15,21 @@ public class ServerLocationCtrl {
     @FXML
     private TextField URL;
 
+    /**
+     * Constructor for the main menu screen controller.
+     * @param config - the server where the multiplayer will be running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public ServerLocationCtrl(MainCtrl mainCtrl, Config config) {
         this.mainCtrl = mainCtrl;
         this.config = config;
     }
 
+    /**
+     * Function for entering the input server
+     * @param e - the button being pressed
+     */
     @FXML
     public void enterGame(ActionEvent e) {
         this.config.setServerLocation(this.URL.getText());

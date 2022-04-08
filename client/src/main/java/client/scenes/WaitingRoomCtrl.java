@@ -27,6 +27,9 @@ public class WaitingRoomCtrl {
 
     private final ObservableList<Player> observableList = FXCollections.observableArrayList();
 
+    /**
+     * Initializer for the waiting room player list.
+     */
     public void initialize() {
         listView.setItems(observableList);
         listView.setCellFactory(param -> new ListCell<>() {
@@ -46,20 +49,35 @@ public class WaitingRoomCtrl {
         // Change it to the input player name after Player class is done and merged
     }
 
+    /**
+     * Function for setting the Player List of the waiting room.
+     * @param players is a list of "Player" object to be added to the waiting room.
+     */
     public void setPlayerList(List<Player> players) {
         observableList.setAll(players);
     }
 
+    /**
+     * Constructor for the waiting room controller.
+     * @param server - the server where the multiplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public WaitingRoomCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
         this.server = server;
     }
 
+    /**
+     * Function showing and opening Main Menu Sreen.
+     */
     public void showMainMenu() {
         mainCtrl.showMainMenu();
     }
 
+    /**
+     * Function starting the game and sending start game message to server.
+     */
     @FXML
     public void startGame(ActionEvent e) {
         mainCtrl.startMultiplayerGame();
