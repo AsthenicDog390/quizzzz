@@ -16,11 +16,20 @@ public class StartingScreenCtrl {
     @FXML
     private Text countdownTimer;
 
+    /**
+     * Constructor for the starting screen controller.
+     * @param server - the server where the singleplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public StartingScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
 
     }
 
+    /**
+     * Function that starts the countdown displayed on the starting screen
+     * Displays countdown from 5 to 1 decrementing every second.
+     */
     public void start() {
         Timer timer = new Timer();
 

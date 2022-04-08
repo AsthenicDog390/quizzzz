@@ -25,7 +25,7 @@ public class GameController {
 
     @PostMapping("/singleplayer/new")
     public NewGameMessage newSinglePlayerGame(@RequestBody SendNameMessage nameRetrieve) {
-        Game newGame = gameService.newGame();
+        Game newGame = gameService.newGame(true);
 
         newGame.start();
 
@@ -61,7 +61,7 @@ public class GameController {
     public Message newMultiPlayerGame(@RequestBody SendNameMessage nameRetrieve) {
         synchronized (waitingRoomMutex) {
             if (waitingRoom == null) {
-                waitingRoom = gameService.newGame();
+                waitingRoom = gameService.newGame(false);
             }
 
             try {
@@ -115,7 +115,7 @@ public class GameController {
                 return ResponseEntity.notFound().build();
             }
             waitingRoom.start();
-            waitingRoom = gameService.newGame();
+            waitingRoom = gameService.newGame(false);
 
             return ResponseEntity.ok().build();
         }

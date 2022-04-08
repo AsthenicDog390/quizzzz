@@ -12,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,21 +44,17 @@ public class LeaderboardCtrl implements Initializable {
 
     /**
      * Setting the scores in the Leaderboard element on the scene.
-     * @param scores - a list with players containing also their scores.
+     * @param players - a list with players containing also their scores.
      */
-    public void setLeaderboard(List<Player> scores) {
-        List<Player> players = new ArrayList<>();
-        for (Player h : scores) {
-            if (h.getIsSingleplayer()) {
-                players.add(h);
-                System.out.println(h);
-            }
-        }
+    public void setLeaderboard(List<Player> players) {
         Collections.sort(players, (Player p1, Player p2) -> p2.getScore()-p1.getScore());
         this.table.getItems().setAll(players);
 
     }
 
+    /**
+     * Initializer function for setting up the Tableview Columns "name and "player".
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));

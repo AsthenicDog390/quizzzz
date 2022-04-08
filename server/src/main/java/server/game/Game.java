@@ -56,7 +56,9 @@ public class Game {
         }
     };
 
-    public Game(UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
+    private final boolean isSinglePlayerGame;
+
+    public Game(boolean isSinglePlayerGame, UUID id, List<Question> questions, GameRepository gameRepository, PlayerRepository playerRepository, ScoreRepository scoreRepository, TimerService timerService) {
         if (questions == null) {
             throw new IllegalArgumentException("question list must not be null");
         } else if (questions.size() != 20) {
@@ -79,6 +81,7 @@ public class Game {
         this.scoreRepository = scoreRepository;
         this.timerService = timerService;
         this.hasCurrentPlayers = new HashSet<>();
+        this.isSinglePlayerGame = isSinglePlayerGame;
     }
 
     public void start() {
@@ -94,6 +97,7 @@ public class Game {
         this.messageQueue = new MultiMessageQueue();
         this.answers = new HashMap<>();
         this.hasCurrentPlayers = new HashSet<>();
+        this.isSinglePlayerGame = false;
     }
 
     private void advanceState() {
@@ -184,15 +188,21 @@ public class Game {
     }
 
     private void setLeaderboard() {
-        var players = this.scoreRepository.findAll()
-            .stream()
-            .map(score -> {
-                var player = this.playerRepository.findById(score.getPlayerId()).get();
-                player.setScore(score.getScore());
-                return player;
-            })
-            .collect(Collectors.toList());
-        this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
+        if (isSinglePlayerGame) {
+            var players = this.scoreRepository.findAll()
+                .stream()
+                .map(score -> {
+                    System.out.println(score.getPlayerId());
+                    var player = this.playerRepository.findById(score.getPlayerId()).get();
+                    player.setScore(score.getScore());
+                    return player;
+                })
+                .filter(p -> p.getIsSingleplayer())
+                .collect(Collectors.toList());
+            this.messageQueue.addMessage(new SingleLeaderboardMessage(players));
+        } else {
+            this.messageQueue.addMessage(new SingleLeaderboardMessage(new ArrayList<>(this.players.values())));
+        }
     }
 
     /**

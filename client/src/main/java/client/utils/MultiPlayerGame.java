@@ -34,9 +34,10 @@ public class MultiPlayerGame {
 
     /**
      * Constructor for MultiPlayerGame, creating a new multi-player game.
-     * @param config - The config of the server location.
+     *
+     * @param config   - The config of the server location.
      * @param mainCtrl - The main controller used for accessing the scenes.
-     * @param name - The name of the new player.
+     * @param name     - The name of the new player.
      */
     public MultiPlayerGame(Config config, MainCtrl mainCtrl, String name) throws NameAlreadyPickedException {
         this.config = config;
@@ -149,6 +150,10 @@ public class MultiPlayerGame {
         } else if (m instanceof UpdatePlayersMessage) {
             Platform.runLater(() -> {
                 mainCtrl.setPlayerList(((UpdatePlayersMessage) m).getPlayers());
+            });
+        } else if (m instanceof SingleLeaderboardMessage) {
+            Platform.runLater(() -> {
+                mainCtrl.showLeaderboard(((SingleLeaderboardMessage) m).getLeaderBoard());
             });
         }
     }

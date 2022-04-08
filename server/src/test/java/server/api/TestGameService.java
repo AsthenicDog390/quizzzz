@@ -15,7 +15,7 @@ public class TestGameService implements GameService {
     }
 
     @Override
-    public Game newGame() {
+    public Game newGame(boolean isSinglePlayer) {
         var id = UUID.randomUUID();
         var game = new TestGame(id, null);
 

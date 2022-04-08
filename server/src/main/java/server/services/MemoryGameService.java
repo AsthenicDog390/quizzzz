@@ -43,7 +43,7 @@ public class MemoryGameService implements GameService {
     }
 
     @Override
-    public Game newGame() {
+    public Game newGame(boolean isSinglePlayer) {
         var questions = new ArrayList<Question>(20);
 
         for (int i = 0; i < 20; i++) {
@@ -62,7 +62,7 @@ public class MemoryGameService implements GameService {
         }
 
         UUID uuid = UUID.randomUUID();
-        var game = new Game(uuid, questions, gameRepository, playerRepository, scoreRepository, new TimerService());
+        var game = new Game(isSinglePlayer, uuid, questions, gameRepository, playerRepository, scoreRepository, new TimerService());
         singlePlayerGames.put(game.getId(), game);
 
         var obj = new commons.game.Game(uuid.toString());

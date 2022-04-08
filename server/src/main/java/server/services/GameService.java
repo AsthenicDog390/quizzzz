@@ -5,7 +5,7 @@ import server.game.Game;
 import java.util.Optional;
 
 public interface GameService {
-    Game newGame();
+    Game newGame(boolean isSinglePlayer);
 
     Optional<Game> getGame(String id);
 

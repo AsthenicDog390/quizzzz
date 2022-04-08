@@ -27,12 +27,21 @@ public class NameSelectionMultiCtrl implements Initializable {
     @FXML
     private AnchorPane background;
 
+    /**
+     * Constructor for the multiple choice type of Multiplayer Name Selection Screen controller.
+     * @param server - the server where the multiplayer game is running on.
+     * @param mainCtrl - the main controller where the game runs on.
+     */
     @Inject
     public NameSelectionMultiCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.server = server;
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Function for submiting the name and adding it so that its later displayed on the multiplayer waiting room.
+     * @param e - the start game button pressed.
+     */
     @FXML
     private void submitName(ActionEvent e) {
         String name = nameField.getText();
@@ -48,6 +57,10 @@ public class NameSelectionMultiCtrl implements Initializable {
         }
     }
 
+    /**
+     * Function that closes the error popup when a player inputs a name  is already taken.
+     * @param e - the close popup button being pressed
+     */
     @FXML
     private void closeErrorPopup(ActionEvent e) {
         background.setOpacity(1);
@@ -61,10 +74,16 @@ public class NameSelectionMultiCtrl implements Initializable {
         errorPopup.setVisible(false);
     }
 
+    /**
+     * Function showing and opening the waiting room.
+     */
     public void showWaitingRoom() {
         mainCtrl.showWaitingRoom();
     }
 
+    /**
+     * Function showing and opening the main menu.
+     */
     public void showMainMenu() {
         mainCtrl.showMainMenu();
     }
